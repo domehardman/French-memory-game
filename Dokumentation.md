@@ -21,3 +21,4 @@ Godot ermöglicht eine schnellere und übersichtlichere Umsetzung als beispielsw
 * [ ] Möglichkeit, verschiedene Themenbereiche bzw. Vokabelsets auszuwählen
 
 ## 21.09.2026
+PAP, IPERKA und start des Games
