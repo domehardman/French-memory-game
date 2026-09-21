@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FRAME GUID="2FB25471-B62C-4EE6-BD43-F819C095ACF8" FORMAT="0000" APP_VERSION="2.2.0.8">
+  <PROJECT FORMAT="1.00" NAME="Französisches Memory-Spiel" AUTHOR="Colin / Noemie Brem" CREATED="2026.09.21 15:36:01" MODIFIED="2026.09.21 16:30:00">
+    <DIAGRAMS>
+      <DIAGRAM FORMAT="1.00" ID="0" NAME="Hauptprogramm - Französisches Memory" CREATED="2026.09.21 15:36:01" MODIFIED="2026.09.21 16:30:00">
+        <LAYOUT FORMAT="1.00" COLUMNS="5" ROWS="18">
+          <ENTRIES>
+            <ENTRY COLUMN="0" ROW="9">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="161">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="14">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="151">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="15">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="174">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="0" ANCHOR="True">
+              <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
+                <TEXT><![CDATA[Hauptprogramm - Französisches Memory]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="1">
+              <FIGURE SUBTYPE="PapStart" FORMAT="1.00" ID="1">
+                <TEXT><![CDATA[Start]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="2">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="6">
+                <TEXT><![CDATA[Hauptmenü anzeigen: Spielen, Vokabelsets, eigene Vokabeln, Statistik]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="3">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="8">
+                <TEXT><![CDATA[Vokabelset und Spielmodus auswählen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="4">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="110">
+                <TEXT><![CDATA[Vorbereitete Vokabelsets, Themenbereiche, gespeicherte eigene Vokabeln, Statistiken und Spielfortschritt laden]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="5">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="112">
+                <TEXT><![CDATA[Spielmodi anzeigen:
+1. Vorbereitete Vokabeln
+2. Eigene Vokabelpaare mit optionalen Bildern]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="6">
+              <FIGURE SUBTYPE="PapInput" FORMAT="1.00" ID="114">
+                <TEXT><![CDATA[Eingabe: Spielmodus auswählen
+Bei vorbereitetem Modus zusätzlich Themenbereich und Vokabelset auswählen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="7">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="116">
+                <TEXT><![CDATA[Wurde der Modus "Vorbereitete Vokabeln" gewählt?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="9">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="125">
+                <TEXT><![CDATA[Gibt es noch nicht gefundene Paare?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="10">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="141">
+                <TEXT><![CDATA[Verdeckte Karten, Zeit, Versuche, Treffer und Punkte anzeigen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="11">
+              <FIGURE SUBTYPE="PapInput" FORMAT="1.00" ID="143">
+                <TEXT><![CDATA[Erste und zweite Karte anklicken und aufdecken]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="12">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="145">
+                <TEXT><![CDATA[Passen französisches Wort und deutsche Übersetzung zusammen?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="13">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="147">
+                <TEXT><![CDATA[Richtig: Karten als gefunden markieren und Belohnung anzeigen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="14">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="149">
+                <TEXT><![CDATA[Gefundene Paare = Gefundene Paare + 1
+Treffer = Treffer + 1
+Punkte erhöhen
+Fortschritt speichern]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="16">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="78">
+                <TEXT><![CDATA[Félicitations! Alle Paare gefunden.
+Zeit, Versuche, Treffer, Punkte und Level anzeigen
+Statistik und Spielfortschritt speichern]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="17">
+              <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
+                <TEXT><![CDATA[Ende]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="12">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="166">
+                <TEXT><![CDATA[Wurden zwei verschiedene, noch verdeckte Karten gewählt?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="13">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="177">
+                <TEXT><![CDATA[Falsch: kurz warten und beide Karten wieder verdecken]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="14">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="179">
+                <TEXT><![CDATA[Versuche = Versuche + 1
+Zeit- oder Zugbegrenzung prüfen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="15">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="181">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="3" ROW="12">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="164">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="3" ROW="13">
+              <FIGURE SUBTYPE="PapOutput" FORMAT="1.00" ID="168">
+                <TEXT><![CDATA[Ungültige Kartenauswahl ignorieren und erneut auswählen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="3" ROW="15">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="171">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="4" ROW="5">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="122">
+                <TEXT><![CDATA[Eigene Wortpaare und Bilder prüfen und als eigenes Vokabelset speichern]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="4" ROW="7">
+              <FIGURE SUBTYPE="PapInput" FORMAT="1.00" ID="118">
+                <TEXT><![CDATA[Ein oder mehrere eigene Vokabelpaare eingeben:
+französisches Wort
+deutsche Übersetzung
+optional ein Bild auswählen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="4" ROW="9">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="127">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="4" ROW="16">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="138">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="8">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="200">
+                <TEXT><![CDATA[Gewähltes oder selbst erstelltes Vokabelset übernehmen
+Karten erzeugen und zufällig mischen
+alle Karten verdeckt anzeigen
+Versuche = 0
+Treffer = 0
+Gefundene Paare = 0
+Punkte = 0
+Timer oder Zugbegrenzung starten]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+          </ENTRIES>
+        </LAYOUT>
+        <CONNECTIONS>
+          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="6" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="7" FROM="6" TO="8" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="9" FROM="8" TO="110" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="148" FROM="147" TO="149" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="129" FROM="127" TO="138" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="144" FROM="143" TO="145" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="154" FROM="151" TO="161" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="79" FROM="78" TO="2" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="142" FROM="141" TO="143" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="152" FROM="149" TO="151" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="146" FROM="145" TO="147" TEXT="ja" />
+          <CONNECTION FORMAT="1.00" ID="111" FROM="110" TO="112" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="113" FROM="112" TO="114" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="115" FROM="114" TO="116" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="117" FROM="116" TO="200" TEXT="ja" />
+          <CONNECTION FORMAT="1.00" ID="119" FROM="116" TO="118" TEXT="nein" />
+          <CONNECTION FORMAT="1.00" ID="124" FROM="122" TO="200" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="121" FROM="118" TO="122" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="300" FROM="200" TO="125" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="126" FROM="125" TO="141" TEXT="ja" />
+          <CONNECTION FORMAT="1.00" ID="128" FROM="125" TO="127" TEXT="nein" />
+          <CONNECTION FORMAT="1.00" ID="140" FROM="138" TO="78" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="163" FROM="161" TO="125" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="165" FROM="145" TO="166" TEXT="nein" />
+          <CONNECTION FORMAT="1.00" ID="167" FROM="166" TO="164" TEXT="nein" />
+          <CONNECTION FORMAT="1.00" ID="169" FROM="164" TO="168" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="172" FROM="168" TO="171" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="176" FROM="174" TO="151" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="182" FROM="181" TO="174" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="178" FROM="166" TO="177" TEXT="ja" />
+          <CONNECTION FORMAT="1.00" ID="180" FROM="177" TO="179" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="173" FROM="171" TO="181" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="183" FROM="179" TO="181" TEXT="" />
+        </CONNECTIONS>
+      </DIAGRAM>
+      <DIAGRAM FORMAT="1.00" ID="1" NAME="Eigene Vokabeln hinzufügen" CREATED="2026.09.21 15:36:01" MODIFIED="2026.09.21 16:30:00">
+        <LAYOUT FORMAT="1.00" COLUMNS="3" ROWS="6">
+          <ENTRIES>
+            <ENTRY COLUMN="0" ROW="2">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="18">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="0" ROW="3">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="16">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="0" ANCHOR="True">
+              <FIGURE SUBTYPE="PapTitle" FORMAT="1.00" ID="0">
+                <TEXT><![CDATA[Eigene Vokabeln hinzufügen]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="1">
+              <FIGURE SUBTYPE="PapStart" FORMAT="1.00" ID="1">
+                <TEXT><![CDATA[Start]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="2">
+              <FIGURE SUBTYPE="PapCondition" FORMAT="1.00" ID="4">
+                <TEXT><![CDATA[Noch ein eigenes Vokabelpaar hinzufügen?]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="3">
+              <FIGURE SUBTYPE="PapActivity" FORMAT="1.00" ID="6">
+                <TEXT><![CDATA[Französisches Wort eingeben
+Deutsche Übersetzung eingeben
+Optional ein Bild auswählen
+Eingaben prüfen und Vokabelpaar speichern]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="4">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="21">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="1" ROW="5">
+              <FIGURE SUBTYPE="PapEnd" FORMAT="1.00" ID="2">
+                <TEXT><![CDATA[Ende]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="2">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="7">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+            <ENTRY COLUMN="2" ROW="4">
+              <FIGURE SUBTYPE="PapConnector" FORMAT="1.00" ID="11">
+                <TEXT><![CDATA[]]></TEXT>
+              </FIGURE>
+            </ENTRY>
+          </ENTRIES>
+        </LAYOUT>
+        <CONNECTIONS>
+          <CONNECTION FORMAT="1.00" ID="3" FROM="1" TO="4" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="8" FROM="4" TO="7" TEXT="nein" />
+          <CONNECTION FORMAT="1.00" ID="10" FROM="7" TO="11" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="22" FROM="11" TO="21" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="15" FROM="4" TO="6" TEXT="ja" />
+          <CONNECTION FORMAT="1.00" ID="17" FROM="6" TO="16" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="19" FROM="16" TO="18" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="20" FROM="18" TO="4" TEXT="" />
+          <CONNECTION FORMAT="1.00" ID="23" FROM="21" TO="2" TEXT="" />
+        </CONNECTIONS>
+      </DIAGRAM>
+    </DIAGRAMS>
+  </PROJECT>
+</FRAME>
