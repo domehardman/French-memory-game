@@ -20,4 +20,4 @@ Godot ermöglicht eine schnellere und übersichtlichere Umsetzung als beispielsw
 * [ ] Speicherung des Spielfortschritts
 * [ ] Möglichkeit, verschiedene Themenbereiche bzw. Vokabelsets auszuwählen
 
-##21.09.2026
+## 21.09.2026
