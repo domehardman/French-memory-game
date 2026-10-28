@@ -23,3 +23,7 @@ Godot ermöglicht eine schnellere und übersichtlichere Umsetzung als beispielsw
 
 ## 21.09.2026
 PAP, IPERKA und start des Games
+
+## 28.10.2026
+
+Das neue Menü hat dunkle, halbtransparente Schaltflächen und eine Set-Liste; das Spiel startet im Vollbild und zeigt pro Runde bis zu zwölf zufällig verteilte Vokabelpaare auf einem 5×5-Feld. Anfangs war die Anzeige zu klein und schon in frühen Runden entstanden zufällige Lücken; jetzt sind alle Runden außer der letzten voll, und die übrigen Karten liegen dort geordnet. Die Kartenpositionen wurden korrigiert, nach einer gelösten Runde wird automatisch gewechselt
