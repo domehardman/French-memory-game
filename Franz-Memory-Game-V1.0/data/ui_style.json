@@ -1,0 +1,18 @@
+{
+  "background": "#0b0d10d1",
+  "panel": "#191b20d9",
+  "button": "#2a2d33dc",
+  "accent": "#363a42dc",
+  "border": "#888d9659",
+  "text": "#f5f7f8",
+  "button_normal_texture": "",
+  "button_hover_texture": "",
+  "button_pressed_texture": "",
+  "art_buttons": {
+    "play": "res://assets/ui/play.png",
+    "campaign": "res://assets/ui/campaign.png",
+    "sets": "res://assets/ui/sets.png",
+    "settings": "res://assets/ui/settings.png",
+    "power": "res://assets/ui/power.png"
+  }
+}
