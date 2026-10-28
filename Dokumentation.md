@@ -19,6 +19,7 @@ Godot ermöglicht eine schnellere und übersichtlichere Umsetzung als beispielsw
 * [ ] Levelsystem, um das Lernen abwechslungsreicher und motivierender zu gestalten
 * [ ] Speicherung des Spielfortschritts
 * [ ] Möglichkeit, verschiedene Themenbereiche bzw. Vokabelsets auszuwählen
+* [ ] Zeitangaben
 
 ## 21.09.2026
 PAP, IPERKA und start des Games
