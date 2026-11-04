@@ -7,11 +7,11 @@ Godot ermöglicht eine schnellere und übersichtlichere Umsetzung als beispielsw
 
 ## Anforderungen
 
-* [ ] Funktionierendes Memory-Spiel
-* [ ] Zufällige Anordnung der Memory-Karten in jeder Runde
-* [ ] Möglichkeit, eigene Begriffe und Bilder hinzuzufügen
-* [ ] Einheitliches und übersichtliches Design
-* [ ] Mehrere Spielmodi
+* [x] Funktionierendes Memory-Spiel
+* [x] Zufällige Anordnung der Memory-Karten in jeder Runde
+* [x] Möglichkeit, eigene Begriffe und Bilder hinzuzufügen
+* [x] Einheitliches und übersichtliches Design
+* [x] Mehrere Spielmodi
 
 ## Erweiterte Anforderungen
 
