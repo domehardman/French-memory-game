@@ -1,0 +1,17 @@
+{
+  "name": "Stadt & Reisen",
+  "entries": [
+    {"de": "der Bahnhof", "fr": "la gare"},
+    {"de": "der Zug", "fr": "le train"},
+    {"de": "der Flughafen", "fr": "l'aéroport"},
+    {"de": "die Strasse", "fr": "la rue"},
+    {"de": "die Brücke", "fr": "le pont"},
+    {"de": "das Museum", "fr": "le musée"},
+    {"de": "die Kirche", "fr": "l'église"},
+    {"de": "das Hotel", "fr": "l'hôtel"},
+    {"de": "die Landkarte", "fr": "la carte"},
+    {"de": "der Koffer", "fr": "la valise"},
+    {"de": "die Bäckerei", "fr": "la boulangerie"},
+    {"de": "das Rathaus", "fr": "la mairie"}
+  ]
+}

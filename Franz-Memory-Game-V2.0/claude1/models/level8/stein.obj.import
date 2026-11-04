@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bqyppnyuhraln"
+path="res://.godot/imported/stein.obj-40dc0c25bf22d031c2b2429d20c3ff8e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stein.obj-40dc0c25bf22d031c2b2429d20c3ff8e.mesh"]
+
+source_file="res://claude1/models/level8/stein.obj"
+dest_files=["res://.godot/imported/stein.obj-40dc0c25bf22d031c2b2429d20c3ff8e.mesh", "res://.godot/imported/stein.obj-40dc0c25bf22d031c2b2429d20c3ff8e.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

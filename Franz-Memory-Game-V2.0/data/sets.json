@@ -1,0 +1,14 @@
+[
+  {"name": "Beispielset", "path": "res://data/vocabulary.json", "topic": "Beispiel"},
+  {"name": "Familie", "path": "res://data/sets/familie.json", "topic": "Alltag"},
+  {"name": "Essen & Trinken", "path": "res://data/sets/essen.json", "topic": "Alltag"},
+  {"name": "Farben & Kleidung", "path": "res://data/sets/farben_kleidung.json", "topic": "Alltag"},
+  {"name": "Körper", "path": "res://data/sets/koerper.json", "topic": "Alltag"},
+  {"name": "Haus & Wohnung", "path": "res://data/sets/wohnung.json", "topic": "Alltag"},
+  {"name": "Schule", "path": "res://data/sets/schule.json", "topic": "Schule & Freizeit"},
+  {"name": "Hobbys", "path": "res://data/sets/hobbys.json", "topic": "Schule & Freizeit"},
+  {"name": "Tiere", "path": "res://data/sets/tiere.json", "topic": "Natur"},
+  {"name": "Zeit & Wetter", "path": "res://data/sets/zeit_wetter.json", "topic": "Natur"},
+  {"name": "Stadt & Reisen", "path": "res://data/sets/stadt_reisen.json", "topic": "Unterwegs"},
+  {"name": "Berufe", "path": "res://data/sets/berufe.json", "topic": "Arbeit & Berufe"}
+]
