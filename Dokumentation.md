@@ -16,7 +16,7 @@ Godot ermöglicht eine schnellere und übersichtlichere Umsetzung als beispielsw
 ## Erweiterte Anforderungen
 
 * [ ] Belohnungssystem
-* [ ] Levelsystem, um das Lernen abwechslungsreicher und motivierender zu gestalten
+* [x] Levelsystem, um das Lernen abwechslungsreicher und motivierender zu gestalten
 * [ ] Speicherung des Spielfortschritts
 * [x] Möglichkeit, verschiedene Themenbereiche bzw. Vokabelsets auszuwählen
 * [x] Zeitangaben
