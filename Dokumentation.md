@@ -106,7 +106,6 @@ Es hat nicht alles auf Anhieb funktioniert. Diese Probleme hatten wir heute:
 * Unter den Karten lag zuerst eine Steinplatte, die nicht zur Arena gepasst hat. Jetzt liegt dort nur der Boden der Arena mit einem leuchtenden Kreis.
 * Bei den hinteren Kartenreihen hat man den Text manchmal nicht gesehen. Jetzt haben die Reihen mehr Abstand, und die Schrift ist grösser.
 
-<img width="640" alt="Vorher: weisse Fäden an den Armen" src="Dokumentation%20Fotos/04.11.2026/55%20Diagnose%20weisse%20Baender.png" />
 
 <img width="640" alt="Nachher: Arme ohne Fäden" src="Dokumentation%20Fotos/04.11.2026/57%20Arme%20nach%20Spiegelung.png" />
 
