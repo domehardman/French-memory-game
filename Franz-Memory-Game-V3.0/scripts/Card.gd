@@ -250,6 +250,7 @@ func _flip_over(face_up: bool) -> void:
 		turn_deg = 0.0
 		position = base
 		is_animating = false
+		_sound("card_land", -6.0)
 	)
 
 func _flip_step(base: Vector3, t: float, face_up: bool) -> void:

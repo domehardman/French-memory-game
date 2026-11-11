@@ -336,9 +336,10 @@ static func _layout_art(control: Button, image: TextureRect, texture: Texture2D)
 	image.size = Vector2(texture.get_width() * factor, texture.get_height() * factor)
 	image.position = (control.size - image.size) / 2.0
 
-static func connect_animated(control: Button, action: Callable) -> void:
+static func connect_animated(control: Button, action: Callable, sound: String = "click") -> void:
+	control.set_meta("own_click", true)
 	control.pressed.connect(func():
-		SoundFX.play("click", -4.0)
+		SoundFX.ui(sound, -4.0)
 		_animate_then_call(control, action))
 
 static func _animate_then_call(control: Button, action: Callable) -> void:

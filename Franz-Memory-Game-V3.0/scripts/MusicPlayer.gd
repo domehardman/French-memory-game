@@ -9,8 +9,15 @@ const TRACKS := {
 	"sonneur": "res://assets/music/sonneur.wav",
 	"veuve": "res://assets/music/veuve.wav",
 	"prince": "res://assets/music/prince.wav",
-	"patre": "res://assets/music/patre.wav"
+	"patre": "res://assets/music/patre.wav",
+	"cafe": "res://assets/music/cafe.wav",
+	"promenade": "res://assets/music/promenade.wav",
+	"valse": "res://assets/music/valse.wav"
 }
+
+# Auswahl in den Einstellungen ("random" = jedes Mal ein anderes, "off" = keine Musik)
+const MENU_TRACKS := ["menu", "cafe"]
+const GAME_TRACKS := ["game", "promenade", "valse"]
 
 var players: Array[AudioStreamPlayer] = []
 var active := 0
@@ -73,3 +80,22 @@ func apply_volume() -> void:
 	if fades[active] != null and fades[active].is_valid():
 		fades[active].kill()
 	players[active].volume_db = target_db()
+
+# Musik im Menü bzw. in normalen Runden, so wie in den Einstellungen gewählt.
+func play_menu() -> void:
+	_play_choice(str(GameSettings.get_value("menu_music")), MENU_TRACKS)
+
+func play_game() -> void:
+	_play_choice(str(GameSettings.get_value("game_music")), GAME_TRACKS)
+
+func _play_choice(choice: String, options: Array) -> void:
+	if choice == "off":
+		stop()
+		return
+	if choice == "random":
+		# ein anderes Stück als das gerade laufende
+		var pool := options.filter(func(t): return t != current)
+		choice = str(pool.pick_random() if not pool.is_empty() else options[0])
+	if not TRACKS.has(choice):
+		choice = str(options[0])
+	play(choice)

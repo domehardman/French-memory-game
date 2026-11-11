@@ -21,7 +21,10 @@ const DEFAULTS := {
 	"particles": 1.0,        # 0 = aus, 0.4 = wenig, 1 = normal, 1.6 = viel
 	"fps_limit": 60,         # 0 = unbegrenzt
 	"vsync": true,
-	"show_fps": false
+	"show_fps": false,
+	"menu_music": "menu",     # menu, cafe, random, off
+	"game_music": "game",     # game, promenade, valse, random, off
+	"ui_sounds": true         # Klick, Hover, Seitenwechsel, Schalter …
 }
 
 var save_path := SAVE_PATH

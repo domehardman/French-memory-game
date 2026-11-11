@@ -115,13 +115,20 @@ func _ready() -> void:
 	_update_stats()
 	# Grafikqualität (Schatten, Nebel, Glühen) aus den Einstellungen anwenden
 	GameSettings.apply_graphics(self)
-	# Musik: normale Sets und Kampagne spielen "game", jeder Boss sein eigenes Thema
-	MusicPlayer.play(str(boss_cfg.get("look", {}).get("music", "game")) if is_boss else "game")
+	# Musik: jeder Boss hat sein eigenes Thema, sonst das Stück aus den Einstellungen
+	if is_boss:
+		MusicPlayer.play(str(boss_cfg.get("look", {}).get("music", "game")))
+	else:
+		MusicPlayer.play_game()
 
 func _process(delta: float) -> void:
 	if not timer_running or game_over:
 		return
+	var before := elapsed
 	elapsed += delta
+	# letzte 10 Sekunden: Ticken
+	if time_limit > 0.0 and time_limit - elapsed <= 10.0 and floori(time_limit - before) != floori(time_limit - elapsed):
+		SoundFX.play("tick", -2.0 if time_limit - elapsed <= 5.0 else -6.0, 0.0)
 	if time_limit > 0.0 and elapsed >= time_limit:
 		elapsed = time_limit
 		_finish(false, "time")
@@ -159,6 +166,8 @@ func _load_vocabulary(paths: Array) -> bool:
 
 func _generate_grid() -> void:
 	round_number += 1
+	# Karten werden ausgeteilt
+	SoundFX.play("deal", -4.0, 0.0)
 	matches_found = 0
 	first_card = null
 	second_card = null
@@ -278,6 +287,9 @@ func _check_match() -> void:
 		completed_pairs += 1
 		streak += 1
 		best_streak = maxi(best_streak, streak)
+		# Serie ohne Fehler: ab 3 Paaren ein aufsteigender Klang
+		if streak >= 3 and streak % 2 == 1:
+			SoundFX.play("streak", -3.0, 0.0)
 		points += PlayerProgress.points_for_match(streak)
 		_update_progress()
 		_update_stats()
@@ -322,6 +334,7 @@ func _check_match() -> void:
 	can_click = true
 
 func _next_round() -> void:
+	SoundFX.play("round", -2.0, 0.0)
 	for card in cards:
 		remove_child(card)
 		card.queue_free()
@@ -1045,6 +1058,9 @@ func _show_end_screen(result: Dictionary, summary: Dictionary) -> void:
 		var stars := UI.label(UI.stars_text(int(result["stars"])), 36)
 		stars.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		box.add_child(stars)
+		# für jeden Stern ein Klang, kurz nacheinander
+		for k in range(int(result["stars"])):
+			get_tree().create_timer(0.5 + k * 0.28).timeout.connect(func(): SoundFX.play("star", -2.0, 0.0))
 
 	if is_boss:
 		box.add_child(UI.label(UI.text("end_boss_stats") % [UI.time_text(float(result["time"])), int(result["attempts"]), int(result["pairs_found"]), player_hp, player_max_hp], 20))
@@ -1064,6 +1080,7 @@ func _show_end_screen(result: Dictionary, summary: Dictionary) -> void:
 	box.add_child(UI.progress_bar(info["current"], info["needed"]))
 
 	if bool(summary["unlocked_next"]):
+		get_tree().create_timer(1.5).timeout.connect(func(): SoundFX.play("unlock", -3.0, 0.0))
 		var next_level := PlayerProgress.campaign_level(campaign_index + 1)
 		if str(next_level.get("type", "")) == "boss":
 			box.add_child(UI.label(UI.text("end_unlocked_boss"), 20))

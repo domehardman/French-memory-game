@@ -17,7 +17,7 @@ const ALL_SETS_KEY := "__all__"
 const CAMPAIGN_FOLDER_KEY := "__campaign__"
 
 func _ready() -> void:
-	MusicPlayer.play("menu")
+	MusicPlayer.play_menu()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_reload_sets()
 	_build_menu()
@@ -275,6 +275,7 @@ func _group_color(key: String, previous: String) -> String:
 	return pick
 
 func _select_set(path: String) -> void:
+	SoundFX.ui("select")
 	selected_path = path
 	SetSelection.selected_path = path
 	_refresh_sidebar()
@@ -307,11 +308,13 @@ func _start_game() -> void:
 	SetSelection.selected_path = selected_path
 	SetSelection.mode = "free"
 	SetSelection.campaign_index = -1
+	SoundFX.play("start")
 	Loader.go_to_main()
 
 func _start_campaign_level(index: int) -> void:
 	SetSelection.mode = "campaign"
 	SetSelection.campaign_index = index
+	SoundFX.play("start")
 	Loader.go_to_main()
 
 func _scroll_list(body: VBoxContainer, height: int = 260) -> VBoxContainer:
@@ -439,6 +442,20 @@ func _show_settings() -> void:
 	_setting_slider(rows, "master_volume", "setting_volume", 0, 100, 5)
 	_setting_slider(rows, "music_volume", "setting_music", 0, 100, 5)
 	_setting_slider(rows, "sfx_volume", "setting_sfx", 0, 100, 5)
+	_setting_toggle(rows, "ui_sounds", "setting_ui_sounds")
+	_setting_option(rows, "menu_music", "setting_menu_music", [
+		[UI.text("music_menu"), "menu"],
+		[UI.text("music_cafe"), "cafe"],
+		[UI.text("music_random"), "random"],
+		[UI.text("music_off"), "off"]
+	])
+	_setting_option(rows, "game_music", "setting_game_music", [
+		[UI.text("music_game"), "game"],
+		[UI.text("music_promenade"), "promenade"],
+		[UI.text("music_valse"), "valse"],
+		[UI.text("music_random"), "random"],
+		[UI.text("music_off"), "off"]
+	])
 
 	rows.add_child(_section(UI.text("settings")))
 	if SetRepository.has_hidden_sets():
@@ -497,6 +514,7 @@ func _show_settings() -> void:
 			if GameSettings.check_admin_code(code_field.text):
 				_show_admin()
 			else:
+				SoundFX.play("error", -2.0)
 				error_label.text = UI.text("admin_wrong")
 				code_field.clear()
 		code_field.text_submitted.connect(func(_text: String): submit.call())
@@ -550,13 +568,20 @@ func _setting_option(parent: Control, key: String, label_key: String, choices: A
 	line.add_child(label)
 	var option := OptionButton.new()
 	option.custom_minimum_size.x = 140
-	var current := float(GameSettings.get_value(key))
+	var current = GameSettings.get_value(key)
 	for i in range(choices.size()):
 		option.add_item(str(choices[i][0]), i)
-		if is_equal_approx(float(choices[i][1]), current):
+		var value = choices[i][1]
+		var same: bool = str(value) == str(current) if value is String else is_equal_approx(float(value), float(current))
+		if same:
 			option.select(i)
 	line.add_child(option)
-	option.item_selected.connect(func(index: int): GameSettings.set_value(key, choices[index][1]))
+	option.item_selected.connect(func(index: int):
+		GameSettings.set_value(key, choices[index][1])
+		# Menü-Musik sofort wechseln, damit man hört, wie sie klingt
+		if key == "menu_music":
+			MusicPlayer.play_menu()
+	)
 
 # --- Admin-Panel ---------------------------------------------------------------
 
@@ -613,6 +638,7 @@ func _show_admin() -> void:
 
 func _page(title: String, with_plus: bool = false, art_key: String = "") -> VBoxContainer:
 	_clear(content)
+	SoundFX.ui("page", -2.0, 0.15)
 	var header := HBoxContainer.new()
 	content.add_child(header)
 	# Titel als Bild, wenn es eins gibt (z. B. SET-AUSWAHL), sonst als Text
@@ -647,7 +673,7 @@ func _page(title: String, with_plus: bool = false, art_key: String = "") -> VBox
 func _back(action: Callable) -> void:
 	var button := UI.art_button(UI.text("back"), "back", 58)
 	content.add_child(button)
-	UI.connect_animated(button, action)
+	UI.connect_animated(button, action, "back")
 
 func _show_sets() -> void:
 	current_page = "sets"
@@ -709,8 +735,10 @@ func _show_sets() -> void:
 				delete.text = UI.text("delete")
 				delete.modulate = Color.WHITE
 				armed["value"] = false
+				SoundFX.play("error", -2.0)
 				status.text = str(result["error"])
 				return
+			SoundFX.play("delete")
 			_show_sets()
 		)
 	if custom_count == 0:
@@ -747,6 +775,7 @@ func _show_categories() -> void:
 				delete.text = UI.text("delete_confirm")
 				delete.modulate = Color(1.3, 0.6, 0.6)
 				return
+			SoundFX.play("delete")
 			SetRepository.remove_category(str(category))
 			_reload_sets()
 			_refresh_sidebar()
@@ -765,6 +794,7 @@ func _show_categories() -> void:
 	var do_create := func():
 		var result := SetRepository.add_category(field.text)
 		if result.has("error"):
+			SoundFX.play("error", -2.0)
 			status.text = str(result["error"])
 			status.modulate = Color(1, 0.6, 0.6)
 			return
@@ -785,6 +815,7 @@ func _show_category_picker(path: String, set_name: String) -> void:
 	var move_to := func(category: String):
 		var result := SetRepository.set_category(path, category)
 		if result.has("error"):
+			SoundFX.play("error", -2.0)
 			status.text = str(result["error"])
 			return
 		_show_sets()
@@ -845,6 +876,7 @@ func _show_name_step() -> void:
 	UI.connect_animated(next, func():
 		var name := name_field.text.strip_edges()
 		if name.is_empty():
+			SoundFX.play("error", -2.0)
 			error_label.text = UI.text("error_name")
 		else:
 			_show_editor(name, category_field.text.strip_edges())
@@ -921,14 +953,17 @@ func _save_entries(set_name: String, category: String, rows: Array[Dictionary], 
 		if de.is_empty() and fr.is_empty():
 			continue
 		if de.is_empty() or fr.is_empty():
+			SoundFX.play("error", -2.0)
 			error_label.text = UI.text("error_pair")
 			return
 		entries.append({"de": de, "fr": fr})
 	if entries.is_empty():
+		SoundFX.play("error", -2.0)
 		error_label.text = UI.text("error_empty")
 		return
 	var result: Dictionary = SetRepository.save_set(set_name, entries, category)
 	if result.has("error"):
+		SoundFX.play("error", -2.0)
 		error_label.text = str(result["error"])
 		return
 	selected_path = str(result["path"])

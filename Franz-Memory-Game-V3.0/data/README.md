@@ -75,9 +75,26 @@ Eigene Sachen kann man irgendwo in die Szene hängen, sie werden mit angezeigt. 
 
 Im Bossfight wird dieser Hintergrund automatisch entfernt.
 
-## Musik
+## Musik und Sounds
 
-`scripts/MusicPlayer.gd` spielt die Stücke aus `assets/music/` in Schleife und blendet beim Wechsel weich über: `menu` (Menü), `game` (freies Spiel und Kampagne) und je ein Thema pro Boss (`sonneur`, `veuve`, `prince`, `patre`, siehe `look.music`). Alle Stücke sind selbst komponiert und mit einem kleinen Synthesizer erzeugt (gezupfte Saiten, Glocken, Orgel, Streicher, Chor-Flächen, Trommeln, Hall). Die Lautstärke stellt man unter **Einstellungen → Musik** ein.
+`scripts/MusicPlayer.gd` spielt die Stücke aus `assets/music/` in Schleife und blendet beim Wechsel weich über. Alle Stücke sind selbst komponiert und mit einem kleinen Synthesizer erzeugt (gezupfte Saiten, Glocken, Orgel/Akkordeon, Streicher, Chor-Flächen, Bass, Trommeln, Hall).
+
+| Stück | Wo |
+|---|---|
+| `menu` (Ruhig), `cafe` (Café, jazzig mit gehendem Bass) | Menü |
+| `game` (Leicht), `promenade` (fröhlich, G-Dur), `valse` (französischer Walzer, Akkordeon) | freies Spiel und Kampagne |
+| `sonneur`, `veuve`, `prince`, `patre` | je ein Boss (`look.music`) |
+
+Unter **Einstellungen → Ton** stellt man Gesamt-, Musik- und Effekt-Lautstärke ein, wählt die **Musik im Menü** und die **Musik im Spiel** (auch „Zufällig“ oder „Aus“) und kann die **Klick- und Menü-Sounds** ausschalten. Die Menü-Musik wechselt sofort, damit man sie hört.
+
+`scripts/SoundFX.gd` spielt die Effekte aus `assets/sfx/` (39 Stück, alle selbst erzeugt):
+
+- **Menü:** `click`, `hover` (Maus über Button), `page` (Seitenwechsel), `back`, `select` (Set gewählt), `toggle_on`/`toggle_off`, `slider`, `pop` (Auswahl-Liste öffnen), `type` (Tippen), `delete`, `error`, `start` (Spiel starten). Schalter, Regler, Listen, Eingabefelder und Buttons bekommen ihre Sounds automatisch.
+- **Spiel:** `deal` (Karten austeilen), `flip`, `card_land`, `match`, `mismatch`, `streak` (Serie ab 3 Paaren), `round` (Runde geschafft), `tick` (letzte 10 Sekunden), `star` (pro Stern am Ende), `unlock` (nächstes Level frei), `level_up`, `reward`, `victory`, `defeat`.
+- **Boss:** `windup`, `impact`, `bell`, `blade`, `bones`, `roots`, `roar`, `stomp`, `spores`, `interrupt`, `boss_hit`, `player_hurt`.
+
+Eigene Sounds: eine WAV-Datei mit demselben Namen in `assets/sfx/` ersetzt den alten Sound.
+
 ## Einstellungen und Admin-Panel
 
 Die Einstellungen werden in `user://settings.json` gespeichert (`scripts/GameSettings.gd`). Dazu gehören Vollbild, Kartenschrift, Button-Animationen, wie lange falsche Karten offen bleiben, Paare pro Runde im freien Spiel, die Zeitanzeige, eine Nachfrage beim Beenden und die Lautstärke.
