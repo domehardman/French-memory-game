@@ -115,10 +115,93 @@ Es hat nicht alles auf Anhieb funktioniert. Diese Probleme hatten wir heute:
 
 **Was noch offen ist**
 
-- [ ] FPS Fix
-- [ ] Game Hintergrund verbesserungen$
-- [ ] Umklapp effekt bei den Karten (Optionl)
-- [ ] Einstellungen für die Anzahl Partikel
-- [ ] Boss Animationen anpassen
+- [x] FPS Fix
+- [x] Game Hintergrund verbesserungen$
+- [x] Umklapp effekt bei den Karten (Optionl)
+- [x] Einstellungen für die Anzahl Partikel
+- [x] Boss Animationen anpassen
 
 Eigene Bilder für die Karten kann man noch nicht hinzufügen, das wollen wir als Nächstes machen. Die Bewegungen der Bosse haben wir bis jetzt vor allem auf Standbildern angeschaut, das wollen wir noch genauer im Spiel testen. Ausserdem fehlen noch ein paar Knopfbilder (Erfolge, Zurück, Sets, Set-Auswahl).
+
+## 11.11.2026
+
+Heute haben wir vor allem am Aussehen und am Gefühl vom Spiel gearbeitet. Das ganze Menü ist jetzt im Pixel-Stil wie unsere Knöpfe, der normale Modus ist in 3D, und es gibt viel mehr Sounds und Musik. Ausserdem haben wir alle Punkte von unserer Liste „Was noch offen ist“ erledigt. Weil sich wieder sehr viel verändert hat, haben wir das Spiel als neue Version **Franz-Memory-Game-V3.0** hochgeladen. V1.0 und V2.0 bleiben drin. Alle Screenshots von heute liegen im Ordner **Dokumentation Fotos/11.11.26**.
+
+**Neue Knöpfe und Logo**
+
+Wir haben die fehlenden Knopfbilder gezeichnet und eingebaut: ERFOLGE (statt „Belohnungen“), ZURUECK, SET-AUSWAHL, SET-SCHNELLAUSWAHL, FORTSCHRITT ZURUECKSETZEN und EINSTELLUNGEN ZURUECKSETZEN. Dazu kommt unser Logo. Es steht im Hauptmenü über den Knöpfen und ist auch das Symbol vom Spiel.
+
+<img width="640" alt="Hauptmenü mit Logo" src="Dokumentation%20Fotos/11.11.26/55%20Logo%20besser%20sichtbar.png" />
+
+**Alles im Pixel-Stil**
+
+Alle anderen Knöpfe (Löschen, Weiter, Kampagnen-Level, Menü, Neustart und so weiter) sehen jetzt aus wie unsere Pixel-Knöpfe. Sie benutzen unsere leeren Knopfhintergründe in Rot, Blau, Orange und Pink, und der Text ist in einer Pixel-Schrift, die wir nach den Buchstaben auf unseren Knöpfen nachgebaut haben (mit Umlauten und französischen Akzenten). Knöpfe mit dem gleichen Text haben immer die gleiche Farbe. Auch die Kästen, Schalter, Regler, Eingabefelder und Balken sind jetzt aus Pixeln gebaut. Am Anfang war alles noch grau und schwarz und hat nicht zu den bunten Knöpfen gepasst. Darum haben wir den Hintergrund dunkelblau-violett gemacht, die Titel gold und die Abschnitte orange.
+
+<img width="640" alt="Einstellungen im Pixel-Stil" src="Dokumentation%20Fotos/11.11.26/41%20Farbig%20Einstellungen.png" />
+
+<img width="640" alt="Deine Sets im Pixel-Stil" src="Dokumentation%20Fotos/11.11.26/47%20Farbig%20Deine%20Sets.png" />
+
+<img width="640" alt="Endbildschirm im Pixel-Stil" src="Dokumentation%20Fotos/11.11.26/45%20Farbig%20Endbildschirm.png" />
+
+**Set-Auswahl und eigene Kategorien**
+
+In der Seitenleiste ist jedes Set jetzt ein Pixel-Knopf. Jede Kategorie bekommt zufällig eine Farbe, und alle Sets darin haben diese Farbe. Eigene Kategorien kann man jetzt direkt erstellen und löschen, und eigene Sets kann man in eine andere Kategorie verschieben. Die Seite „Leeres Feld“, die nur ein Platzhalter war, haben wir entfernt.
+
+<img width="640" alt="Set-Auswahl mit Farben pro Kategorie" src="Dokumentation%20Fotos/11.11.26/08%20Set-Auswahl%20Kampagne%20mit%20Farben.png" />
+
+<img width="640" alt="Eigene Kategorien verwalten" src="Dokumentation%20Fotos/11.11.26/10%20Eigene%20Kategorien%20verwalten.png" />
+
+**Normaler Modus in 3D**
+
+Der normale Modus ist jetzt in 3D. Die Kamera schaut aber nicht schräg wie bei den Bossen, sondern gerade von oben. Die Karten liegen auf einem Spielbrett, werfen Schatten und drehen sich beim Aufdecken richtig über die Kante um. Das war unser „Umklapp-Effekt“ von der Liste.
+
+<img width="640" alt="Normaler Modus in 3D" src="Dokumentation%20Fotos/11.11.26/51%20Normaler%20Modus%203D%20von%20oben.png" />
+
+<img width="640" alt="Karte dreht sich um" src="Dokumentation%20Fotos/11.11.26/52%20Karte%20dreht%20sich%20in%203D%20um.png" />
+
+**Arenen und Hintergrund selber ändern**
+
+Die vier Boss-Arenen sind jetzt eigene Szenen in Godot (scenes/arenen). Man kann sie öffnen, Sachen verschieben, löschen oder neue dazutun, und im Spiel sieht die Arena dann genau so aus. Für den normalen Modus gibt es die Szene Hintergrund.tscn mit Tisch und Spielbrett, die man auch selber ändern kann.
+
+<img width="800" alt="Boss-Arenen aus eigenen Szenen" src="Dokumentation%20Fotos/11.11.26/05%20Boss-Arenen%20aus%20eigenen%20Szenen.png" />
+
+**FPS und Leistung**
+
+Wir haben gemessen, wie schnell das Spiel läuft. Das Menü und der normale Modus waren schnell, aber im Bossfight hatten wir auf dem Laptop nur etwa 50 Bilder pro Sekunde, beim Endboss manchmal noch weniger. Am meisten haben die Umgebungs-Schatten (SSAO), die Schatten von Fackeln und das Leuchten gekostet. Jetzt gibt es in den Einstellungen den Bereich **Leistung** mit Grafikqualität (Niedrig, Mittel, Hoch), Anzahl Partikel, FPS-Limit, VSync und einer FPS-Anzeige. Auf „Mittel“ läuft der Bossfight etwa doppelt so schnell (90–105 FPS) und sieht fast gleich aus, auf „Niedrig“ sogar mit 125–145 FPS.
+
+<img width="800" alt="Grafikqualität Hoch, Mittel, Niedrig" src="Dokumentation%20Fotos/11.11.26/12%20Grafikqualitaet%20Hoch%20Mittel%20Niedrig.png" />
+
+**Boss-Animationen**
+
+Wir haben jeden Angriff von jedem Boss als Bildfolge angeschaut. Im Stand haben sich die Bosse fast nicht bewegt, bei den Hieben von der Seite haben sie sich komisch verdreht, und der Endboss ist beim Verwurzeln auf die Karten gekippt. Jetzt atmen die Bosse und bewegen die Arme, der Kopf schaut beim Schlagen weiter zum Spieler, und der Endboss kniet beim Verwurzeln aufrecht, so dass man sein leuchtendes Herz sieht.
+
+<img width="800" alt="Boss-Animationen vorher" src="Dokumentation%20Fotos/11.11.26/14%20Boss-Animationen%20Endboss%20vorher.png" />
+
+<img width="800" alt="Boss-Animationen nachher" src="Dokumentation%20Fotos/11.11.26/16%20Boss-Animationen%20Endboss%20nachher.png" />
+
+**Musik und Sounds**
+
+Es gibt jetzt 39 Soundeffekte statt 20, zum Beispiel wenn man mit der Maus über einen Knopf fährt, beim Seitenwechsel, bei Schaltern und Reglern, beim Austeilen der Karten, bei einer Serie, wenn eine Runde geschafft ist, ein Ticken in den letzten 10 Sekunden und ein Klang für jeden Stern am Ende. Dazu haben wir drei neue Musikstücke gemacht: „Café“ fürs Menü und „Promenade“ und „Valse“ (ein französischer Walzer) fürs Spiel. In den Einstellungen kann man jetzt die Musik fürs Menü und fürs Spiel auswählen (auch „Zufällig“ oder „Aus“) und die Klick-Sounds ausschalten.
+
+<img width="640" alt="Ton-Einstellungen mit Musikauswahl" src="Dokumentation%20Fotos/11.11.26/56%20Ton-Einstellungen%20mit%20Musikauswahl.png" />
+
+**Probleme, die wir hatten**
+
+* Bei der Pixel-Schrift sahen die Umlaute zuerst falsch aus. Das Ü sah aus wie ein hohes U, weil die Punkte direkt auf dem Buchstaben sassen. Jetzt ist eine leere Zeile dazwischen.
+* Auf schmalen Knöpfen wurde der Text abgeschnitten, zum Beispiel stand „LÖSCHE“ statt „LÖSCHEN“. Ausserdem waren zuerst alle Kampagnen-Knöpfe zufällig rot. Beides haben wir korrigiert.
+* Die neuen Knopfbilder waren am Anfang im Spiel nicht zu sehen, weil Godot sie noch nicht importiert hatte.
+* Die Pixel-Schrift hat zuerst nur im Menü funktioniert und nicht im Spiel selbst, weil die Anzeige dort in einer eigenen Ebene liegt.
+* Im Bossfight war die hinterste Kartenreihe so nahe an der Reihe davor, dass man bei langen Wörtern nicht das ganze Wort gesehen hat. Lange Wörter wurden auch mitten im Wort getrennt („Kühlschr-ank“). Jetzt haben die hinteren Reihen mehr Abstand und stehen steiler, und die Schrift wird kleiner, statt das Wort zu trennen.
+* Beim neuen 3D-Umdrehen stand der Text auf der Karte zuerst auf dem Kopf. Die Karte ist ein Physik-Körper, und die Physik hat beim Bewegen die Drehung überschrieben.
+* Das Logo hat man auf dem dunklen Hintergrund zuerst kaum gesehen. Jetzt hat es einen hellen Rand wie ein Sticker. Grösser ging nicht, sonst wurde der unterste Knopf aus dem Bild geschoben.
+* Die Auswahl-Listen in den Einstellungen hatten wir zuerst wie blaue Knöpfe gemacht. Das hat nicht gut ausgesehen, darum haben sie wieder einen Rahmen.
+
+<img width="640" alt="Vorher: hintere Reihe verdeckt" src="Dokumentation%20Fotos/11.11.26/26%20Bossfight%20hintere%20Reihen%20vorher.png" />
+
+<img width="640" alt="Nachher: hintere Reihen mit mehr Abstand" src="Dokumentation%20Fotos/11.11.26/26%20Bossfight%20hintere%20Reihen%20mit%20mehr%20Abstand.png" />
+
+**Was noch offen ist**
+
+- [ ] Eigene Bilder für die Karten hinzufügen
+- [ ] Die neuen Sounds und die Musik zusammen anhören und, wenn nötig, leiser oder anders machen
+- [ ] Das Spiel auf den Schulcomputern testen und die passende Grafikqualität einstellen
