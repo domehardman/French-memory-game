@@ -1,0 +1,29 @@
+{
+  "background": "#1d1740",
+  "text": "#f5f7f8",
+  "card_textures": {
+    "back": "res://assets/cards/card_back.png",
+    "front": "res://assets/cards/card_front.png",
+    "matched": "res://assets/cards/card_matched.png",
+    "background": "#ffffff"
+  },
+  "art_buttons": {
+    "play": "res://assets/ui/play.png",
+    "campaign": "res://assets/ui/campaign.png",
+    "sets": ["res://assets/ui/sets_gruen.png", "res://assets/ui/sets.png"],
+    "rewards": "res://assets/ui/erfolge.png",
+    "back": "res://assets/ui/zurueck.png",
+    "set_select": "res://assets/ui/set-auswahl.png",
+    "sets_page": "res://assets/ui/set_auswahl.png",
+    "reset_progress": "res://assets/ui/fortschrit weg.png",
+    "settings_reset": "res://assets/ui/einstellungen zurück.png",
+    "settings": "res://assets/ui/settings.png",
+    "power": "res://assets/ui/power.png"
+  },
+  "set_backgrounds": {
+    "red": "res://assets/ui/blank_backgrounds/wide_red.png",
+    "blue": "res://assets/ui/blank_backgrounds/wide_blue.png",
+    "orange": "res://assets/ui/blank_backgrounds/wide_orange.png",
+    "pink": "res://assets/ui/blank_backgrounds/wide_pink.png"
+  }
+}

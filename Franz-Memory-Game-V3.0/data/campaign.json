@@ -1,0 +1,470 @@
+[
+    {
+        "id":  "c01",
+        "name":  "Die Familie",
+        "set":  "res://data/sets/familie.json",
+        "pairs":  6,
+        "time_limit":  0,
+        "move_limit":  0
+    },
+    {
+        "id":  "c02",
+        "name":  "Farben \u0026 Kleider",
+        "set":  "res://data/sets/farben_kleidung.json",
+        "pairs":  8,
+        "time_limit":  0,
+        "move_limit":  0
+    },
+    {
+        "id":  "c03",
+        "name":  "Mein Körper",
+        "set":  "res://data/sets/koerper.json",
+        "pairs":  8,
+        "time_limit":  0,
+        "move_limit":  0
+    },
+    {
+        "id":  "c04",
+        "name":  "Im Zoo",
+        "set":  "res://data/sets/tiere.json",
+        "pairs":  8,
+        "time_limit":  120,
+        "move_limit":  0
+    },
+    {
+        "id":  "c05",
+        "name":  "Zu Hause",
+        "set":  "res://data/sets/wohnung.json",
+        "pairs":  10,
+        "time_limit":  0,
+        "move_limit":  0
+    },
+    {
+        "id":  "mb1",
+        "type":  "boss",
+        "name":  "Le Sonneur",
+        "description":  "Zwischenboss im Glockenturm. Taub und langsam: Er holt lange aus, aber seine Glocken werfen Karten weit durcheinander.",
+        "sets":  [
+                     "res://data/sets/familie.json",
+                     "res://data/sets/farben_kleidung.json",
+                     "res://data/sets/koerper.json",
+                     "res://data/sets/tiere.json",
+                     "res://data/sets/wohnung.json"
+                 ],
+        "pairs":  0,
+        "time_limit":  0,
+        "move_limit":  0,
+        "boss":  {
+                     "hp":  180,
+                     "player_hp":  100,
+                     "damage_per_pair":  10,
+                     "combo_bonus":  3,
+                     "heal_per_pair":  2,
+                     "mismatch_damage":  2,
+                     "attack_damage":  5,
+                     "first_attack":  7,
+                     "attack_interval":  14,
+                     "windup_time":  1.7,
+                     "interrupt_bonus":  10,
+                     "curse_multiplier":  3,
+                     "rage_at":  0.5,
+                     "rage_interval":  10,
+                     "reward_points":  190,
+                     "attacks":  [
+                                     "bell",
+                                     "bell",
+                                     "toll"
+                                 ],
+                     "rage_attacks":  [
+                                          "bells",
+                                          "toll",
+                                          "bell"
+                                      ],
+                     "look":  {
+                                  "style":  "gloeckner",
+                                  "arena":  "turm",
+                                  "model":  "res://assets/hain/models/gloeckner/gloeckner.glb",
+                                  "model_scale":  2.5,
+                                  "weapon":  [
+                                                 "gloeckner/schwert_stahl.obj",
+                                                 "gloeckner/schwert_griff.obj"
+                                             ],
+                                  "weapon_rot":  [
+                                                     80,
+                                                     0,
+                                                     0
+                                                 ],
+                                  "accent":  "#e6a84d",
+                                  "scale":  1,
+                                  "music":  "sonneur",
+                                  "scene":  "res://scenes/arenen/glockenturm.tscn",
+                                  "level":  "level6",
+                                  "level_boss_z":  -18,
+                                  "arena_scale":  1.92,
+                                  "eyes":  {
+                                               "x":  0.09,
+                                               "y":  0.22,
+                                               "z":  0.285,
+                                               "r":  0.016,
+                                               "color":  "#ffb34d"
+                                           }
+                              }
+                 }
+    },
+    {
+        "id":  "c06",
+        "name":  "Am Esstisch",
+        "set":  "res://data/sets/essen.json",
+        "pairs":  10,
+        "time_limit":  150,
+        "move_limit":  0
+    },
+    {
+        "id":  "c07",
+        "name":  "Im Klassenzimmer",
+        "set":  "res://data/sets/schule.json",
+        "pairs":  10,
+        "time_limit":  0,
+        "move_limit":  24
+    },
+    {
+        "id":  "c08",
+        "name":  "Freizeit",
+        "set":  "res://data/sets/hobbys.json",
+        "pairs":  10,
+        "time_limit":  140,
+        "move_limit":  0
+    },
+    {
+        "id":  "c09",
+        "name":  "Wetterbericht",
+        "set":  "res://data/sets/zeit_wetter.json",
+        "pairs":  12,
+        "time_limit":  160,
+        "move_limit":  0
+    },
+    {
+        "id":  "c10",
+        "name":  "Traumberuf",
+        "set":  "res://data/sets/berufe.json",
+        "pairs":  12,
+        "time_limit":  0,
+        "move_limit":  30
+    },
+    {
+        "id":  "mb2",
+        "type":  "boss",
+        "name":  "La Veuve de Cendre",
+        "description":  "Zwischenboss in der Kathedrale. Schnell: Sie wirft Sicheln, mäht ganze Reihen und verschwindet in Asche, dann trifft man sie nicht.",
+        "sets":  [
+                     "res://data/sets/essen.json",
+                     "res://data/sets/schule.json",
+                     "res://data/sets/hobbys.json",
+                     "res://data/sets/zeit_wetter.json",
+                     "res://data/sets/berufe.json"
+                 ],
+        "pairs":  0,
+        "time_limit":  0,
+        "move_limit":  0,
+        "boss":  {
+                     "hp":  240,
+                     "player_hp":  100,
+                     "damage_per_pair":  10,
+                     "combo_bonus":  3,
+                     "heal_per_pair":  2,
+                     "mismatch_damage":  3,
+                     "attack_damage":  6,
+                     "first_attack":  6,
+                     "attack_interval":  12,
+                     "windup_time":  1.2,
+                     "interrupt_bonus":  10,
+                     "curse_multiplier":  3,
+                     "rage_at":  0.5,
+                     "rage_interval":  9,
+                     "reward_points":  220,
+                     "attacks":  [
+                                     "blades",
+                                     "reap",
+                                     "blades",
+                                     "ash"
+                                 ],
+                     "rage_attacks":  [
+                                          "blades",
+                                          "reap",
+                                          "ash",
+                                          "blades"
+                                      ],
+                     "look":  {
+                                  "style":  "witwe",
+                                  "arena":  "kathedrale",
+                                  "model":  "res://assets/hain/models/witwe/witwe.glb",
+                                  "model_scale":  2.6,
+                                  "weapon":  [
+                                                 "witwe/sichel_holz.obj",
+                                                 "witwe/sichel_stahl.obj"
+                                             ],
+                                  "weapon_rot":  [
+                                                     80,
+                                                     0,
+                                                     0
+                                                 ],
+                                  "accent":  "#80a8ff",
+                                  "scale":  1,
+                                  "music":  "veuve",
+                                  "scene":  "res://scenes/arenen/kathedrale.tscn",
+                                  "level":  "level2",
+                                  "level_boss_z":  -37,
+                                  "arena_scale":  2.6,
+                                  "eyes":  {
+                                               "x":  0.045,
+                                               "y":  0.19,
+                                               "z":  0.135,
+                                               "r":  0.012,
+                                               "color":  "#ffb84d"
+                                           }
+                              },
+                     "ash_duration":  5,
+                     "ash_heal":  4
+                 }
+    },
+    {
+        "id":  "c11",
+        "name":  "Unterwegs",
+        "set":  "res://data/sets/stadt_reisen.json",
+        "pairs":  12,
+        "time_limit":  150,
+        "move_limit":  30
+    },
+    {
+        "id":  "c12",
+        "name":  "Familienfest",
+        "set":  "res://data/sets/familie.json",
+        "pairs":  12,
+        "time_limit":  120,
+        "move_limit":  0
+    },
+    {
+        "id":  "c13",
+        "name":  "Modenschau",
+        "set":  "res://data/sets/farben_kleidung.json",
+        "pairs":  12,
+        "time_limit":  0,
+        "move_limit":  26
+    },
+    {
+        "id":  "c14",
+        "name":  "Beim Arzt",
+        "set":  "res://data/sets/koerper.json",
+        "pairs":  12,
+        "time_limit":  110,
+        "move_limit":  0
+    },
+    {
+        "id":  "c15",
+        "name":  "Grosser Hunger",
+        "set":  "res://data/sets/essen.json",
+        "pairs":  12,
+        "time_limit":  110,
+        "move_limit":  0
+    },
+    {
+        "id":  "mb3",
+        "type":  "boss",
+        "name":  "Le Prince des Os",
+        "description":  "Zwischenboss im Beinhaus. Schwer und zäh: Knochenspitzen brechen durch eine Spalte, Schädel regnen, und sein Knochenpanzer halbiert deinen Schaden.",
+        "sets":  [
+                     "res://data/sets/stadt_reisen.json",
+                     "res://data/sets/berufe.json",
+                     "res://data/sets/zeit_wetter.json",
+                     "res://data/vocabulary.json"
+                 ],
+        "pairs":  0,
+        "time_limit":  0,
+        "move_limit":  0,
+        "boss":  {
+                     "hp":  300,
+                     "player_hp":  100,
+                     "damage_per_pair":  10,
+                     "combo_bonus":  3,
+                     "heal_per_pair":  2,
+                     "mismatch_damage":  3,
+                     "attack_damage":  7,
+                     "first_attack":  6,
+                     "attack_interval":  12,
+                     "windup_time":  1.5,
+                     "interrupt_bonus":  10,
+                     "curse_multiplier":  3,
+                     "rage_at":  0.5,
+                     "rage_interval":  9,
+                     "reward_points":  250,
+                     "attacks":  [
+                                     "bone_spikes",
+                                     "skulls",
+                                     "bone_spikes",
+                                     "bone_armor"
+                                 ],
+                     "rage_attacks":  [
+                                          "bone_spikes",
+                                          "skulls",
+                                          "bone_armor",
+                                          "stomp"
+                                      ],
+                     "look":  {
+                                  "style":  "gebein",
+                                  "arena":  "beinhaus",
+                                  "model":  "res://assets/hain/models/gebein/gebein.glb",
+                                  "model_scale":  2.6,
+                                  "weapon":  [
+                                                 "gebein/schwert_stahl.obj",
+                                                 "gebein/schwert_griff.obj"
+                                             ],
+                                  "weapon_rot":  [
+                                                     80,
+                                                     0,
+                                                     0
+                                                 ],
+                                  "accent":  "#66f2b3",
+                                  "scale":  1,
+                                  "music":  "prince",
+                                  "scene":  "res://scenes/arenen/beinhaus.tscn",
+                                  "level":  "level3",
+                                  "level_boss_z":  -53,
+                                  "arena_scale":  2.17,
+                                  "eyes":  {
+                                               "x":  0.066,
+                                               "y":  0.135,
+                                               "z":  0.165,
+                                               "r":  0.02,
+                                               "color":  "#8cf2d9"
+                                           }
+                              },
+                     "armor_duration":  6
+                 }
+    },
+    {
+        "id":  "c16",
+        "name":  "Umzug",
+        "set":  "res://data/sets/wohnung.json",
+        "pairs":  12,
+        "time_limit":  110,
+        "move_limit":  28
+    },
+    {
+        "id":  "c17",
+        "name":  "Lehrmittel I",
+        "set":  "res://data/vocabulary.json",
+        "pairs":  12,
+        "time_limit":  150,
+        "move_limit":  28
+    },
+    {
+        "id":  "c18",
+        "name":  "Wochenende",
+        "set":  "res://data/sets/hobbys.json",
+        "pairs":  12,
+        "time_limit":  100,
+        "move_limit":  0
+    },
+    {
+        "id":  "c19",
+        "name":  "Lehrmittel II",
+        "set":  "res://data/vocabulary.json",
+        "pairs":  12,
+        "time_limit":  120,
+        "move_limit":  26
+    },
+    {
+        "id":  "c20",
+        "name":  "Generalprobe",
+        "set":  "res://data/vocabulary.json",
+        "pairs":  12,
+        "time_limit":  100,
+        "move_limit":  24
+    },
+    {
+        "id":  "boss",
+        "type":  "boss",
+        "name":  "Le Pâtre des Racines",
+        "description":  "Der Endgegner im toten Hain. Er befiehlt Wurzeln, Herde und Sporen und kann sich verwurzeln, dann liegt sein Herz offen.",
+        "sets":  [
+                     "res://data/sets/familie.json",
+                     "res://data/sets/essen.json",
+                     "res://data/sets/farben_kleidung.json",
+                     "res://data/sets/koerper.json",
+                     "res://data/sets/wohnung.json",
+                     "res://data/sets/schule.json",
+                     "res://data/sets/hobbys.json",
+                     "res://data/sets/tiere.json",
+                     "res://data/sets/zeit_wetter.json",
+                     "res://data/sets/stadt_reisen.json",
+                     "res://data/sets/berufe.json"
+                 ],
+        "pairs":  0,
+        "time_limit":  0,
+        "move_limit":  0,
+        "boss":  {
+                     "hp":  420,
+                     "player_hp":  100,
+                     "damage_per_pair":  10,
+                     "combo_bonus":  3,
+                     "heal_per_pair":  2,
+                     "mismatch_damage":  4,
+                     "attack_damage":  8,
+                     "first_attack":  5,
+                     "attack_interval":  10,
+                     "windup_time":  1.3,
+                     "interrupt_bonus":  10,
+                     "curse_multiplier":  3,
+                     "rage_at":  0.6,
+                     "rage_interval":  7,
+                     "reward_points":  310,
+                     "attacks":  [
+                                     "roots",
+                                     "roots",
+                                     "herd",
+                                     "herd",
+                                     "spores"
+                                 ],
+                     "rage_attacks":  [
+                                          "stomp",
+                                          "roots",
+                                          "herd",
+                                          "spores",
+                                          "root_self",
+                                          "root_self"
+                                      ],
+                     "look":  {
+                                  "style":  "oubli",
+                                  "arena":  "hain",
+                                  "model":  "res://assets/hain/models/hirt/hirt.glb",
+                                  "model_scale":  2.7,
+                                  "weapon":  [
+                                                 "hirt/schwert_stahl.obj",
+                                                 "hirt/schwert_griff.obj"
+                                             ],
+                                  "weapon_rot":  [
+                                                     80,
+                                                     0,
+                                                     0
+                                                 ],
+                                  "accent":  "#9cf247",
+                                  "scale":  1,
+                                  "music":  "patre",
+                                  "scene":  "res://scenes/arenen/hain.tscn",
+                                  "level":  "level8",
+                                  "level_boss_z":  -24,
+                                  "arena_scale":  1.74,
+                                  "eyes":  {
+                                               "x":  0.1,
+                                               "y":  0.22,
+                                               "z":  0.07,
+                                               "r":  0.02,
+                                               "color":  "#b3ff4d"
+                                           }
+                              },
+                     "root_lash_every":  1.6,
+                     "root_duration":  7
+                 },
+        "final":  true
+    }
+]

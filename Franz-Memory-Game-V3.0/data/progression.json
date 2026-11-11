@@ -1,0 +1,10 @@
+{
+  "points_per_pair": 10,
+  "streak_bonus": 5,
+  "par_seconds_per_pair": 8,
+  "star_bonus": 20,
+  "three_star_attempts_per_pair": 1.75,
+  "two_star_attempts_per_pair": 2.5,
+  "level_xp": [0, 100, 250, 450, 700, 1000, 1400, 1900, 2500, 3200, 4000],
+  "level_xp_after": 1000
+}

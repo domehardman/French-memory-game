@@ -1,0 +1,17 @@
+{
+  "name": "Berufe",
+  "entries": [
+    {"de": "der Arzt / die Ärztin", "fr": "le médecin"},
+    {"de": "der Koch / die Köchin", "fr": "le cuisinier / la cuisinière"},
+    {"de": "der Bäcker / die Bäckerin", "fr": "le boulanger / la boulangère"},
+    {"de": "der Polizist / die Polizistin", "fr": "le policier / la policière"},
+    {"de": "der Verkäufer / die Verkäuferin", "fr": "le vendeur / la vendeuse"},
+    {"de": "der Ingenieur / die Ingenieurin", "fr": "l'ingénieur / l'ingénieure"},
+    {"de": "der Krankenpfleger / die Krankenpflegerin", "fr": "l'infirmier / l'infirmière"},
+    {"de": "der Anwalt / die Anwältin", "fr": "l'avocat / l'avocate"},
+    {"de": "der Journalist / die Journalistin", "fr": "le / la journaliste"},
+    {"de": "der Feuerwehrmann", "fr": "le pompier"},
+    {"de": "der Mechaniker / die Mechanikerin", "fr": "le mécanicien / la mécanicienne"},
+    {"de": "der Friseur / die Friseurin", "fr": "le coiffeur / la coiffeuse"}
+  ]
+}

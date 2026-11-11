@@ -1,0 +1,17 @@
+{
+  "name": "Haus & Wohnung",
+  "entries": [
+    {"de": "das Haus", "fr": "la maison"},
+    {"de": "die Wohnung", "fr": "l'appartement"},
+    {"de": "die Küche", "fr": "la cuisine"},
+    {"de": "das Schlafzimmer", "fr": "la chambre"},
+    {"de": "das Badezimmer", "fr": "la salle de bains"},
+    {"de": "der Tisch", "fr": "la table"},
+    {"de": "der Stuhl", "fr": "la chaise"},
+    {"de": "das Bett", "fr": "le lit"},
+    {"de": "das Fenster", "fr": "la fenêtre"},
+    {"de": "die Tür", "fr": "la porte"},
+    {"de": "der Schrank", "fr": "l'armoire"},
+    {"de": "der Garten", "fr": "le jardin"}
+  ]
+}

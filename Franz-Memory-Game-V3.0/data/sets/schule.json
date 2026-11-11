@@ -1,0 +1,17 @@
+{
+  "name": "Schule",
+  "entries": [
+    {"de": "die Schule", "fr": "l'école"},
+    {"de": "der Lehrer / die Lehrerin", "fr": "le professeur / la professeure"},
+    {"de": "das Heft", "fr": "le cahier"},
+    {"de": "das Buch", "fr": "le livre"},
+    {"de": "der Bleistift", "fr": "le crayon"},
+    {"de": "der Kugelschreiber", "fr": "le stylo"},
+    {"de": "die Schultasche", "fr": "le cartable"},
+    {"de": "die Hausaufgaben", "fr": "les devoirs"},
+    {"de": "die Pause", "fr": "la récréation"},
+    {"de": "das Klassenzimmer", "fr": "la salle de classe"},
+    {"de": "lernen", "fr": "apprendre"},
+    {"de": "die Prüfung", "fr": "l'examen"}
+  ]
+}

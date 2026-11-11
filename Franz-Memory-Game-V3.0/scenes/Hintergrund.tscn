@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/hintergrund/tisch.png" id="1_tisch"]
+[ext_resource type="Texture2D" path="res://assets/hintergrund/spielmatte.png" id="2_matte"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_Tisch"]
+albedo_texture = ExtResource("1_tisch")
+roughness = 0.95
+uv1_scale = Vector3(40, 26, 1)
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="Mesh_Tisch"]
+material = SubResource("Mat_Tisch")
+size = Vector2(60, 40)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Brett"]
+albedo_color = Color(0.231, 0.196, 0.565, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="Mesh_Brett"]
+material = SubResource("Mat_Brett")
+size = Vector3(7.6, 0.3, 7.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Matte"]
+albedo_texture = ExtResource("2_matte")
+roughness = 0.85
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="Mesh_Matte"]
+material = SubResource("Mat_Matte")
+size = Vector2(7.6, 7.6)
+
+[node name="Hintergrund" type="Node3D"]
+
+[node name="Tisch" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
+mesh = SubResource("Mesh_Tisch")
+
+[node name="Spielbrett" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.68, 0)
+mesh = SubResource("Mesh_Brett")
+
+[node name="Matte" type="MeshInstance3D" parent="Spielbrett"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151, 0)
+mesh = SubResource("Mesh_Matte")
+
+[node name="Deko3D" type="Node3D" parent="."]

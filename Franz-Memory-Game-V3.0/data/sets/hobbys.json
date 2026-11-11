@@ -1,0 +1,17 @@
+{
+  "name": "Hobbys",
+  "entries": [
+    {"de": "Fussball spielen", "fr": "jouer au foot"},
+    {"de": "schwimmen", "fr": "nager"},
+    {"de": "lesen", "fr": "lire"},
+    {"de": "tanzen", "fr": "danser"},
+    {"de": "singen", "fr": "chanter"},
+    {"de": "Musik hören", "fr": "écouter de la musique"},
+    {"de": "Rad fahren", "fr": "faire du vélo"},
+    {"de": "kochen", "fr": "faire la cuisine"},
+    {"de": "zeichnen", "fr": "dessiner"},
+    {"de": "ins Kino gehen", "fr": "aller au cinéma"},
+    {"de": "reiten", "fr": "faire du cheval"},
+    {"de": "wandern", "fr": "faire de la randonnée"}
+  ]
+}
