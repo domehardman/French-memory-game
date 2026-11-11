@@ -284,16 +284,21 @@ func _select_set(path: String) -> void:
 func _show_home() -> void:
 	current_page = "home"
 	_clear(content)
-	var play := UI.art_button(UI.text("play"), "play", 112)
+	# Logo oben (Bild aus ui_style.json "logo", 2× vergrössert)
+	var logo := UI.art_image("logo", 200)
+	if logo != null:
+		logo.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		content.add_child(logo)
+	var play := UI.art_button(UI.text("play"), "play", 100)
 	content.add_child(play)
 	UI.connect_animated(play, _start_game)
-	var campaign := UI.art_button(UI.text("campaign"), "campaign", 112)
+	var campaign := UI.art_button(UI.text("campaign"), "campaign", 100)
 	content.add_child(campaign)
 	UI.connect_animated(campaign, _show_campaign)
-	var sets := UI.art_button(UI.text("your_sets"), "sets", 112)
+	var sets := UI.art_button(UI.text("your_sets"), "sets", 100)
 	content.add_child(sets)
 	UI.connect_animated(sets, _show_sets)
-	var rewards := UI.art_button(UI.text("rewards"), "rewards", 112)
+	var rewards := UI.art_button(UI.text("rewards"), "rewards", 100)
 	content.add_child(rewards)
 	UI.connect_animated(rewards, _show_rewards)
 

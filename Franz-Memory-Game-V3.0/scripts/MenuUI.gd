@@ -543,6 +543,13 @@ static func art_image(art_key: String, height: int) -> TextureRect:
 		return null
 	var texture: Texture2D = load(path)
 	var scale_factor := maxi(1, floori(float(height) / float(texture.get_height())))
+	# Leeren (durchsichtigen) Rand weglassen, damit das Bild keinen Platz verschwendet
+	var used := texture.get_image().get_used_rect()
+	if used.size.x > 0 and used.size != Vector2i(texture.get_width(), texture.get_height()):
+		var cropped := AtlasTexture.new()
+		cropped.atlas = texture
+		cropped.region = Rect2(used)
+		texture = cropped
 	var image := TextureRect.new()
 	image.texture = texture
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE

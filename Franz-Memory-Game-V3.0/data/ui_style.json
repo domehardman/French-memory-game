@@ -8,6 +8,7 @@
     "background": "#ffffff"
   },
   "art_buttons": {
+    "logo": "res://assets/ui/logo.png",
     "play": "res://assets/ui/play.png",
     "campaign": "res://assets/ui/campaign.png",
     "sets": ["res://assets/ui/sets_gruen.png", "res://assets/ui/sets.png"],
