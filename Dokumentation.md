@@ -115,4 +115,10 @@ Es hat nicht alles auf Anhieb funktioniert. Diese Probleme hatten wir heute:
 
 **Was noch offen ist**
 
+- [ ] FPS Fix
+- [ ] Game Hintergrund verbesserungen$
+- [ ] Umklapp effekt bei den Karten (Optionl)
+- [ ] Einstellungen für die Anzahl Partikel
+- [ ] Boss Animationen anpassen
+
 Eigene Bilder für die Karten kann man noch nicht hinzufügen, das wollen wir als Nächstes machen. Die Bewegungen der Bosse haben wir bis jetzt vor allem auf Standbildern angeschaut, das wollen wir noch genauer im Spiel testen. Ausserdem fehlen noch ein paar Knopfbilder (Erfolge, Zurück, Sets, Set-Auswahl).
