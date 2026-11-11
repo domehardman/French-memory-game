@@ -558,3 +558,48 @@ static func art_image(art_key: String, height: int) -> TextureRect:
 	image.custom_minimum_size = Vector2(texture.get_width() * scale_factor, texture.get_height() * scale_factor)
 	image.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	return image
+
+# Bild mit hellem Pixel-Umriss (wie ein Sticker) und kleinem Schatten, damit es
+# sich vom dunklen Hintergrund abhebt. Durchsichtiger Rand wird weggeschnitten.
+static func sticker_image(art_key: String, scale_factor: int, outline: Color = Color("#fff6e0"), thickness: int = 1) -> TextureRect:
+	var path := art_path(art_key)
+	if path.is_empty() or not load(path) is Texture2D:
+		return null
+	var src: Image = (load(path) as Texture2D).get_image()
+	src.decompress()
+	src.convert(Image.FORMAT_RGBA8)
+	var used := src.get_used_rect()
+	var pad := thickness + 1
+	var w := used.size.x + pad * 2
+	var h := used.size.y + pad * 2
+	var out := Image.create(w, h, false, Image.FORMAT_RGBA8)
+	var shadow := Color(0, 0, 0, 0.55)
+	# 1. Schatten (eine Stufe nach rechts unten), 2. Umriss, 3. das Bild selbst
+	for pass_index in range(3):
+		for y in range(used.size.y):
+			for x in range(used.size.x):
+				var c := src.get_pixel(used.position.x + x, used.position.y + y)
+				if c.a < 0.1:
+					continue
+				var px := x + pad
+				var py := y + pad
+				if pass_index == 0:
+					for dy in range(-thickness, thickness + 2):
+						for dx in range(-thickness, thickness + 2):
+							var sx := px + dx
+							var sy := py + dy
+							if sx >= 0 and sy >= 0 and sx < w and sy < h and out.get_pixel(sx, sy).a == 0.0:
+								out.set_pixel(sx, sy, shadow)
+				elif pass_index == 1:
+					for dy in range(-thickness, thickness + 1):
+						for dx in range(-thickness, thickness + 1):
+							out.set_pixel(px + dx, py + dy, outline)
+				else:
+					out.set_pixel(px, py, Color(c, 1.0))
+	out.resize(w * scale_factor, h * scale_factor, Image.INTERPOLATE_NEAREST)
+	var rect := TextureRect.new()
+	rect.texture = ImageTexture.create_from_image(out)
+	rect.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	rect.custom_minimum_size = Vector2(w * scale_factor, h * scale_factor)
+	rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	return rect

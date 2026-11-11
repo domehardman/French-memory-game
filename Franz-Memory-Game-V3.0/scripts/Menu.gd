@@ -284,10 +284,9 @@ func _select_set(path: String) -> void:
 func _show_home() -> void:
 	current_page = "home"
 	_clear(content)
-	# Logo oben (Bild aus ui_style.json "logo", 2× vergrössert)
-	var logo := UI.art_image("logo", 200)
+	# Logo oben (Bild aus ui_style.json "logo"), 2× gross mit hellem Umriss
+	var logo := UI.sticker_image("logo", 2)
 	if logo != null:
-		logo.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		content.add_child(logo)
 	var play := UI.art_button(UI.text("play"), "play", 100)
 	content.add_child(play)
