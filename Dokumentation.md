@@ -323,30 +323,20 @@ Ein automatischer Testspieler hat jeden Boss auf jeder Schwierigkeit gespielt, m
 | TC-15 | Performance auf Schul-Hardware | Grafikstufen (Niedrig/Mittel/Hoch), Partikelregler & FPS-Anzeige auf Schulcomputern getestet. | Bestanden | Auf „Mittel“ stabil über 90 FPS. |
 | TC-16 | Admin-Panel | Zugang nur über geheimen Code; Level-Freischaltung und Boss-Sprung funktionieren. | Bestanden | Für Abnahme/Demo einsatzbereit. |
 
-# Projektarbeit & Arbeitsverteilung – Franz-Memory-Game (V4.0)
+## Projektarbeit & Arbeitsverteilung
 
-## 1. Übersicht der Teammitglieder & Rollen
+**Colin**
+- Main Programming: Umsetzung der Kern- und Zusatzfeatures in der Godot Engine.
+- Audio & Sounddesign: Suche, Herunterladen und Einbinden passender Musikstücke und Soundeffekte sowie Implementierung der Audioregler.
+- Testing & Debugging: Durchführung der Testfälle, Behebung von Bugs.
 
-| Teammitglied | Hauptrollen | Konkrete Aufgabenbereiche |
-| :--- | :--- | :--- |
-| **Colin** | Main Programmer, QA & Audio | • Hauptprogrammierung der Spiellogik (Kampagne, Boss-Mechaniken, Datei-Import, Speicherstand, Admin-Panel)<br>• Recherche, Auswahl und Integration von Musik & Soundeffekten (44 Lieder, 39 SFX)<br>• Umfassendes Testing, Debugging und Performance-Optimierung (inkl. Schul-Hardware)<br>• Projektmanagement, Zusammenführung der Komponenten & finale Abnahme |
-| **Johannes** | Secondary Programmer, 3D-Artist & UI-Designer | • Aufbau der grundlegenden Code-Basis<br>• Unterstützung bei der Programmierung (Secondary Programmer)<br>• Erstellung eigener 3D-Modelle<br>• Gestaltung von Texturen und Pixel-Art<br>• Konzeption und Umsetzung des kompletten UI-Designs |
-| **Luan** | Dokumentation, DevOps & Asset-Support | • Allgemeine Projekt-Recherche<br>• Bereitstellung bestehender 3D-Modelle und Animationen aus einem eigenen früheren Spieleprojekt<br>• Verfassen der Projektdokumentation (inkl. Testprotokoll)<br>• Verwaltung und Wartung des GitHub-Repositories |
+**Johannes**
+- Code-Basis & Secondary Programming: Entwicklung des Grundgerüsts des Projekts sowie Zuarbeit bei Skripten und Spielfunktionen.
+- 3D-Modelling & Pixel-Art: Modellierung von 3D-Objekten sowie Erstellung der Texturen und Pixel-Schriftarten/Grafiken.
+- UI-Design: Gestaltung der Benutzeroberfläche, Menüs, Kategorien-Farben und visuellen Effekte im Spiel.
 
-## 2. Detaillierte Aufgabenaufteilung
-
-### Colin
-- **Main Programming:** Umsetzung der Kern- und Zusatzfeatures in der Godot Engine (Paar-Logik, Punktesystem, Serienbonus, Kampagnen-Fortschritt, Boss-Fähigkeiten, CSV/JSON-Import, Persistenz und Admin-Panel).
-- **Audio & Sounddesign:** Suche, Herunterladen und Einbinden passender Musikstücke und Soundeffekte sowie Implementierung der Audioregler.
-- **Testing & Debugging:** Durchführung der Testfälle (TC-01 bis TC-16), Behebung von Bugs (z. B. Physik-Bug beim Kartendrehen) und Anpassung der Grafikstufen für flüssige Framerates auf Schulcomputern.
-
-### Johannes
-- **Code-Basis & Secondary Programming:** Entwicklung des Grundgerüsts des Projekts sowie Zuarbeit bei Skripten und Spielfunktionen.
-- **3D-Modelling & Pixel-Art:** Modellierung von 3D-Objekten sowie Erstellung der Texturen und Pixel-Schriftarten/Grafiken.
-- **UI-Design:** Gestaltung der Benutzeroberfläche, Menüs, Kategorien-Farben und visuellen Effekte im Spiel.
-
-### Luan
-- **Asset-Bereitstellung:** Zurverfügungstellung bereits vorhandener 3D-Modelle und Animationen aus einem älteren eigenen Spieleprojekt zur Wiederverwendung im Spiel.
-- **Recherche:** Beschaffung von Informationen und Grundlagen für die Umsetzung in Godot.
-- **Dokumentation & GitHub:** Pflege der Versionsverwaltung auf GitHub sowie Ausarbeitung der schriftlichen Projektdokumentation.
+**Luan**
+- Asset-Bereitstellung: Zurverfügungstellung bereits vorhandener 3D-Modelle und Animationen aus einem älteren eigenen Spieleprojekt zur Wiederverwendung im Spiel.
+- Recherche: Beschaffung von Informationen und Grundlagen für die Umsetzung in Godot.
+- Dokumentation & GitHub: Pflege der Versionsverwaltung auf GitHub sowie Ausarbeitung der schriftlichen Projektdokumentation.
 
