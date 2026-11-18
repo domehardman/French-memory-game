@@ -293,16 +293,16 @@ Ein automatischer Testspieler hat jeden Boss auf jeder Schwierigkeit gespielt, m
 - [ ] Die drei Schwierigkeiten von echten Spielern testen lassen
 - [ ] Das Spiel auf den Schulcomputern testen und die passende Grafikqualität einstellen
 
-# Testprotokoll (V 4.0)
+## Testprotokoll (V 4.0)
 
-## 1. Allgemeine Testinformationen
+**Allgemeine Testinformationen**
 
-- **Projekt:** French Memory Game (Godot Engine)
-- **Getestete Version:** Franz-Memory-Game V4.0
-- **Testdatum:** 18.11.2026
-- **Testumgebung:** Windows-Desktop
+- Projekt: French Memory Game (Godot Engine)
+- Getestete Version: Franz-Memory-Game V4.0
+- Testdatum: 18.11.2026
+- Testumgebung: Windows-Desktop
 
-## 2. Durchgeführte Testfälle & Ergebnisse
+**Durchgeführte Testfälle & Ergebnisse**
 
 | ID | Testfall | Geprüfte Funktion / Erwartetes Ergebnis | Status | Bemerkungen / Tester |
 | :--- | :--- | :--- | :--- | :--- |
