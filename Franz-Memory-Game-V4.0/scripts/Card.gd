@@ -294,7 +294,7 @@ func _flip_over(face_up: bool) -> void:
 	var base := position
 	_flip_swapped = false
 	var tween := create_tween()
-	tween.tween_method(func(t: float): _flip_step(base, t, face_up), 0.0, 1.0, 0.42).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_method(func(t: float): _flip_step(base, t, face_up), 0.0, 1.0, 0.42 / _flip_speed()).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func():
 		turn_deg = 0.0
 		position = base
@@ -321,3 +321,7 @@ func _flip_step(base: Vector3, t: float, face_up: bool) -> void:
 	var rest := Basis(Vector3.RIGHT, deg_to_rad(tilt_deg)) * Basis(Vector3.UP, deg_to_rad(flip_deg)) * Basis(Vector3.BACK, deg_to_rad(spin_deg))
 	var lift := 0.8 if flip3d else 0.5   # im Bossfight weniger hoch (Karten sind näher an der Kamera)
 	position = base + Vector3(0, sin(t * PI) * lift, 0) + (rest * CENTER - basis * CENTER)
+
+# Tempo aus den Einstellungen (Langsam, Normal, Schnell)
+func _flip_speed() -> float:
+	return clampf(float(GameSettings.get_value("card_speed")), 0.5, 2.0)

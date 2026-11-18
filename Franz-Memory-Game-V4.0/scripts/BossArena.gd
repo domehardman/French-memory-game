@@ -2628,7 +2628,7 @@ func finish_attack() -> void:
 	_arms_rest(0.6)
 
 func shake(strength: float, duration: float) -> void:
-	if camera == null:
+	if camera == null or not bool(GameSettings.get_value("screen_shake")):
 		return
 	var tween := create_tween()
 	var steps := 8

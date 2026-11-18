@@ -47,7 +47,7 @@ Die Kampagne hat 20 Level, 3 Zwischenbosse (nach Level 5, 10 und 15) und den End
 
 Alle Werte stehen im Block `boss` in `data/campaign.json` (`hp`, `attack_damage`, `attack_interval`, `rage_interval`, `windup_time`, `mismatch_damage`, `combo_bonus`, `attacks`, `rage_attacks` …). Mehrfach genannte Angriffe kommen öfter vor. Unter `look` stehen `model`, `model_scale`, `weapon`, `weapon_rot`, `arena`, `accent` und `music`.
 
-**Ablauf eines Angriffs:** Der Boss holt `windup_time` Sekunden aus, die Zielkarten werden rot markiert. **Ein Paar in dieser Zeit unterbricht den Angriff.** Danach fliegen die getroffenen Karten an neue Plätze.
+**Ablauf eines Angriffs:** Der Boss holt `windup_time` Sekunden aus, die Zielkarten werden rot markiert. **Ein Paar in dieser Zeit unterbricht den Angriff.** Getroffene Karten springen nur kurz auf und bleiben an ihrem Platz. Nur der letzte Boss vertauscht Karten: alle `shuffle_interval` Sekunden (60) tauschen `shuffle_cards` (4) markierte Karten die Plätze.
 
 **Balance-Test:** Ein Testspieler mit unvollständigem Gedächtnis (er merkt sich 65 % bzw. 45 % der Karten) hat jeden Boss je dreimal gespielt. Der gute Spieler schafft alle Bosse, der schwächere alle Zwischenbosse und den Endboss in 1 von 3 Versuchen. Der Endboss ist damit der stärkste.
 
@@ -77,7 +77,7 @@ Im Bossfight wird dieser Hintergrund automatisch entfernt.
 
 ## Musik
 
-`scripts/MusicPlayer.gd` spielt die Stücke aus `assets/music/` in Schleife und blendet beim Wechsel weich über: `menu` (Menü), `game` (freies Spiel und Kampagne) und je ein Thema pro Boss (`sonneur`, `veuve`, `prince`, `patre`, siehe `look.music`). Alle Stücke sind selbst komponiert und mit einem kleinen Synthesizer erzeugt (gezupfte Saiten, Glocken, Orgel, Streicher, Chor-Flächen, Trommeln, Hall). Die Lautstärke stellt man unter **Einstellungen → Musik** ein.
+`scripts/MusicPlayer.gd` spielt die Stücke aus `assets/music/` und blendet beim Wechsel weich über. Im Menü und auf der Kampagnen-Karte läuft `menu`. Im Spiel laufen Wiedergabelisten aus `data/music.json`: **10 Stücke pro Insel** (Café: Jazz und Musette, Jardin: Harfe und Flöte, Riviera: Bossa und Mittelmeer, Nuit: ruhig und traumhaft) und **3 Stücke pro Boss**. Im normalen Modus wird zufällig aus allen Insel-Stücken gewählt. Die Reihenfolge ist zufällig, kein Stück kommt wieder, bevor alle dran waren, und jedes läuft mindestens 75 Sekunden. Eigene Stücke trägt man einfach in `data/music.json` ein. Die Lautstärke stellt man unter **Einstellungen → Musik** ein.
 ## Einstellungen und Admin-Panel
 
 Die Einstellungen werden in `user://settings.json` gespeichert (`scripts/GameSettings.gd`). Dazu gehören Vollbild, Kartenschrift, Button-Animationen, wie lange falsche Karten offen bleiben, Paare pro Runde im freien Spiel, die Zeitanzeige, eine Nachfrage beim Beenden und die Lautstärke.
@@ -109,3 +109,7 @@ Die Menübilder (Play, Kampagne, Sets, Erfolge, Zurück, Set-Auswahl, Einstellun
 **Alle anderen Buttons** (Löschen, Kategorie, Weiter, Kampagnen-Level, Menü, Neustart usw.) sind ebenfalls Pixel-Buttons: ein Hintergrund aus `set_backgrounds` plus die Pixel-Schrift, Text immer 2× gross. Die Farbe hängt nur vom Text ab, gleicher Text ergibt also überall dieselbe Farbe („Menü“ oben im Spiel und im Endbildschirm sind beide blau). Heisst ein Button wie eines der Bilder, bekommt er dessen Farbe („Zurück“ grün, „Einstellungen“ blau, „Kampagne“ orange, „Sets“ pink). Eigene Farben legt man in `data/ui_style.json` unter `"text_colors": {"Löschen": "red"}` fest. Ganz kurze Texte („+“, „×“, „OK“) nehmen die quadratischen `square_*.png`. Mit `"pixel_buttons": false` kommen die alten Platzhalter-Buttons zurück.
 
 Bilder-Buttons: `set-auswahl.png` (SET-SCHNELLAUSWAHL) ist der Kopf der Seitenleiste, `set_auswahl.png` (SET-AUSWAHL) der Titel der Seite „Deine Sets“, `fortschrit weg.png` und `einstellungen zurück.png` sind die beiden Zurücksetzen-Buttons in den Einstellungen.
+
+## Sets aus Dateien importieren
+
+Mit **+** auf der Seite **Deine Sets** wählt man zwischen **Selbst eingeben** und **Datei importieren**. Es öffnet sich der Ordner, und man wählt eine oder mehrere `.csv`- oder `.json`-Dateien. `SetRepository.parse_import_file` prüft jede Datei vollständig: UTF-8, höchstens 500 KB, 2 bis 500 Wortpaare, höchstens 60 Zeichen pro Wort, in jeder Zeile Deutsch und Französisch. Ist etwas falsch, wird die ganze Datei abgelehnt und das Spiel nennt die Zeile mit dem Fehler. Die Seite **Anleitung und KI-Vorlage** zeigt Beispiele und einen Text, den man mit der eigenen Wörterliste einer KI geben kann.

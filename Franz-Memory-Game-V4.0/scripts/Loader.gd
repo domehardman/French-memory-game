@@ -15,7 +15,7 @@ const PLACES := {
 const TIPS := [
 	"Findest du ein Paar, während der Boss ausholt, unterbrichst du seinen Angriff.",
 	"Beobachte seine Augen: Sie leuchten auf, kurz bevor er zuschlägt.",
-	"Merke dir, wohin getroffene Karten fliegen. Sie bleiben verdeckt, aber nicht vergessen.",
+	"Der letzte Boss tauscht alle 60 Sekunden 4 Karten. Merk dir, wo die markierten Karten landen.",
 	"Paare hintereinander machen mehr Schaden. Eine Serie lohnt sich.",
 	"Karten unter Sporen oder Fluch: Ein Fehler tut weh, ein Paar damit trifft doppelt.",
 	"Ist sein Herz offen, zählt jedes Paar doppelt. Jetzt nicht zögern.",

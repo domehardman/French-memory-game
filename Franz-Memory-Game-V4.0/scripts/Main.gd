@@ -76,6 +76,9 @@ var player_bar: ProgressBar
 var player_hp_label: Label
 var message_label: Label
 var hit_flash: ColorRect
+var shuffle_interval := 0.0   # nur beim letzten Boss (campaign.json: shuffle_interval)
+var shuffle_timer := 0.0
+var boss_factor := 1.0        # Boss-Schwierigkeit aus den Einstellungen
 
 func _ready() -> void:
 	randomize()
@@ -121,8 +124,14 @@ func _ready() -> void:
 	_update_stats()
 	# Grafikqualität (Schatten, Nebel, Glühen) aus den Einstellungen anwenden
 	GameSettings.apply_graphics(self)
-	# Musik: normale Sets und Kampagne spielen "game", jeder Boss sein eigenes Thema
-	MusicPlayer.play(str(boss_cfg.get("look", {}).get("music", "game")) if is_boss else "game")
+	# Musik: Boss = seine 3 Stücke, Kampagne = Stücke der Insel, sonst zufällig von allen Inseln
+	# (die Auswahl in den Einstellungen kann das ändern)
+	if is_boss:
+		MusicPlayer.play_boss(str(boss_cfg.get("look", {}).get("music", "game")), campaign_index)
+	elif mode == "campaign":
+		MusicPlayer.play_campaign_level(campaign_index)
+	else:
+		MusicPlayer.play_all_worlds()
 
 func _process(delta: float) -> void:
 	if not timer_running or game_over:
@@ -132,6 +141,10 @@ func _process(delta: float) -> void:
 		elapsed = time_limit
 		_finish(false, "time")
 	if is_boss and not game_over:
+		if shuffle_interval > 0.0:
+			shuffle_timer -= delta
+			if shuffle_timer <= 0.0 and not attack_running:
+				_boss_shuffle()
 		if not attack_running:
 			attack_timer -= delta
 			if attack_timer <= 0.0:
@@ -254,16 +267,18 @@ func _generate_grid() -> void:
 		round_marker.text = UI.text("game_round_boss") % [round_number]
 	else:
 		round_marker.text = UI.text("game_round") % [round_number, round_count]
-	if GameSettings.reveal_cards:
-		_reveal_preview()
+	# Vorschau: Admin-Schalter oder Einstellung (nur im normalen Modus)
+	var preview := 2.0 if GameSettings.reveal_cards else (float(GameSettings.get_value("preview_seconds")) if mode == "free" else 0.0)
+	if preview > 0.0:
+		_reveal_preview(preview)
 
 # Admin: alle Karten kurz zeigen.
-func _reveal_preview() -> void:
+func _reveal_preview(seconds: float = 2.0) -> void:
 	can_click = false
 	await get_tree().process_frame
 	for card in cards:
 		card.flip_up()
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(seconds).timeout
 	if game_over or not is_inside_tree():
 		return
 	for card in cards:
@@ -386,7 +401,10 @@ func _setup_boss() -> void:
 	boss_hp = boss_max_hp
 	player_max_hp = maxi(1, int(boss_cfg.get("player_hp", 100)))
 	player_hp = player_max_hp
-	attack_timer = float(boss_cfg.get("first_attack", 12))
+	boss_factor = clampf(float(GameSettings.get_value("boss_difficulty")), 0.5, 1.5)
+	attack_timer = float(boss_cfg.get("first_attack", 12)) / boss_factor
+	shuffle_interval = float(boss_cfg.get("shuffle_interval", 0.0))
+	shuffle_timer = shuffle_interval
 	# Der Hintergrund der normalen Runden gehört nicht in die Boss-Arena
 	var normal_bg := get_node_or_null("Hintergrund")
 	if normal_bg != null:
@@ -483,7 +501,7 @@ func _damage_player(amount: int, message: String) -> void:
 		_finish(false, "defeated")
 
 # --- Boss-Angriffe -------------------------------------------------------------
-# Ablauf: Ausholen (Warnung auf den Zielkarten) -> Treffer -> Karten fliegen weg.
+# Ablauf: Ausholen (Warnung auf den Zielkarten) -> Treffer. Die Karten bleiben an ihrem Platz.
 # Wer während des Ausholens ein Paar findet, unterbricht den Angriff.
 
 func _boss_attack() -> void:
@@ -599,7 +617,7 @@ func _run_attack() -> void:
 		return
 	arena.strike()
 	SoundFX.play(STRIKE_SOUNDS.get(kind, "impact"))
-	var damage := int(boss_cfg.get("attack_damage", 6))
+	var damage := roundi(float(boss_cfg.get("attack_damage", 6)) * boss_factor)
 	match kind:
 		"orb":
 			for card in targets:
@@ -608,19 +626,19 @@ func _run_attack() -> void:
 				await arena.cast_orb(card.position + Vector3(0, -0.3, 0))
 				if game_over:
 					return
-				_swap_with_random(card)
+				_hit_card(card)
 			_damage_player(damage, UI.text("boss_hit_orb") % [boss_title, damage])
 		"slash":
 			await arena.slash_row(Vector3(0, row_y, row_z))
 			if game_over:
 				return
-			_scatter(targets.filter(func(c): return _still_hidden(c)))
+			_hit_cards(targets.filter(func(c): return _still_hidden(c)))
 			_damage_player(damage, UI.text("boss_hit_slash") % [boss_title, damage])
 		"slam":
 			await arena.slam()
 			if game_over:
 				return
-			_scatter(_hidden_cards())
+			_hit_cards(_hidden_cards())
 			var big := roundi(damage * 1.5)
 			_damage_player(big, UI.text("boss_hit_slam") % [boss_title, big])
 		"curse":
@@ -639,7 +657,7 @@ func _run_attack() -> void:
 			await arena.root_spikes(hit.map(func(c): return c.position + Vector3(0, -0.3, 0)))
 			if game_over:
 				return
-			_scatter(hit.filter(func(c): return _still_hidden(c)))
+			_hit_cards(hit.filter(func(c): return _still_hidden(c)))
 			_damage_player(damage, UI.text("boss_hit_roots") % [boss_title, damage])
 		"herd":
 			var runners := targets.filter(func(c): return _still_hidden(c))
@@ -648,7 +666,7 @@ func _run_attack() -> void:
 				return
 			for card in runners:
 				if _still_hidden(card):
-					_swap_with_random(card)
+					_hit_card(card)
 			_damage_player(damage, UI.text("boss_hit_herd") % [boss_title, damage])
 		"spores":
 			for card in targets:
@@ -660,7 +678,7 @@ func _run_attack() -> void:
 			await arena.stomp_wave()
 			if game_over:
 				return
-			_scatter(_hidden_cards())
+			_hit_cards(_hidden_cards())
 			var heavy := roundi(damage * 1.5)
 			_damage_player(heavy, UI.text("boss_hit_stomp") % [boss_title, heavy])
 		"root_self":
@@ -676,7 +694,7 @@ func _run_attack() -> void:
 					return
 				# Die Glocke wirft die Karte und ihre Nachbarn durcheinander
 				var near := _hidden_cards().filter(func(c): return c.position.distance_to(card.position) < card_spacing * 1.5)
-				_scatter(near)
+				_hit_cards(near)
 			_damage_player(damage, UI.text("boss_hit_bell") % [boss_title, damage])
 		"toll":
 			await arena.stomp_wave()
@@ -684,7 +702,7 @@ func _run_attack() -> void:
 				return
 			var shaken := _hidden_cards()
 			shaken.shuffle()
-			_scatter(shaken.slice(0, ceili(shaken.size() / 2.0)))
+			_hit_cards(shaken.slice(0, ceili(shaken.size() / 2.0)))
 			_damage_player(damage, UI.text("boss_hit_toll") % [boss_title, damage])
 		"blades":
 			for card in targets:
@@ -694,13 +712,13 @@ func _run_attack() -> void:
 				if game_over:
 					return
 				if _still_hidden(card):
-					_swap_with_random(card)
+					_hit_card(card)
 			_damage_player(damage, UI.text("boss_hit_blades") % [boss_title, damage])
 		"reap":
 			await arena.slash_row(Vector3(0, row_y, row_z))
 			if game_over:
 				return
-			_scatter(targets.filter(func(c): return _still_hidden(c)))
+			_hit_cards(targets.filter(func(c): return _still_hidden(c)))
 			_damage_player(damage, UI.text("boss_hit_reap") % [boss_title, damage])
 		"ash":
 			await _timed_state("ash", boss_title)
@@ -711,7 +729,7 @@ func _run_attack() -> void:
 			await arena.root_spikes(column.map(func(c): return c.position + Vector3(0, -0.3, 0)), true)
 			if game_over:
 				return
-			_scatter(column.filter(func(c): return _still_hidden(c)))
+			_hit_cards(column.filter(func(c): return _still_hidden(c)))
 			_damage_player(damage, UI.text("boss_hit_bone_spikes") % [boss_title, damage])
 		"skulls":
 			for card in targets:
@@ -721,7 +739,7 @@ func _run_attack() -> void:
 				if game_over:
 					return
 				if _still_hidden(card):
-					_swap_with_random(card)
+					_hit_card(card)
 			_damage_player(damage, UI.text("boss_hit_skulls") % [boss_title, damage])
 		"bone_armor":
 			await _timed_state("armor", boss_title)
@@ -769,7 +787,7 @@ func _root_self(boss_title: String) -> void:
 			if game_over:
 				return
 			if _still_hidden(victim):
-				_swap_with_random(victim)
+				_hit_card(victim)
 	heart_open = false
 	arena.set_rooted(false)
 	_show_message(UI.text("boss_root_end") % [boss_title], Color(1, 0.75, 0.4))
@@ -778,41 +796,76 @@ func _end_attack() -> void:
 	if arena != null:
 		arena.finish_attack()
 	attack_running = false
-	attack_timer = float(boss_cfg.get("rage_interval" if raging else "attack_interval", 25))
+	attack_timer = float(boss_cfg.get("rage_interval" if raging else "attack_interval", 25)) / boss_factor
 
 func _still_hidden(card: Card) -> bool:
 	return is_instance_valid(card) and cards.has(card) and not card.is_matched and not card.is_flipped and card != first_card and card != second_card
 
-# Getroffene Karte tauscht den Platz mit einer anderen verdeckten Karte.
-func _swap_with_random(card: Card) -> void:
-	var others := _hidden_cards().filter(func(c): return c != card)
-	if others.is_empty():
+# Getroffene Karte springt kurz auf und bleibt an ihrem Platz.
+func _hit_card(card: Card) -> void:
+	if not is_instance_valid(card) or card.has_meta("jolting") or card.has_meta("hopping"):
 		return
-	var other: Card = others.pick_random()
-	var a := card.position
-	_hop_card(card, other.position)
-	_hop_card(other, a)
+	card.set_meta("jolting", true)
+	var base := card.position
+	var spin := randf_range(-10.0, 10.0)
+	var tween := card.create_tween()
+	tween.tween_method(func(t: float):
+		if is_instance_valid(card):
+			card.position = base + Vector3(0, sin(t * PI) * 0.34, 0)
+			card.spin_deg = sin(t * TAU) * spin
+	, 0.0, 1.0, 0.34).set_trans(Tween.TRANS_SINE)
+	tween.tween_callback(func():
+		if is_instance_valid(card):
+			card.position = base
+			card.spin_deg = 0.0
+			card.remove_meta("jolting")
+	)
 
-# Mehrere Karten werden untereinander durcheinandergewirbelt.
-func _scatter(list: Array) -> void:
-	if list.size() < 2:
-		var all := _hidden_cards()
-		if list.size() == 1 and all.size() > 1:
-			_swap_with_random(list[0])
-		return
-	var positions: Array[Vector3] = []
+func _hit_cards(list: Array) -> void:
 	for card in list:
-		positions.append(card.position)
-	var shuffled := positions.duplicate()
-	for attempt in range(5):
-		shuffled.shuffle()
-		if shuffled != positions:
-			break
-	for i in range(list.size()):
-		_hop_card(list[i], shuffled[i])
+		_hit_card(card)
+
+# Nur der letzte Boss: alle "shuffle_interval" Sekunden tauschen "shuffle_cards" verdeckte
+# Karten die Plätze. Sie werden vorher kurz markiert, damit man sich vorbereiten kann.
+func _boss_shuffle() -> void:
+	var hidden := _hidden_cards().filter(func(c): return not c.has_meta("jolting"))
+	if hidden.size() < 2:
+		shuffle_timer = 5.0
+		return
+	attack_running = true
+	shuffle_timer = shuffle_interval
+	hidden.shuffle()
+	var picked: Array = hidden.slice(0, mini(int(boss_cfg.get("shuffle_cards", 4)), hidden.size()))
+	var boss_title := str(level_data.get("name", ""))
+	arena.windup("spores")
+	SoundFX.play("windup", -6.0, 0.02)
+	for card in picked:
+		arena.add_warning(card)
+	_show_message(UI.text("boss_shuffle_warning") % [boss_title, picked.size()], Color(1, 0.75, 0.4))
+	await get_tree().create_timer(1.4).timeout
+	if game_over or not is_inside_tree():
+		return
+	arena.clear_warnings()
+	var still := picked.filter(func(c): return _still_hidden(c))
+	if still.size() >= 2:
+		var spots: Array[Vector3] = []
+		for card in still:
+			spots.append(card.position)
+		for i in range(still.size()):
+			_hop_card(still[i], spots[(i + 1) % spots.size()])
+		SoundFX.play("roots", -3.0)
+		arena.shake(0.2, 0.3)
+		_show_message(UI.text("boss_shuffle_done") % [boss_title, still.size()], Color(0.75, 1.0, 0.45))
+	await get_tree().create_timer(0.7).timeout
+	if game_over or not is_inside_tree():
+		return
+	arena.finish_attack()
+	attack_running = false
+	attack_timer = maxf(attack_timer, 2.0)
 
 # Karte fliegt im Bogen an eine neue Stelle (dreht sich dabei, bleibt verdeckt).
 func _hop_card(card: Card, to: Vector3) -> void:
+	card.set_meta("hopping", true)
 	var from := card.position
 	var height := randf_range(1.2, 2.0)
 	var spin := randf_range(-25.0, 25.0)
@@ -830,6 +883,7 @@ func _hop_card(card: Card, to: Vector3) -> void:
 			card.position = to
 			card.spin_deg = 0.0
 			card.tilt_deg = tilt_to
+			card.remove_meta("hopping")
 	)
 
 func _update_boss_ui() -> void:
@@ -943,6 +997,8 @@ func _flash(control: Control, tint: Color) -> void:
 	tween.tween_property(control, "modulate", Color.WHITE, 0.25)
 
 func _hit_flash() -> void:
+	if not bool(GameSettings.get_value("hit_flash")):
+		return
 	var tween := hit_flash.create_tween()
 	tween.tween_property(hit_flash, "color:a", 0.28, 0.06)
 	tween.tween_property(hit_flash, "color:a", 0.0, 0.35)

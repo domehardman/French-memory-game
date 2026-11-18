@@ -22,7 +22,24 @@ const DEFAULTS := {
 	"fps_limit": 60,         # 0 = unbegrenzt
 	"vsync": true,
 	"show_fps": false,
-	"room": 0                # Raum im normalen Spiel: 0 = automatisch, 1 = Café, 2 = Nuit, 3 = Jardin, 4 = Riviera
+	"room": 0,               # Raum im normalen Spiel: 0 = automatisch, 1 = Café, 2 = Nuit, 3 = Jardin, 4 = Riviera
+	"window_size": 0,        # 0 = nicht ändern, sonst Breite (1280, 1600, 1920) im Fenstermodus
+	"preview_seconds": 0.0,  # Karten am Rundenstart zeigen (nur normaler Modus)
+	"card_speed": 1.0,       # Tempo beim Umdrehen
+	"boss_difficulty": 1.0,  # 0.75 = leichter, 1 = normal, 1.25 = schwerer
+	"screen_shake": true,
+	"hit_flash": true,
+	"music_mode": "auto",    # auto, style, single, off
+	"music_style": "cafe",   # Insel bei music_mode = style
+	"music_track": "res://assets/music/cafe.wav",
+	"music_change": 75,      # Sekunden pro Lied, 0 = nicht von selbst wechseln
+	"boss_music": "own",     # own, game, off
+	"menu_music": "menu",    # menu, cafe, promenade, valse, off
+	"sfx_ui": 100,
+	"sfx_cards": 100,
+	"sfx_boss": 100,
+	"sfx_variation": true,
+	"mute_unfocused": false
 }
 
 var save_path := SAVE_PATH
@@ -33,6 +50,7 @@ var admin_unlocked := false
 var god_mode := false
 var reveal_cards := false
 var one_hit_boss := false
+var window_focused := true
 
 func _ready() -> void:
 	load_settings()
@@ -82,13 +100,33 @@ func apply() -> void:
 		var wanted := DisplayServer.WINDOW_MODE_FULLSCREEN if bool(get_value("fullscreen")) else DisplayServer.WINDOW_MODE_WINDOWED
 		if DisplayServer.window_get_mode() != wanted:
 			DisplayServer.window_set_mode(wanted)
+		_apply_window_size()
 	var volume := clampf(float(get_value("master_volume")) / 100.0, 0.0, 1.0)
 	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(volume, 0.0001)))
-	AudioServer.set_bus_mute(0, volume <= 0.0)
+	AudioServer.set_bus_mute(0, volume <= 0.0 or (bool(get_value("mute_unfocused")) and not window_focused))
 	var music := get_node_or_null("/root/MusicPlayer")
 	if music != null:
 		music.apply_volume()
 	_apply_performance()
+
+# Fenstergrösse (nur wenn das Spiel nicht im Vollbild läuft)
+func _apply_window_size() -> void:
+	var width := int(get_value("window_size"))
+	if width <= 0 or bool(get_value("fullscreen")):
+		return
+	var wanted := Vector2i(width, roundi(width * 9.0 / 16.0))
+	if DisplayServer.window_get_size() != wanted:
+		DisplayServer.window_set_size(wanted)
+		var screen := DisplayServer.screen_get_position() + (DisplayServer.screen_get_size() - wanted) / 2
+		DisplayServer.window_set_position(screen)
+
+# Ton aus, wenn das Spiel nicht im Vordergrund ist (Einstellung)
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		window_focused = what == NOTIFICATION_APPLICATION_FOCUS_IN
+		if not values.is_empty():
+			var volume := clampf(float(get_value("master_volume")) / 100.0, 0.0, 1.0)
+			AudioServer.set_bus_mute(0, volume <= 0.0 or (bool(get_value("mute_unfocused")) and not window_focused))
 
 func check_admin_code(code: String) -> bool:
 	if code.strip_edges().sha256_text() == ADMIN_HASH:

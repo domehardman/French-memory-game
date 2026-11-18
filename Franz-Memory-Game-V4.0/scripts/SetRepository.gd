@@ -313,3 +313,247 @@ func set_category(path: String, category: String) -> Dictionary:
 		list.append(clean)
 		_write_categories(list)
 	return {"category": clean}
+
+# --- Sets aus Dateien importieren (CSV oder JSON) --------------------------------------
+# Erlaubt sind nur Dateien, die vollständig stimmen. Sonst wird die ganze Datei abgelehnt
+# und parse_import_file gibt in "errors" genau an, was nicht passt.
+
+const IMPORT_MAX_BYTES := 512000
+const IMPORT_MIN_PAIRS := 2
+const IMPORT_MAX_PAIRS := 500
+const IMPORT_MAX_TEXT := 60
+const HEADER_DE := ["de", "deutsch", "german", "allemand"]
+const HEADER_FR := ["fr", "franzosisch", "französisch", "franzoesisch", "francais", "français", "french"]
+
+func _import_fail(file_name: String, errors: Array) -> Dictionary:
+	return {"ok": false, "file": file_name, "errors": errors}
+
+# Datei lesen und prüfen. Ergebnis: ok, file, name, category, entries, notes oder errors
+func parse_import_file(path: String) -> Dictionary:
+	var file_name := path.get_file()
+	var extension := path.get_extension().to_lower()
+	if extension != "csv" and extension != "json":
+		return _import_fail(file_name, ["Falsches Dateiformat. Erlaubt sind nur .csv und .json."])
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return _import_fail(file_name, ["Die Datei konnte nicht geöffnet werden."])
+	var size := file.get_length()
+	if size == 0:
+		return _import_fail(file_name, ["Die Datei ist leer."])
+	if size > IMPORT_MAX_BYTES:
+		return _import_fail(file_name, ["Die Datei ist zu gross (höchstens 500 KB)."])
+	var bytes := file.get_buffer(size)
+	file.close()
+	if bytes.size() >= 2 and ((bytes[0] == 0xFF and bytes[1] == 0xFE) or (bytes[0] == 0xFE and bytes[1] == 0xFF)):
+		return _import_fail(file_name, ["Die Datei ist nicht in UTF-8 gespeichert. Speichere sie als „CSV UTF-8“ oder „UTF-8“."])
+	if bytes.size() >= 3 and bytes[0] == 0xEF and bytes[1] == 0xBB and bytes[2] == 0xBF:
+		bytes = bytes.slice(3)
+	if bytes.has(0):
+		return _import_fail(file_name, ["Das ist keine Textdatei."])
+	var text := bytes.get_string_from_utf8()
+	if text.to_utf8_buffer() != bytes:
+		return _import_fail(file_name, ["Die Datei ist nicht in UTF-8 gespeichert, Umlaute und Akzente wären kaputt. Speichere sie als „CSV UTF-8“ oder „UTF-8“."])
+	var parsed := _parse_csv_set(text) if extension == "csv" else _parse_json_set(text)
+	if parsed.has("errors"):
+		return _import_fail(file_name, parsed["errors"])
+	var name := str(parsed.get("name", "")).strip_edges()
+	if name.is_empty():
+		name = path.get_file().get_basename().replace("_", " ").strip_edges()
+	return _check_pairs(file_name, name.left(40), str(parsed.get("category", "")).strip_edges().left(40), parsed["pairs"], parsed.get("notes", []))
+
+# Gemeinsame Prüfung. pairs: Liste aus {where, de, fr}
+func _check_pairs(file_name: String, name: String, category: String, pairs: Array, notes: Array) -> Dictionary:
+	var errors: Array = []
+	var seen := {}
+	var entries: Array[Dictionary] = []
+	var duplicates := 0
+	for pair in pairs:
+		var where := str(pair["where"])
+		var de := str(pair["de"]).strip_edges()
+		var fr := str(pair["fr"]).strip_edges()
+		if de.is_empty() and fr.is_empty():
+			errors.append(where + ": Deutsch und Französisch fehlen.")
+		elif de.is_empty():
+			errors.append(where + ": Deutsch fehlt.")
+		elif fr.is_empty():
+			errors.append(where + ": Französisch fehlt.")
+		elif de.length() > IMPORT_MAX_TEXT or fr.length() > IMPORT_MAX_TEXT:
+			errors.append(where + ": Text ist zu lang (höchstens %d Zeichen)." % IMPORT_MAX_TEXT)
+		else:
+			var key := de.to_lower() + "\n" + fr.to_lower()
+			if seen.has(key):
+				duplicates += 1
+			else:
+				seen[key] = true
+				entries.append({"de": de, "fr": fr})
+	if not errors.is_empty():
+		return _import_fail(file_name, errors)
+	if entries.size() < IMPORT_MIN_PAIRS:
+		return _import_fail(file_name, ["Zu wenige Wortpaare: Es braucht mindestens %d, gefunden: %d." % [IMPORT_MIN_PAIRS, entries.size()]])
+	if entries.size() > IMPORT_MAX_PAIRS:
+		return _import_fail(file_name, ["Zu viele Wortpaare: höchstens %d, gefunden: %d." % [IMPORT_MAX_PAIRS, entries.size()]])
+	var all_notes := notes.duplicate()
+	if duplicates > 0:
+		all_notes.append("1 doppeltes Wortpaar wurde übersprungen." if duplicates == 1 else "%d doppelte Wortpaare wurden übersprungen." % duplicates)
+	return {"ok": true, "file": file_name, "name": name, "category": category, "entries": entries, "notes": all_notes}
+
+func _parse_json_set(text: String) -> Dictionary:
+	var json := JSON.new()
+	if json.parse(text) != OK:
+		return {"errors": ["Kein gültiges JSON (Zeile %d): %s" % [json.get_error_line(), json.get_error_message()]]}
+	var data = json.data
+	var name := ""
+	var category := ""
+	if data is Dictionary:
+		if not data.has("entries"):
+			return {"errors": ["Im JSON fehlt die Liste „entries“ mit den Wortpaaren."]}
+		name = str(data.get("name", ""))
+		category = str(data.get("category", ""))
+		data = data["entries"]
+	if not data is Array:
+		return {"errors": ["„entries“ muss eine Liste von Wortpaaren sein."]}
+	var pairs: Array = []
+	var errors: Array = []
+	var notes: Array = []
+	for i in range(data.size()):
+		var entry = data[i]
+		var where := "Eintrag %d" % [i + 1]
+		if not entry is Dictionary:
+			errors.append(where + ": muss so aussehen: {\"de\": \"…\", \"fr\": \"…\"}.")
+		elif not entry.has("de") or not entry.has("fr"):
+			errors.append(where + ": „de“ oder „fr“ fehlt.")
+		elif not entry["de"] is String or not entry["fr"] is String:
+			errors.append(where + ": „de“ und „fr“ müssen Text sein.")
+		else:
+			pairs.append({"where": where, "de": entry["de"], "fr": entry["fr"]})
+			if entry.has("image") and notes.is_empty():
+				notes.append("Bilder aus der Datei werden nicht übernommen.")
+	if not errors.is_empty():
+		return {"errors": errors}
+	return {"name": name, "category": category, "pairs": pairs, "notes": notes}
+
+# CSV in Zeilen zerlegen: Anführungszeichen schützen Trennzeichen, "" ist ein echtes "
+func _csv_rows(text: String, delimiter: String) -> Dictionary:
+	var rows: Array = []
+	var cells: Array = []
+	var cell := ""
+	var quoted := false
+	var line := 1
+	var row_line := 1
+	var i := 0
+	while i < text.length():
+		var c := text[i]
+		if quoted:
+			if c == "\"":
+				if i + 1 < text.length() and text[i + 1] == "\"":
+					cell += "\""
+					i += 1
+				else:
+					quoted = false
+			else:
+				if c == "\n":
+					line += 1
+				cell += c
+		elif c == "\"" and cell.strip_edges().is_empty():
+			cell = ""
+			quoted = true
+		elif c == delimiter:
+			cells.append(cell)
+			cell = ""
+		elif c == "\n" or c == "\r":
+			if c == "\r" and i + 1 < text.length() and text[i + 1] == "\n":
+				i += 1
+			cells.append(cell)
+			rows.append({"line": row_line, "cells": cells})
+			cells = []
+			cell = ""
+			line += 1
+			row_line = line
+		else:
+			cell += c
+		i += 1
+	if quoted:
+		return {"error": "Zeile %d: Ein Anführungszeichen wird nicht geschlossen." % row_line}
+	if not cell.is_empty() or not cells.is_empty():
+		cells.append(cell)
+		rows.append({"line": row_line, "cells": cells})
+	return {"rows": rows}
+
+func _csv_delimiter(text: String) -> String:
+	for raw in text.split("\n"):
+		var line := raw.strip_edges()
+		if line.is_empty():
+			continue
+		if line.to_lower().begins_with("sep=") and line.length() >= 5:
+			return line[4]
+		var best := ";"
+		var most := 0
+		for d in [";", ",", "\t"]:
+			var count := line.count(d)
+			if count > most:
+				most = count
+				best = d
+		return best
+	return ";"
+
+func _parse_csv_set(text: String) -> Dictionary:
+	var delimiter := _csv_delimiter(text)
+	var split := _csv_rows(text, delimiter)
+	if split.has("error"):
+		return {"errors": [split["error"]]}
+	var rows: Array = []
+	for row in split["rows"]:
+		var joined := "".join(PackedStringArray(row["cells"])).strip_edges()
+		if joined.is_empty() or str(row["cells"][0]).strip_edges().to_lower().begins_with("sep="):
+			continue
+		rows.append(row)
+	if rows.is_empty():
+		return {"errors": ["In der Datei stehen keine Wortpaare."]}
+	var de_column := 0
+	var fr_column := 1
+	var first: Array = rows[0]["cells"]
+	if first.size() == 2:
+		var a := str(first[0]).strip_edges().to_lower()
+		var b := str(first[1]).strip_edges().to_lower()
+		if HEADER_DE.has(a) and HEADER_FR.has(b):
+			rows.remove_at(0)
+		elif HEADER_FR.has(a) and HEADER_DE.has(b):
+			de_column = 1
+			fr_column = 0
+			rows.remove_at(0)
+	var pairs: Array = []
+	var errors: Array = []
+	for row in rows:
+		var where := "Zeile %d" % int(row["line"])
+		var cells: Array = row["cells"]
+		if cells.size() != 2:
+			errors.append(where + ": %d %s statt 2. Enthält ein Wort das Trennzeichen, setze es in Anführungszeichen." % [cells.size(), "Spalte" if cells.size() == 1 else "Spalten"])
+		else:
+			pairs.append({"where": where, "de": cells[de_column], "fr": cells[fr_column]})
+	if not errors.is_empty():
+		return {"errors": errors}
+	return {"pairs": pairs}
+
+func _unique_set_name(name: String) -> String:
+	var used := {}
+	for item in list_sets():
+		used[str(item["name"]).to_lower()] = true
+	if not used.has(name.to_lower()):
+		return name
+	var number := 2
+	while used.has(("%s (%d)" % [name, number]).to_lower()):
+		number += 1
+	return "%s (%d)" % [name, number]
+
+# Datei prüfen und als eigenes Set speichern. category: leer = die aus der Datei
+func import_file(path: String, category: String = "") -> Dictionary:
+	var parsed := parse_import_file(path)
+	if not parsed["ok"]:
+		return parsed
+	var name := _unique_set_name(str(parsed["name"]))
+	var entries: Array[Dictionary] = parsed["entries"]
+	var target := category.strip_edges() if not category.strip_edges().is_empty() else str(parsed["category"])
+	var saved := save_set(name, entries, target)
+	if saved.has("error"):
+		return _import_fail(str(parsed["file"]), [str(saved["error"])])
+	return {"ok": true, "file": parsed["file"], "name": name, "path": saved["path"], "count": entries.size(), "notes": parsed["notes"]}

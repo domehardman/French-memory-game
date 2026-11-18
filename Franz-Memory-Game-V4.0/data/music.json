@@ -1,0 +1,116 @@
+{
+  "worlds": {
+    "cafe": [
+      "res://assets/music/cafe.wav",
+      "res://assets/music/valse.wav",
+      "res://assets/music/inseln/cafe_01.wav",
+      "res://assets/music/inseln/cafe_02.wav",
+      "res://assets/music/inseln/cafe_03.wav",
+      "res://assets/music/inseln/cafe_04.wav",
+      "res://assets/music/inseln/cafe_05.wav",
+      "res://assets/music/inseln/cafe_06.wav",
+      "res://assets/music/inseln/cafe_07.wav",
+      "res://assets/music/inseln/cafe_08.wav"
+    ],
+    "jardin": [
+      "res://assets/music/game.wav",
+      "res://assets/music/promenade.wav",
+      "res://assets/music/inseln/jardin_01.wav",
+      "res://assets/music/inseln/jardin_02.wav",
+      "res://assets/music/inseln/jardin_03.wav",
+      "res://assets/music/inseln/jardin_04.wav",
+      "res://assets/music/inseln/jardin_05.wav",
+      "res://assets/music/inseln/jardin_06.wav",
+      "res://assets/music/inseln/jardin_07.wav",
+      "res://assets/music/inseln/jardin_08.wav"
+    ],
+    "riviera": [
+      "res://assets/music/inseln/riviera_01.wav",
+      "res://assets/music/inseln/riviera_02.wav",
+      "res://assets/music/inseln/riviera_03.wav",
+      "res://assets/music/inseln/riviera_04.wav",
+      "res://assets/music/inseln/riviera_05.wav",
+      "res://assets/music/inseln/riviera_06.wav",
+      "res://assets/music/inseln/riviera_07.wav",
+      "res://assets/music/inseln/riviera_08.wav",
+      "res://assets/music/inseln/riviera_09.wav",
+      "res://assets/music/inseln/riviera_10.wav"
+    ],
+    "nuit": [
+      "res://assets/music/inseln/nuit_01.wav",
+      "res://assets/music/inseln/nuit_02.wav",
+      "res://assets/music/inseln/nuit_03.wav",
+      "res://assets/music/inseln/nuit_04.wav",
+      "res://assets/music/inseln/nuit_05.wav",
+      "res://assets/music/inseln/nuit_06.wav",
+      "res://assets/music/inseln/nuit_07.wav",
+      "res://assets/music/inseln/nuit_08.wav",
+      "res://assets/music/inseln/nuit_09.wav",
+      "res://assets/music/inseln/nuit_10.wav"
+    ]
+  },
+  "bosses": {
+    "sonneur": [
+      "res://assets/music/sonneur.wav",
+      "res://assets/music/boss/sonneur_2.wav",
+      "res://assets/music/boss/sonneur_3.wav"
+    ],
+    "veuve": [
+      "res://assets/music/veuve.wav",
+      "res://assets/music/boss/veuve_2.wav",
+      "res://assets/music/boss/veuve_3.wav"
+    ],
+    "prince": [
+      "res://assets/music/prince.wav",
+      "res://assets/music/boss/prince_2.wav",
+      "res://assets/music/boss/prince_3.wav"
+    ],
+    "patre": [
+      "res://assets/music/patre.wav",
+      "res://assets/music/boss/patre_2.wav",
+      "res://assets/music/boss/patre_3.wav"
+    ]
+  },
+  "titles": {
+    "res://assets/music/cafe.wav": "Café Crème",
+    "res://assets/music/valse.wav": "Valse de Montmartre",
+    "res://assets/music/inseln/cafe_01.wav": "Swing du Matin",
+    "res://assets/music/inseln/cafe_02.wav": "Terrasse sous la Pluie",
+    "res://assets/music/inseln/cafe_03.wav": "Manouche Rapide",
+    "res://assets/music/inseln/cafe_04.wav": "Bal Musette",
+    "res://assets/music/inseln/cafe_05.wav": "Vibraphone au Comptoir",
+    "res://assets/music/inseln/cafe_06.wav": "Rue Sombre",
+    "res://assets/music/inseln/cafe_07.wav": "Dernier Verre",
+    "res://assets/music/inseln/cafe_08.wav": "Minuit au Zinc",
+    "res://assets/music/game.wav": "Premier Pas",
+    "res://assets/music/promenade.wav": "Promenade",
+    "res://assets/music/inseln/jardin_01.wav": "Rosée du Matin",
+    "res://assets/music/inseln/jardin_02.wav": "Les Petits Pas",
+    "res://assets/music/inseln/jardin_03.wav": "Gigue des Papillons",
+    "res://assets/music/inseln/jardin_04.wav": "Cantique des Fleurs",
+    "res://assets/music/inseln/jardin_05.wav": "La Prairie",
+    "res://assets/music/inseln/jardin_06.wav": "Harpe au Verger",
+    "res://assets/music/inseln/jardin_07.wav": "Le Merle Moqueur",
+    "res://assets/music/inseln/jardin_08.wav": "Serre Enchantée",
+    "res://assets/music/inseln/riviera_01.wav": "Brise de Nice",
+    "res://assets/music/inseln/riviera_02.wav": "Calypso du Port",
+    "res://assets/music/inseln/riviera_03.wav": "Tarentelle",
+    "res://assets/music/inseln/riviera_04.wav": "Boléro de Cadix",
+    "res://assets/music/inseln/riviera_05.wav": "Coucher de Soleil",
+    "res://assets/music/inseln/riviera_06.wav": "Bossa Bleue",
+    "res://assets/music/inseln/riviera_07.wav": "Plage en Fête",
+    "res://assets/music/inseln/riviera_08.wav": "Danse des Pêcheurs",
+    "res://assets/music/inseln/riviera_09.wav": "Sérénade au Balcon",
+    "res://assets/music/inseln/riviera_10.wav": "Horizon Doré",
+    "res://assets/music/inseln/nuit_01.wav": "Rêve Bleu",
+    "res://assets/music/inseln/nuit_02.wav": "Nocturne",
+    "res://assets/music/inseln/nuit_03.wav": "Lune Lo-Fi",
+    "res://assets/music/inseln/nuit_04.wav": "Néon",
+    "res://assets/music/inseln/nuit_05.wav": "Poussière d'Étoiles",
+    "res://assets/music/inseln/nuit_06.wav": "Minuit Swing",
+    "res://assets/music/inseln/nuit_07.wav": "Brume",
+    "res://assets/music/inseln/nuit_08.wav": "Insomnie Douce",
+    "res://assets/music/inseln/nuit_09.wav": "Ville Électrique",
+    "res://assets/music/inseln/nuit_10.wav": "Valse de la Lune"
+  }
+}

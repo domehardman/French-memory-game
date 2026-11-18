@@ -53,7 +53,7 @@ var right_button: Button
 
 func _ready() -> void:
 	get_viewport().physics_object_picking = true
-	MusicPlayer.play("menu")
+	MusicPlayer.play_menu()
 	_load_worlds()
 	_build_scene()
 	for w in range(worlds.size()):

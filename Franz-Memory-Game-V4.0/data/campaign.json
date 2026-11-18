@@ -43,7 +43,7 @@
         "id": "mb1",
         "type": "boss",
         "name": "Le Sonneur",
-        "description": "Zwischenboss im Glockenturm. Taub und langsam: Er holt lange aus, aber seine Glocken werfen Karten weit durcheinander.",
+        "description": "Zwischenboss im Glockenturm. Taub und langsam: Er holt lange aus, aber seine Glocken treffen hart.",
         "sets": [
             "res://data/sets/familie.json",
             "res://data/sets/farben_kleidung.json",
@@ -479,7 +479,9 @@
                 }
             },
             "root_lash_every": 1.6,
-            "root_duration": 7
+            "root_duration": 7,
+            "shuffle_interval": 60,
+            "shuffle_cards": 4
         },
         "final": true
     }

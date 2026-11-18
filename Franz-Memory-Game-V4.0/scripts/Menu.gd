@@ -13,6 +13,7 @@ var sets_toggle: Button
 var level_label: Label
 var level_bar: ProgressBar
 var current_page := "home"
+var music_preview := false     # läuft gerade "Probe hören" in den Einstellungen?
 
 # Bewegter Hintergrund: schräge Reihen mit französischen Wörtern aus den Sets wandern
 # langsam (abwechselnd nach links und rechts), kleine Karten schweben hoch
@@ -37,7 +38,7 @@ const ALL_SETS_KEY := "__all__"
 const CAMPAIGN_FOLDER_KEY := "__campaign__"
 
 func _ready() -> void:
-	MusicPlayer.play("menu")
+	MusicPlayer.play_menu()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_reload_sets()
 	_build_menu()
@@ -310,6 +311,7 @@ func _select_set(path: String) -> void:
 		_show_sets()
 
 func _show_home() -> void:
+	_stop_preview()
 	current_page = "home"
 	_clear(content)
 	# Logo gross oben (Bild in data/ui_style.json unter "logo")
@@ -618,6 +620,9 @@ func _show_settings() -> void:
 
 	rows.add_child(_section(UI.text("settings_display")))
 	_setting_toggle(rows, "fullscreen", "setting_fullscreen")
+	_setting_option(rows, "window_size", "setting_window_size", [
+		[UI.text("setting_window_keep"), 0], ["1280 × 720", 1280], ["1600 × 900", 1600], ["1920 × 1080", 1920]
+	])
 	_setting_option(rows, "card_text_scale", "setting_card_text", [
 		[UI.text("setting_card_text_small"), 0.8],
 		[UI.text("setting_card_text_normal"), 1.0],
@@ -651,13 +656,32 @@ func _show_settings() -> void:
 	rows.add_child(_section(UI.text("settings_gameplay")))
 	_setting_slider(rows, "mismatch_delay", "setting_mismatch_delay", 0.3, 2.0, 0.1)
 	_setting_slider(rows, "pairs_per_round", "setting_pairs_per_round", 4, 12, 1)
+	_setting_option(rows, "preview_seconds", "setting_preview", [
+		[UI.text("setting_off"), 0.0], ["1 s", 1.0], ["2 s", 2.0], ["3 s", 3.0], ["5 s", 5.0]
+	])
+	_setting_option(rows, "card_speed", "setting_card_speed", [
+		[UI.text("setting_slow"), 0.7], [UI.text("setting_card_text_normal"), 1.0], [UI.text("setting_fast"), 1.5]
+	])
 	_setting_toggle(rows, "show_timer", "setting_show_timer")
 	_setting_toggle(rows, "confirm_quit", "setting_confirm_quit")
 
+	rows.add_child(_section(UI.text("settings_boss")))
+	_setting_option(rows, "boss_difficulty", "setting_boss_difficulty", [
+		[UI.text("setting_easy"), 0.75], [UI.text("setting_card_text_normal"), 1.0], [UI.text("setting_hard"), 1.25]
+	])
+	_setting_toggle(rows, "screen_shake", "setting_screen_shake")
+	_setting_toggle(rows, "hit_flash", "setting_hit_flash")
+
+	_add_music_settings(rows)
+
 	rows.add_child(_section(UI.text("settings_sound")))
 	_setting_slider(rows, "master_volume", "setting_volume", 0, 100, 5)
-	_setting_slider(rows, "music_volume", "setting_music", 0, 100, 5)
 	_setting_slider(rows, "sfx_volume", "setting_sfx", 0, 100, 5)
+	_setting_slider(rows, "sfx_ui", "setting_sfx_ui", 0, 100, 5)
+	_setting_slider(rows, "sfx_cards", "setting_sfx_cards", 0, 100, 5)
+	_setting_slider(rows, "sfx_boss", "setting_sfx_boss", 0, 100, 5)
+	_setting_toggle(rows, "sfx_variation", "setting_sfx_variation")
+	_setting_toggle(rows, "mute_unfocused", "setting_mute_unfocused")
 
 	rows.add_child(_section(UI.text("settings")))
 	if SetRepository.has_hidden_sets():
@@ -761,21 +785,88 @@ func _setting_slider(parent: Control, key: String, label_key: String, min_value:
 			GameSettings.set_value(key, snappedf(value, step))
 	)
 
-func _setting_option(parent: Control, key: String, label_key: String, choices: Array) -> void:
+func _setting_option(parent: Control, key: String, label_key: String, choices: Array, on_change: Callable = Callable(), width: int = 140) -> Control:
 	var line := HBoxContainer.new()
 	parent.add_child(line)
 	var label := UI.label(UI.text(label_key), 17)
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	line.add_child(label)
 	var option := OptionButton.new()
-	option.custom_minimum_size.x = 140
-	var current := float(GameSettings.get_value(key))
+	option.custom_minimum_size.x = width
+	option.clip_text = true
+	var current = GameSettings.get_value(key)
 	for i in range(choices.size()):
 		option.add_item(str(choices[i][0]), i)
-		if is_equal_approx(float(choices[i][1]), current):
+		var value = choices[i][1]
+		var same: bool = str(value) == str(current) if value is String else is_equal_approx(float(value), float(current))
+		if same:
 			option.select(i)
 	line.add_child(option)
-	option.item_selected.connect(func(index: int): GameSettings.set_value(key, choices[index][1]))
+	option.item_selected.connect(func(index: int):
+		GameSettings.set_value(key, choices[index][1])
+		if on_change.is_valid():
+			on_change.call()
+	)
+	return line
+
+# --- Musik-Einstellungen ------------------------------------------------------------
+
+const MUSIC_ROOMS := [["cafe", "Le Café"], ["jardin", "Le Jardin"], ["riviera", "La Riviera"], ["nuit", "La Nuit"]]
+
+func _stop_preview() -> void:
+	if music_preview:
+		music_preview = false
+		MusicPlayer.play_menu()
+
+func _add_music_settings(rows: Control) -> void:
+	rows.add_child(_section(UI.text("settings_music")))
+	_setting_slider(rows, "music_volume", "setting_music", 0, 100, 5)
+	var parts := {}
+	var preview_again := func():
+		if music_preview:
+			MusicPlayer.preview_game_music()
+	var mode_changed := func():
+		var mode := str(GameSettings.get_value("music_mode"))
+		parts["style"].visible = mode == "style"
+		parts["track"].visible = mode == "single"
+		parts["change"].visible = mode == "auto" or mode == "style"
+		preview_again.call()
+	_setting_option(rows, "music_mode", "setting_music_mode", [
+		[UI.text("music_mode_auto"), "auto"], [UI.text("music_mode_style"), "style"],
+		[UI.text("music_mode_single"), "single"], [UI.text("setting_off"), "off"]
+	], mode_changed, 200)
+	var styles: Array = []
+	var tracks: Array = []
+	for room in MUSIC_ROOMS:
+		styles.append([room[1], room[0]])
+		for path in MusicPlayer.world_tracks.get(room[0], []):
+			tracks.append(["%s · %s" % [str(room[1]).get_slice(" ", 1), MusicPlayer.title_of(path)], path])
+	parts["style"] = _setting_option(rows, "music_style", "setting_music_style", styles, preview_again, 200)
+	parts["track"] = _setting_option(rows, "music_track", "setting_music_track", tracks, preview_again, 260)
+	parts["change"] = _setting_option(rows, "music_change", "setting_music_change", [
+		[UI.text("music_change_short"), 45], [UI.text("setting_card_text_normal"), 75],
+		[UI.text("music_change_long"), 150], [UI.text("music_change_never"), 0]
+	], Callable(), 200)
+	mode_changed.call()
+	_setting_option(rows, "boss_music", "setting_boss_music", [
+		[UI.text("boss_music_own"), "own"], [UI.text("boss_music_game"), "game"], [UI.text("setting_off"), "off"]
+	], Callable(), 200)
+	_setting_option(rows, "menu_music", "setting_menu_music", [
+		["Menu", "menu"], ["Café Crème", "cafe"], ["Promenade", "promenade"], ["Valse de Montmartre", "valse"], [UI.text("setting_off"), "off"]
+	], func():
+		if not music_preview:
+			MusicPlayer.play_menu()
+	, 200)
+	var preview := UI.button(UI.text("music_preview_start"), 50)
+	rows.add_child(preview)
+	preview.pressed.connect(func():
+		music_preview = not music_preview
+		preview.text = PixelFont.prepare(UI.text("music_preview_stop" if music_preview else "music_preview_start"))
+		if music_preview:
+			MusicPlayer.preview_game_music()
+		else:
+			MusicPlayer.play_menu()
+	)
 
 # --- Admin-Panel ---------------------------------------------------------------
 
@@ -831,6 +922,7 @@ func _show_admin() -> void:
 	_back(_show_settings)
 
 func _page(title: String, with_plus: bool = false, art_key: String = "") -> VBoxContainer:
+	_stop_preview()
 	_clear(content)
 	var header := HBoxContainer.new()
 	content.add_child(header)
@@ -850,7 +942,7 @@ func _page(title: String, with_plus: bool = false, art_key: String = "") -> VBox
 		var plus := UI.button(UI.text("add"), 48)
 		plus.custom_minimum_size.x = 48
 		header.add_child(plus)
-		UI.connect_animated(plus, _show_name_step)
+		UI.connect_animated(plus, _show_add_set)
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", UI.panel())
 	content.add_child(panel)
@@ -1046,6 +1138,119 @@ func _show_category_picker(path: String, set_name: String) -> void:
 	_back(_show_sets)
 
 
+# --- Neues Set: selbst eingeben oder aus einer Datei importieren ------------------------
+
+func _show_add_set() -> void:
+	current_page = "add_set"
+	var body := _page(UI.text("add_set_title"))
+	body.add_child(UI.label(UI.text("add_set_hint"), 16))
+	var manual := UI.button(UI.text("add_set_manual"), 60)
+	body.add_child(manual)
+	UI.connect_animated(manual, _show_name_step)
+	var from_file := UI.button(UI.text("add_set_import"), 60)
+	body.add_child(from_file)
+	UI.connect_animated(from_file, _show_import)
+	var help := UI.button(UI.text("import_help_button"), 60)
+	body.add_child(help)
+	UI.connect_animated(help, _show_import_help)
+	_back(_show_sets)
+
+func _show_import() -> void:
+	current_page = "import"
+	var body := _page(UI.text("import_title"))
+	body.add_child(UI.label(UI.text("import_intro"), 16))
+	body.add_child(UI.label(UI.text("category_label"), 16))
+	var category_field := LineEdit.new()
+	category_field.placeholder_text = UI.text("category_placeholder")
+	category_field.custom_minimum_size.y = 46
+	body.add_child(category_field)
+	var choose := UI.button(UI.text("import_choose"), 60)
+	body.add_child(choose)
+	UI.connect_animated(choose, func(): _choose_import_files(category_field.text))
+	var help := UI.button(UI.text("import_help_button"), 54)
+	body.add_child(help)
+	UI.connect_animated(help, _show_import_help)
+	_back(_show_add_set)
+
+# Öffnet den Ordner: man wählt eine oder mehrere CSV- oder JSON-Dateien
+func _choose_import_files(category: String) -> void:
+	var dialog := FileDialog.new()
+	dialog.use_native_dialog = true
+	dialog.access = FileDialog.ACCESS_FILESYSTEM
+	dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILES
+	dialog.title = UI.text("import_dialog_title")
+	dialog.filters = PackedStringArray(["*.csv, *.json ; " + UI.text("import_filter")])
+	dialog.current_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)
+	add_child(dialog)
+	dialog.files_selected.connect(func(paths: PackedStringArray):
+		_import_files(paths, category)
+		dialog.queue_free()
+	)
+	dialog.canceled.connect(dialog.queue_free)
+	dialog.popup_centered_ratio(0.7)
+
+func _import_files(paths: PackedStringArray, category: String) -> void:
+	var results: Array = []
+	var any_ok := false
+	for path in paths:
+		var result: Dictionary = SetRepository.import_file(path, category)
+		results.append(result)
+		if result["ok"]:
+			any_ok = true
+			selected_path = str(result["path"])
+			SetSelection.selected_path = selected_path
+	SoundFX.play("match" if any_ok else "mismatch")
+	_reload_sets()
+	_refresh_sidebar()
+	_show_import_results(results)
+
+func _show_import_results(results: Array) -> void:
+	current_page = "import_results"
+	var body := _page(UI.text("import_results_title"))
+	var rows := _scroll_list(body, 270)
+	for result in results:
+		var ok: bool = result["ok"]
+		var title := UI.text("import_ok") % [str(result["name"]), int(result["count"])] if ok else UI.text("import_rejected") % [str(result["file"])]
+		var heading := UI.label(title, 17)
+		heading.add_theme_color_override("font_color", Color("#9be86b") if ok else Color("#ff8a8f"))
+		rows.add_child(heading)
+		var lines: Array = result.get("notes", []) if ok else result.get("errors", [])
+		for i in range(mini(lines.size(), 6)):
+			rows.add_child(UI.label("· " + str(lines[i]), 15))
+		if lines.size() > 6:
+			rows.add_child(UI.label(UI.text("import_more") % [lines.size() - 6], 15))
+		if not ok:
+			rows.add_child(UI.label(UI.text("import_not_saved"), 15))
+	var again := UI.button(UI.text("import_again"), 54)
+	body.add_child(again)
+	UI.connect_animated(again, _show_import)
+	_back(_show_sets)
+
+func _show_import_help() -> void:
+	current_page = "import_help"
+	var body := _page(UI.text("import_help_title"))
+	var rows := _scroll_list(body, 330)
+	var status := UI.label("", 15)
+	var block := func(title_key: String, text_key: String, example_key: String, copy_key: String):
+		rows.add_child(_section(UI.text(title_key)))
+		rows.add_child(UI.label(UI.text(text_key), 15))
+		if not example_key.is_empty():
+			var example := UI.label(UI.text(example_key), 15)
+			example.add_theme_color_override("font_color", UI.TITLE_COLOR)
+			rows.add_child(example)
+			var copy := UI.button(UI.text(copy_key), 50)
+			rows.add_child(copy)
+			copy.pressed.connect(func():
+				DisplayServer.clipboard_set(UI.text(example_key))
+				status.text = UI.text("import_copied")
+			)
+	block.call("import_help_csv_title", "import_help_csv", "import_example_csv", "import_copy_csv")
+	block.call("import_help_json_title", "import_help_json", "import_example_json", "import_copy_json")
+	block.call("import_help_ai_title", "import_help_ai", "import_ai_prompt", "import_copy_ai")
+	block.call("import_help_rules_title", "import_help_rules", "", "")
+	body.add_child(status)
+	_back(_show_import)
+
 func _show_name_step() -> void:
 	current_page = "name"
 	var body := _page(UI.text("set_name"))
@@ -1082,7 +1287,7 @@ func _show_name_step() -> void:
 		else:
 			_show_editor(name, category_field.text.strip_edges())
 	)
-	_back(_show_sets)
+	_back(_show_add_set)
 
 # Alle Kategorien, die eigene Sets schon haben (ohne "Eigene Sets").
 func _custom_categories() -> Array[String]:
