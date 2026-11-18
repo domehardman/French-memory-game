@@ -1,0 +1,23 @@
+[
+  {"id": "first_game", "name": "Premier pas", "description": "Dein erstes Spiel beendet", "type": "games_played", "value": 1, "icon": ""},
+  {"id": "games_10", "name": "Fleissig", "description": "10 Spiele beendet", "type": "games_played", "value": 10, "icon": ""},
+  {"id": "games_50", "name": "Unermüdlich", "description": "50 Spiele beendet", "type": "games_played", "value": 50, "icon": ""},
+  {"id": "pairs_100", "name": "Wortsammler", "description": "100 Paare gefunden", "type": "total_pairs", "value": 100, "icon": ""},
+  {"id": "pairs_500", "name": "Vokabel-Profi", "description": "500 Paare gefunden", "type": "total_pairs", "value": 500, "icon": ""},
+  {"id": "streak_4", "name": "En série", "description": "4 Paare hintereinander ohne Fehler", "type": "streak", "value": 4, "icon": ""},
+  {"id": "streak_8", "name": "Unaufhaltsam", "description": "8 Paare hintereinander ohne Fehler", "type": "streak", "value": 8, "icon": ""},
+  {"id": "sharp_mind", "name": "Gedächtnis-Ass", "description": "Mindestens 8 Paare mit höchstens 1,75 Versuchen pro Paar", "type": "accuracy", "value": 1.75, "min_pairs": 8, "icon": ""},
+  {"id": "fast", "name": "Blitzschnell", "description": "Mindestens 8 Paare mit höchstens 5 Sekunden pro Paar", "type": "speed", "value": 5, "min_pairs": 8, "icon": ""},
+  {"id": "topics_3", "name": "Neugierig", "description": "3 verschiedene Themen gespielt", "type": "topics", "value": 3, "icon": ""},
+  {"id": "topics_all", "name": "Globetrotter", "description": "Jedes Thema mindestens einmal gespielt", "type": "topics", "value": 6, "icon": ""},
+  {"id": "level_5", "name": "Niveau 5", "description": "Level 5 erreicht", "type": "level", "value": 5, "icon": ""},
+  {"id": "level_10", "name": "Niveau 10", "description": "Level 10 erreicht", "type": "level", "value": 10, "icon": ""},
+  {"id": "campaign_5", "name": "Bon début", "description": "5 Kampagnen-Level geschafft", "type": "campaign", "value": 5, "icon": ""},
+  {"id": "campaign_10", "name": "Mi-chemin", "description": "10 Kampagnen-Level geschafft", "type": "campaign", "value": 10, "icon": ""},
+  {"id": "campaign_20", "name": "Prêt pour le boss", "description": "20 Kampagnen-Level geschafft", "type": "campaign", "value": 20, "icon": ""},
+  {"id": "miniboss_1", "name": "Premier duel", "description": "Den ersten Zwischenboss besiegt", "type": "minibosses", "value": 1, "icon": ""},
+  {"id": "miniboss_all", "name": "Chasseur de monstres", "description": "Alle drei Zwischenbosse besiegt", "type": "minibosses", "value": 3, "icon": ""},
+  {"id": "boss", "name": "Vainqueur", "description": "Le Pâtre des Racines besiegt", "type": "boss", "value": 1, "icon": ""},
+  {"id": "boss_flawless", "name": "Intouchable", "description": "Den Boss mit mehr als 75 % Leben besiegt", "type": "boss_hp", "value": 0.75, "icon": ""},
+  {"id": "campaign_all", "name": "Champion", "description": "Die ganze Kampagne mit allen Bossen geschafft", "type": "campaign", "value": 24, "icon": ""}
+]

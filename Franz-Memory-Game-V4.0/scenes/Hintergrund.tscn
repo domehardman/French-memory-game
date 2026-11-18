@@ -1,0 +1,113 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/Hintergrund.gd" id="0_script"]
+[ext_resource type="Texture2D" path="res://assets/hintergrund/tisch.png" id="1_tisch"]
+[ext_resource type="Texture2D" path="res://assets/hintergrund/spielmatte.png" id="2_matte"]
+[ext_resource type="Texture2D" path="res://assets/hintergrund/rand.png" id="3_rand"]
+[ext_resource type="Texture2D" path="res://assets/hintergrund/ecke.png" id="4_ecke"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_Tisch"]
+albedo_texture = ExtResource("1_tisch")
+roughness = 0.95
+uv1_scale = Vector3(40, 26, 1)
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="Mesh_Tisch"]
+material = SubResource("Mat_Tisch")
+size = Vector2(60, 40)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Brett"]
+albedo_color = Color(0.231, 0.196, 0.565, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="Mesh_Brett"]
+material = SubResource("Mat_Brett")
+size = Vector3(7.6, 0.3, 7.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Matte"]
+albedo_texture = ExtResource("2_matte")
+roughness = 0.85
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="Mesh_Matte"]
+material = SubResource("Mat_Matte")
+size = Vector2(7.6, 7.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Rand"]
+albedo_texture = ExtResource("3_rand")
+roughness = 0.75
+uv1_scale = Vector3(1.6, 1.6, 1.6)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="Mesh_Rand_Lang"]
+material = SubResource("Mat_Rand")
+size = Vector3(8.24, 0.42, 0.32)
+
+[sub_resource type="BoxMesh" id="Mesh_Rand_Kurz"]
+material = SubResource("Mat_Rand")
+size = Vector3(0.32, 0.42, 7.6)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ecke"]
+albedo_texture = ExtResource("4_ecke")
+roughness = 0.7
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="Mesh_Ecke"]
+material = SubResource("Mat_Ecke")
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Hintergrund" type="Node3D"]
+script = ExtResource("0_script")
+
+[node name="Tisch" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
+mesh = SubResource("Mesh_Tisch")
+
+[node name="Spielbrett" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.68, 0)
+mesh = SubResource("Mesh_Brett")
+
+[node name="Matte" type="MeshInstance3D" parent="Spielbrett"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.151, 0)
+mesh = SubResource("Mesh_Matte")
+
+[node name="Rand" type="Node3D" parent="Spielbrett"]
+
+[node name="Oben" type="MeshInstance3D" parent="Spielbrett/Rand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, -3.96)
+mesh = SubResource("Mesh_Rand_Lang")
+
+[node name="Unten" type="MeshInstance3D" parent="Spielbrett/Rand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 3.96)
+mesh = SubResource("Mesh_Rand_Lang")
+
+[node name="Links" type="MeshInstance3D" parent="Spielbrett/Rand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.96, 0.06, 0)
+mesh = SubResource("Mesh_Rand_Kurz")
+
+[node name="Rechts" type="MeshInstance3D" parent="Spielbrett/Rand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96, 0.06, 0)
+mesh = SubResource("Mesh_Rand_Kurz")
+
+[node name="Ecken" type="Node3D" parent="Spielbrett"]
+
+[node name="Ecke1" type="MeshInstance3D" parent="Spielbrett/Ecken"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.96, 0.3, -3.96)
+mesh = SubResource("Mesh_Ecke")
+
+[node name="Ecke2" type="MeshInstance3D" parent="Spielbrett/Ecken"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96, 0.3, -3.96)
+mesh = SubResource("Mesh_Ecke")
+
+[node name="Ecke3" type="MeshInstance3D" parent="Spielbrett/Ecken"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.96, 0.3, 3.96)
+mesh = SubResource("Mesh_Ecke")
+
+[node name="Ecke4" type="MeshInstance3D" parent="Spielbrett/Ecken"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96, 0.3, 3.96)
+mesh = SubResource("Mesh_Ecke")
+
+[node name="Deko3D" type="Node3D" parent="."]

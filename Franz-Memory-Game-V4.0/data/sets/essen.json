@@ -1,0 +1,21 @@
+{
+  "name": "Essen & Trinken",
+  "entries": [
+    {"de": "das Brot", "fr": "le pain"},
+    {"de": "der Käse", "fr": "le fromage"},
+    {"de": "der Apfel", "fr": "la pomme"},
+    {"de": "das Wasser", "fr": "l'eau"},
+    {"de": "die Milch", "fr": "le lait"},
+    {"de": "das Fleisch", "fr": "la viande"},
+    {"de": "der Fisch", "fr": "le poisson"},
+    {"de": "das Gemüse", "fr": "les légumes"},
+    {"de": "die Kartoffel", "fr": "la pomme de terre"},
+    {"de": "das Ei", "fr": "l'œuf"},
+    {"de": "der Zucker", "fr": "le sucre"},
+    {"de": "das Frühstück", "fr": "le petit-déjeuner"},
+    {"de": "das Mittagessen", "fr": "le déjeuner"},
+    {"de": "das Abendessen", "fr": "le dîner"},
+    {"de": "die Erdbeere", "fr": "la fraise"},
+    {"de": "der Kuchen", "fr": "le gâteau"}
+  ]
+}

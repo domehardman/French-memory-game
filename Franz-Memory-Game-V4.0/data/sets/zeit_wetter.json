@@ -1,0 +1,17 @@
+{
+  "name": "Zeit & Wetter",
+  "entries": [
+    {"de": "heute", "fr": "aujourd'hui"},
+    {"de": "morgen", "fr": "demain"},
+    {"de": "gestern", "fr": "hier"},
+    {"de": "die Woche", "fr": "la semaine"},
+    {"de": "der Monat", "fr": "le mois"},
+    {"de": "das Jahr", "fr": "l'année"},
+    {"de": "die Sonne", "fr": "le soleil"},
+    {"de": "der Regen", "fr": "la pluie"},
+    {"de": "der Schnee", "fr": "la neige"},
+    {"de": "es ist kalt", "fr": "il fait froid"},
+    {"de": "es ist warm", "fr": "il fait chaud"},
+    {"de": "der Wind", "fr": "le vent"}
+  ]
+}

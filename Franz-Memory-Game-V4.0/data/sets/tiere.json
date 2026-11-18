@@ -1,0 +1,17 @@
+{
+  "name": "Tiere",
+  "entries": [
+    {"de": "der Hund", "fr": "le chien"},
+    {"de": "die Katze", "fr": "le chat"},
+    {"de": "das Pferd", "fr": "le cheval"},
+    {"de": "der Vogel", "fr": "l'oiseau"},
+    {"de": "die Kuh", "fr": "la vache"},
+    {"de": "das Schwein", "fr": "le cochon"},
+    {"de": "die Maus", "fr": "la souris"},
+    {"de": "das Kaninchen", "fr": "le lapin"},
+    {"de": "das Schaf", "fr": "le mouton"},
+    {"de": "der Bär", "fr": "l'ours"},
+    {"de": "die Schlange", "fr": "le serpent"},
+    {"de": "der Löwe", "fr": "le lion"}
+  ]
+}

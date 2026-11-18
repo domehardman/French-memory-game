@@ -1,0 +1,17 @@
+{
+  "name": "Körper",
+  "entries": [
+    {"de": "der Kopf", "fr": "la tête"},
+    {"de": "das Auge", "fr": "l'œil"},
+    {"de": "die Nase", "fr": "le nez"},
+    {"de": "der Mund", "fr": "la bouche"},
+    {"de": "das Ohr", "fr": "l'oreille"},
+    {"de": "die Hand", "fr": "la main"},
+    {"de": "der Arm", "fr": "le bras"},
+    {"de": "das Bein", "fr": "la jambe"},
+    {"de": "der Fuss", "fr": "le pied"},
+    {"de": "der Bauch", "fr": "le ventre"},
+    {"de": "der Rücken", "fr": "le dos"},
+    {"de": "die Haare", "fr": "les cheveux"}
+  ]
+}

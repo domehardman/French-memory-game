@@ -1,0 +1,17 @@
+{
+  "name": "Farben & Kleidung",
+  "entries": [
+    {"de": "rot", "fr": "rouge"},
+    {"de": "blau", "fr": "bleu, bleue"},
+    {"de": "grün", "fr": "vert, verte"},
+    {"de": "gelb", "fr": "jaune"},
+    {"de": "schwarz", "fr": "noir, noire"},
+    {"de": "weiss", "fr": "blanc, blanche"},
+    {"de": "die Hose", "fr": "le pantalon"},
+    {"de": "das Hemd", "fr": "la chemise"},
+    {"de": "der Rock", "fr": "la jupe"},
+    {"de": "die Schuhe", "fr": "les chaussures"},
+    {"de": "die Jacke", "fr": "la veste"},
+    {"de": "der Pullover", "fr": "le pull"}
+  ]
+}

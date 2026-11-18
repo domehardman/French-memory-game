@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://claude1/scripts/fackel.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="holz"]
+albedo_color = Color(0.16, 0.09, 0.05, 1)
+roughness = 0.85
+metallic = 0.0
+
+[sub_resource type="StandardMaterial3D" id="eisen"]
+albedo_color = Color(0.1, 0.1, 0.11, 1)
+roughness = 0.5
+metallic = 0.8
+
+[sub_resource type="CylinderMesh" id="stiel"]
+top_radius = 0.05
+bottom_radius = 0.035
+height = 0.65
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="schale"]
+top_radius = 0.11
+bottom_radius = 0.06
+height = 0.13
+radial_segments = 8
+
+[sub_resource type="Gradient" id="verlauf_rund"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 1)
+
+[sub_resource type="GradientTexture2D" id="flammen_bild"]
+gradient = SubResource("verlauf_rund")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="flammen_material"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("flammen_bild")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="flamme"]
+material = SubResource("flammen_material")
+size = Vector2(0.3, 0.3)
+
+[sub_resource type="Gradient" id="feuer_farben"]
+offsets = PackedFloat32Array(0, 0.25, 0.65, 1)
+colors = PackedColorArray(1, 0.8, 0.4, 0.9, 1, 0.5, 0.1, 0.8, 0.8, 0.15, 0.02, 0.5, 0.2, 0.02, 0, 0)
+
+[sub_resource type="Curve" id="groesse"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Fackel" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Stiel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("stiel")
+surface_material_override/0 = SubResource("holz")
+
+[node name="Schale" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36, 0)
+mesh = SubResource("schale")
+surface_material_override/0 = SubResource("eisen")
+
+[node name="Flammen" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+amount = 26
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("flamme")
+emission_shape = 1
+emission_sphere_radius = 0.06
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.2, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+scale_amount_min = 0.7
+scale_amount_max = 1.3
+scale_amount_curve = SubResource("groesse")
+color_ramp = SubResource("feuer_farben")
+
+[node name="Licht" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+light_color = Color(1, 0.66, 0.38, 1)
+light_energy = 1.5
+light_volumetric_fog_energy = 0.7
+shadow_enabled = true
+omni_range = 10.0
+omni_attenuation = 1.3

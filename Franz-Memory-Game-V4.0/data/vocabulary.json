@@ -1,0 +1,557 @@
+[
+  {
+    "number": 1,
+    "de": "ein Autor/eine Autorin",
+    "fr": "un auteur/une auteure"
+  },
+  {
+    "number": 2,
+    "de": "international",
+    "fr": "international/internationale, internationaux,internationales"
+  },
+  {
+    "number": 3,
+    "de": "ein Extremsport",
+    "fr": "un sport extrême"
+  },
+  {
+    "number": 4,
+    "de": "ein Wettkampf",
+    "fr": "une compétition"
+  },
+  {
+    "number": 5,
+    "de": "die Welt",
+    "fr": "le monde"
+  },
+  {
+    "number": 6,
+    "de": "ganz, völlig",
+    "fr": "entier, entière"
+  },
+  {
+    "number": 7,
+    "de": "existieren",
+    "fr": "exister"
+  },
+  {
+    "number": 8,
+    "de": "ein Denkmal, ein Monument",
+    "fr": "un monument"
+  },
+  {
+    "number": 9,
+    "de": "offen(für), geöffnet(für)",
+    "fr": "ouvert/ouverte (à)"
+  },
+  {
+    "number": 10,
+    "de": "das Licht",
+    "fr": "la lumière"
+  },
+  {
+    "number": 11,
+    "de": "kostenlos/gratis",
+    "fr": "gratuit, gratuite"
+  },
+  {
+    "number": 12,
+    "de": "ein Musiker/eine Musikerin",
+    "fr": "un musicien/une musicienne"
+  },
+  {
+    "number": 13,
+    "de": "Amateur-, Hobby-",
+    "fr": "amateur"
+  },
+  {
+    "number": 14,
+    "de": "fahren",
+    "fr": "rouler"
+  },
+  {
+    "number": 15,
+    "de": "aussergewöhnlich",
+    "fr": "exceptionnel, exceptionnelle"
+  },
+  {
+    "number": 16,
+    "de": "neu sein",
+    "fr": "être récent/récente"
+  },
+  {
+    "number": 17,
+    "de": "nur, erst",
+    "fr": "seulement"
+  },
+  {
+    "number": 18,
+    "de": "schlecht",
+    "fr": "mal"
+  },
+  {
+    "number": 19,
+    "de": "glücklich",
+    "fr": "heureux/heureuse"
+  },
+  {
+    "number": 20,
+    "de": "glücklicherweise",
+    "fr": "heureusement"
+  },
+  {
+    "number": 21,
+    "de": "zu Ende gehen;enden",
+    "fr": "se terminer"
+  },
+  {
+    "number": 22,
+    "de": "gut/schlecht gelaunt",
+    "fr": "se terminer bien/mal"
+  },
+  {
+    "number": 23,
+    "de": "eine Probe; eine Wiederholung",
+    "fr": "une répétition"
+  },
+  {
+    "number": 24,
+    "de": "immer noch nicht",
+    "fr": "ne...toujours pas"
+  },
+  {
+    "number": 25,
+    "de": "normal",
+    "fr": "normal/normale"
+  },
+  {
+    "number": 26,
+    "de": "normalerweise",
+    "fr": "normalement"
+  },
+  {
+    "number": 27,
+    "de": "fünf Minuten Verspätung haben; fünf Minuten später kommen",
+    "fr": "avoir cinq minutes de retard"
+  },
+  {
+    "number": 28,
+    "de": "komplett;vollständig",
+    "fr": "complet, complète"
+  },
+  {
+    "number": 29,
+    "de": "völlig",
+    "fr": "complètement"
+  },
+  {
+    "number": 30,
+    "de": "jdm/etw. glauben",
+    "fr": "croire qn/qc"
+  },
+  {
+    "number": 31,
+    "de": "wirklich",
+    "fr": "vraiment"
+  },
+  {
+    "number": 32,
+    "de": "die Diva spielen",
+    "fr": "faire sa diva"
+  },
+  {
+    "number": 33,
+    "de": "auftauchen",
+    "fr": "rappliquer"
+  },
+  {
+    "number": 34,
+    "de": "unmittelbar",
+    "fr": "immédiat, immédiate"
+  },
+  {
+    "number": 35,
+    "de": "sofort",
+    "fr": "immédiatement"
+  },
+  {
+    "number": 36,
+    "de": "eine Bühne",
+    "fr": "une scène"
+  },
+  {
+    "number": 37,
+    "de": "sicher (Adv.); sicherlich",
+    "fr": "sûrement"
+  },
+  {
+    "number": 38,
+    "de": "an jds. Stelle",
+    "fr": "à la place de qn"
+  },
+  {
+    "number": 39,
+    "de": "klar; offensichtlich; geläufig; häufig",
+    "fr": "évident, évidente"
+  },
+  {
+    "number": 40,
+    "de": "Das ist gar nicht so einfach.",
+    "fr": "C'est pas évident."
+  },
+  {
+    "number": 41,
+    "de": "an jdn. glauben",
+    "fr": "croire en qn"
+  },
+  {
+    "number": 42,
+    "de": "jdn./etw. wiedererkennen",
+    "fr": "reconnaître qn/qc"
+  },
+  {
+    "number": 43,
+    "de": "eine Katastrophe",
+    "fr": "une cata"
+  },
+  {
+    "number": 44,
+    "de": "ein Keyboard",
+    "fr": "un clavier"
+  },
+  {
+    "number": 45,
+    "de": "Am Keyboard: Fanny!",
+    "fr": "Au clavier"
+  },
+  {
+    "number": 46,
+    "de": "pfeifen",
+    "fr": "siffler"
+  },
+  {
+    "number": 47,
+    "de": "ein Mikro",
+    "fr": "un micro"
+  },
+  {
+    "number": 48,
+    "de": "(Beifall) klatschen (applaudieren)",
+    "fr": "applaudir"
+  },
+  {
+    "number": 49,
+    "de": "trotz",
+    "fr": "malgré"
+  },
+  {
+    "number": 50,
+    "de": "riesig;riesen",
+    "fr": "énorme"
+  },
+  {
+    "number": 51,
+    "de": "jdn./etw. lassen; jdn./etw. zurücklassen",
+    "fr": "laisser qn/qc"
+  },
+  {
+    "number": 52,
+    "de": "sich vorstellen",
+    "fr": "se répresenter"
+  },
+  {
+    "number": 53,
+    "de": "aktuell",
+    "fr": "actuel, actuelle"
+  },
+  {
+    "number": 54,
+    "de": "zurzeit, im Moment",
+    "fr": "actuellement"
+  },
+  {
+    "number": 55,
+    "de": "ein Casting",
+    "fr": "un casting"
+  },
+  {
+    "number": 56,
+    "de": "ernst(haft), seriös",
+    "fr": "sérieux, sérieuse"
+  },
+  {
+    "number": 57,
+    "de": "im Ernst, ernsthaft",
+    "fr": "sérieusement"
+  },
+  {
+    "number": 58,
+    "de": "ein Interview",
+    "fr": "une interview"
+  },
+  {
+    "number": 59,
+    "de": "dauern",
+    "fr": "durer"
+  },
+  {
+    "number": 60,
+    "de": "ein Open-Air-Konzert",
+    "fr": "un concert en plein air"
+  },
+  {
+    "number": 61,
+    "de": "Es kostet Eintritt.",
+    "fr": "L'entrée est payante."
+  },
+  {
+    "number": 62,
+    "de": "ein Sportler/eine Sportlerin",
+    "fr": "un sportif, une sportive"
+  },
+  {
+    "number": 63,
+    "de": "bekannt",
+    "fr": "connu/connue"
+  },
+  {
+    "number": 64,
+    "de": "niemand (Subjekt)",
+    "fr": "personne ne"
+  },
+  {
+    "number": 65,
+    "de": "das Radio",
+    "fr": "la radio"
+  },
+  {
+    "number": 66,
+    "de": "ein Podcast",
+    "fr": "un podcast"
+  },
+  {
+    "number": 67,
+    "de": "begeistert",
+    "fr": "emballé/emballée"
+  },
+  {
+    "number": 68,
+    "de": "niemand",
+    "fr": "ne...personne"
+  },
+  {
+    "number": 69,
+    "de": "klar;natürlich",
+    "fr": "évidemment"
+  },
+  {
+    "number": 70,
+    "de": "Das ist stinklangweilig.",
+    "fr": "C'est rasoir."
+  },
+  {
+    "number": 71,
+    "de": "sehr, unheimlich viel",
+    "fr": "énormément"
+  },
+  {
+    "number": 72,
+    "de": "ein Kreuz",
+    "fr": "une croix"
+  },
+  {
+    "number": 73,
+    "de": "ein Gebäude",
+    "fr": "un bâtiment"
+  },
+  {
+    "number": 74,
+    "de": "ein Wohnsitz; hier: ein Amtssitz",
+    "fr": "une résidence"
+  },
+  {
+    "number": 75,
+    "de": "der Präsident; der Staatspräsident",
+    "fr": "le président de la République"
+  },
+  {
+    "number": 76,
+    "de": "ein Angestellter/eine Angestellte",
+    "fr": "un employé, une employée"
+  },
+  {
+    "number": 77,
+    "de": "ein Besucher/eine Besucherin",
+    "fr": "un visiteur, une visiteuse"
+  },
+  {
+    "number": 78,
+    "de": "ein Staatschef",
+    "fr": "un chef d'Etat"
+  },
+  {
+    "number": 79,
+    "de": "nett",
+    "fr": "gentil"
+  },
+  {
+    "number": 80,
+    "de": "kürzlich, neulich",
+    "fr": "récemment"
+  },
+  {
+    "number": 81,
+    "de": "unbekannt",
+    "fr": "inconnu/inconnue"
+  },
+  {
+    "number": 82,
+    "de": "durch, von",
+    "fr": "par"
+  },
+  {
+    "number": 83,
+    "de": "eine Kleidung;ein Outfit",
+    "fr": "une tenue"
+  },
+  {
+    "number": 84,
+    "de": "etw. zeichnen",
+    "fr": "dessiner qc"
+  },
+  {
+    "number": 85,
+    "de": "nichts (Subjekt)",
+    "fr": "rien ne"
+  },
+  {
+    "number": 86,
+    "de": "ändern, (sich) verändern",
+    "fr": "changer"
+  },
+  {
+    "number": 87,
+    "de": "ein Stift",
+    "fr": "un crayon"
+  },
+  {
+    "number": 88,
+    "de": "ein Ort",
+    "fr": "un endroit"
+  },
+  {
+    "number": 89,
+    "de": "ein Stadion",
+    "fr": "un stade"
+  },
+  {
+    "number": 90,
+    "de": "tennis",
+    "fr": "le tennis"
+  },
+  {
+    "number": 91,
+    "de": "ein Tennisplatz",
+    "fr": "un court"
+  },
+  {
+    "number": 92,
+    "de": "das Recht haben, etw. zu tun; etw. tun dürfen",
+    "fr": "avoir le droit de faire qc"
+  },
+  {
+    "number": 93,
+    "de": "häufig, oft",
+    "fr": "couramment"
+  },
+  {
+    "number": 94,
+    "de": "rund",
+    "fr": "rond/e"
+  },
+  {
+    "number": 95,
+    "de": "ein (Aufnahme)Studio",
+    "fr": "un studio"
+  },
+  {
+    "number": 96,
+    "de": "an etw. teilnehmen; etw. miterleben",
+    "fr": "assister à qc"
+  },
+  {
+    "number": 97,
+    "de": "so, auf diese Weise",
+    "fr": "ainsi"
+  },
+  {
+    "number": 98,
+    "de": "ein Organisator/eine Organisatorin",
+    "fr": "un organisateur/une organisatrice"
+  },
+  {
+    "number": 99,
+    "de": "etw. verstecken",
+    "fr": "cacher qc"
+  },
+  {
+    "number": 100,
+    "de": "ein Stab; ein Taktstock",
+    "fr": "une baguette"
+  },
+  {
+    "number": 101,
+    "de": "ein Möbelstück",
+    "fr": "un meuble"
+  },
+  {
+    "number": 102,
+    "de": "Marokko",
+    "fr": "le Maroc"
+  },
+  {
+    "number": 103,
+    "de": "der/die/das Schlimmste + Nomen",
+    "fr": "le/la pire + nom"
+  },
+  {
+    "number": 104,
+    "de": "unsichtbar",
+    "fr": "invisible"
+  },
+  {
+    "number": 105,
+    "de": "verschwinden",
+    "fr": "disparaître"
+  },
+  {
+    "number": 106,
+    "de": "der Durchschnitt",
+    "fr": "la moyenne"
+  },
+  {
+    "number": 107,
+    "de": "durchschnittlich, mittel",
+    "fr": "moyen, moyenne"
+  },
+  {
+    "number": 108,
+    "de": "umziehen",
+    "fr": "déménager"
+  },
+  {
+    "number": 109,
+    "de": "das Land",
+    "fr": "la campagne"
+  },
+  {
+    "number": 110,
+    "de": "ein Alptraum",
+    "fr": "un cauchemar"
+  },
+  {
+    "number": 111,
+    "de": "ein Bassist/eine Bassistin",
+    "fr": "un/une bassiste"
+  }
+]

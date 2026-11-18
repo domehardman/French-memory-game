@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/GeoArena.gd" id="1_arena"]
+
+[node name="Grotte" type="Node3D"]
+script = ExtResource("1_arena")
+arena_style = "grotte"
+
+[node name="BossPunkt" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -8.4)
+
+[node name="Kamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9808, 0.1949, 0, -0.1949, 0.9808, 0, 5.8, 12.6)
+fov = 52.0

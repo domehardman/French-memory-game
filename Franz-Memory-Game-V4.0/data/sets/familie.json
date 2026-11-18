@@ -1,0 +1,17 @@
+{
+  "name": "Familie",
+  "entries": [
+    {"de": "die Mutter", "fr": "la mère"},
+    {"de": "der Vater", "fr": "le père"},
+    {"de": "der Bruder", "fr": "le frère"},
+    {"de": "die Schwester", "fr": "la sœur"},
+    {"de": "die Grossmutter", "fr": "la grand-mère"},
+    {"de": "der Grossvater", "fr": "le grand-père"},
+    {"de": "der Onkel", "fr": "l'oncle"},
+    {"de": "die Tante", "fr": "la tante"},
+    {"de": "der Cousin", "fr": "le cousin"},
+    {"de": "die Cousine", "fr": "la cousine"},
+    {"de": "die Eltern", "fr": "les parents"},
+    {"de": "das Kind", "fr": "l'enfant"}
+  ]
+}

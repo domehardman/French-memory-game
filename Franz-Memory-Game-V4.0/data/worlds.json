@@ -1,0 +1,6 @@
+[
+  {"title": "Monde 1", "name": "Le Café", "room": "cafe"},
+  {"title": "Monde 2", "name": "Le Jardin", "room": "jardin"},
+  {"title": "Monde 3", "name": "La Riviera", "room": "riviera"},
+  {"title": "Monde 4", "name": "La Nuit", "room": "nuit"}
+]

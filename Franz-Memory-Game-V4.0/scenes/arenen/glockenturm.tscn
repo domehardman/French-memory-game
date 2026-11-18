@@ -1,0 +1,1312 @@
+[gd_scene format=3 uid="uid://dyov7lyc2bjur"]
+
+[ext_resource type="Shader" uid="uid://dsfs7boc170wp" path="res://claude1/shaders/himmel.gdshader" id="1_7desq"]
+[ext_resource type="ArrayMesh" uid="uid://c3uefakdi8tpb" path="res://claude1/models/level6/stein.obj" id="2_t61nq"]
+[ext_resource type="Shader" uid="uid://e7chxpvlfc5y" path="res://claude1/shaders/arena_stein.gdshader" id="3_qcqmk"]
+[ext_resource type="Texture2D" uid="uid://d3qm1ldk17e4v" path="res://claude1/textures/quader.png" id="4_fifsr"]
+[ext_resource type="Texture2D" uid="uid://b253an6s1b12f" path="res://claude1/textures/quader_n.png" id="5_aitoy"]
+[ext_resource type="Texture2D" uid="uid://d2q455pnuymbi" path="res://claude1/textures/quader_r.png" id="6_4vqkf"]
+[ext_resource type="Texture2D" uid="uid://cv41y34faqb2i" path="res://claude1/textures/rausch.png" id="7_en38q"]
+[ext_resource type="ArrayMesh" uid="uid://dmljb3yp2frac" path="res://claude1/models/level6/boden.obj" id="8_g746n"]
+[ext_resource type="Texture2D" uid="uid://dx1th16j6rfwk" path="res://claude1/textures/platten.png" id="9_i3b04"]
+[ext_resource type="Texture2D" uid="uid://bwcnidian4tbp" path="res://claude1/textures/platten_n.png" id="10_8wn6j"]
+[ext_resource type="Texture2D" uid="uid://dcnquydp4tydd" path="res://claude1/textures/platten_r.png" id="11_u2wvi"]
+[ext_resource type="ArrayMesh" uid="uid://bkvbu12iwd844" path="res://claude1/models/level6/holz.obj" id="12_6m70c"]
+[ext_resource type="Texture2D" uid="uid://caa01x7si2qj6" path="res://claude1/textures/mauer.png" id="13_qj7i3"]
+[ext_resource type="Texture2D" uid="uid://drbn4qx05t1iv" path="res://claude1/textures/metall_n.png" id="14_nid4y"]
+[ext_resource type="ArrayMesh" uid="uid://byup5plybjtm" path="res://claude1/models/level6/eisen.obj" id="15_10pdx"]
+[ext_resource type="ArrayMesh" uid="uid://cs6qjmqls05hs" path="res://claude1/models/level6/bronze.obj" id="16_n34uh"]
+[ext_resource type="PackedScene" path="res://claude1/scenes/fackel.tscn" id="17_2b0d8"]
+[ext_resource type="Script" uid="uid://c4v7frmn00n1t" path="res://claude1/scripts/fackel.gd" id="18_87kpj"]
+[ext_resource type="Texture2D" uid="uid://cmwvxu774ftpd" path="res://claude1/textures/fleck_blut.png" id="19_xp2jd"]
+[ext_resource type="Texture2D" uid="uid://dvh2yrpdhhlsw" path="res://claude1/textures/fleck_riss.png" id="20_lix52"]
+[ext_resource type="Texture2D" uid="uid://day2a2ddphjhw" path="res://claude1/textures/fleck_asche.png" id="21_3l5uo"]
+[ext_resource type="Shader" uid="uid://duojiba1hcpfs" path="res://claude1/shaders/tuch.gdshader" id="22_lh74c"]
+[ext_resource type="Texture2D" uid="uid://dvpfnotk70wm6" path="res://claude1/textures/fahne.png" id="23_152do"]
+[ext_resource type="Shader" uid="uid://dc8ghy285ov3y" path="res://claude1/shaders/bild.gdshader" id="24_34kv3"]
+[ext_resource type="PackedScene" uid="uid://dr4pwef8jgrss" path="res://assets/hain/models/gloeckner/gloeckner.glb" id="25_2w030"]
+
+[sub_resource type="ShaderMaterial" id="himmel_material"]
+shader = ExtResource("1_7desq")
+shader_parameter/himmel_oben = Color(0.012, 0.016, 0.03, 1)
+shader_parameter/himmel_unten = Color(0.06, 0.075, 0.11, 1)
+shader_parameter/mond_farbe = Color(0.75, 0.8, 0.9, 1)
+shader_parameter/schimmer_farbe = Color(0.06, 0.07, 0.14, 1)
+shader_parameter/mond_groesse = 0.13
+shader_parameter/mond_krater = 0.85
+
+[sub_resource type="Sky" id="himmel"]
+sky_material = SubResource("himmel_material")
+process_mode = 1
+radiance_size = 2
+
+[sub_resource type="Environment" id="Environment_bja4g"]
+background_mode = 2
+sky = SubResource("himmel")
+ambient_light_source = 2
+ambient_light_color = Color(0.4, 0.45, 0.56, 1)
+ambient_light_energy = 0.8
+reflected_light_source = 2
+tonemap_mode = 4
+tonemap_exposure = 1.3
+ssr_enabled = true
+ssr_max_steps = 32
+ssao_enabled = true
+ssao_intensity = 2.6
+glow_enabled = true
+glow_intensity = 0.6
+glow_bloom = 0.08
+glow_hdr_threshold = 0.8
+fog_enabled = true
+fog_light_color = Color(0.09, 0.11, 0.16, 1)
+fog_density = 0.003125
+fog_sky_affect = 0.3
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.003125
+volumetric_fog_albedo = Color(0.8, 0.84, 0.92, 1)
+volumetric_fog_emission = Color(0.08, 0.1, 0.15, 1)
+volumetric_fog_emission_energy = 0.05
+volumetric_fog_length = 122.88
+volumetric_fog_ambient_inject = 0.3
+adjustment_enabled = true
+adjustment_contrast = 1.3
+adjustment_saturation = 0.62
+
+[sub_resource type="ShaderMaterial" id="wand6"]
+render_priority = 0
+shader = ExtResource("3_qcqmk")
+shader_parameter/farbe_bild = ExtResource("4_fifsr")
+shader_parameter/normal_bild = ExtResource("5_aitoy")
+shader_parameter/rauh_bild = ExtResource("6_4vqkf")
+shader_parameter/rausch_bild = ExtResource("7_en38q")
+shader_parameter/massstab = 0.3
+shader_parameter/normal_staerke = 0.7
+shader_parameter/rauh_zusatz = 0.0
+shader_parameter/toenung = Color(0.66, 0.67, 0.72, 1)
+shader_parameter/schmutz_farbe = Color(0.03, 0.03, 0.035, 1)
+shader_parameter/schmutz_hoehe = 2.4
+shader_parameter/schmutz_staerke = 0.75
+shader_parameter/moos_farbe = Color(0.06, 0.08, 0.06, 1)
+shader_parameter/moos = 0.3
+shader_parameter/naesse = 0.0
+shader_parameter/muster_mitte = Vector2(0, 0)
+shader_parameter/muster_groesse = 0.0
+shader_parameter/einlage_farbe = Color(0.5, 0.42, 0.26, 1)
+shader_parameter/einlage_metall = 0.8
+shader_parameter/vertex_ao = 0.0
+shader_parameter/glut = 0.0
+shader_parameter/glut_farbe = Color(1, 0.32, 0.06, 1)
+
+[sub_resource type="ShaderMaterial" id="boden6"]
+render_priority = 0
+shader = ExtResource("3_qcqmk")
+shader_parameter/farbe_bild = ExtResource("9_i3b04")
+shader_parameter/normal_bild = ExtResource("10_8wn6j")
+shader_parameter/rauh_bild = ExtResource("11_u2wvi")
+shader_parameter/rausch_bild = ExtResource("7_en38q")
+shader_parameter/massstab = 0.16
+shader_parameter/normal_staerke = 0.7
+shader_parameter/rauh_zusatz = 0.0
+shader_parameter/toenung = Color(0.62, 0.62, 0.66, 1)
+shader_parameter/schmutz_farbe = Color(0.05, 0.045, 0.04, 1)
+shader_parameter/schmutz_hoehe = 1.4
+shader_parameter/schmutz_staerke = 0.0
+shader_parameter/moos_farbe = Color(0.05, 0.07, 0.05, 1)
+shader_parameter/moos = 0.2
+shader_parameter/naesse = 0.55
+shader_parameter/muster_mitte = Vector2(0, 0)
+shader_parameter/muster_groesse = 0.0
+shader_parameter/einlage_farbe = Color(0.5, 0.42, 0.26, 1)
+shader_parameter/einlage_metall = 0.8
+shader_parameter/vertex_ao = 0.0
+shader_parameter/glut = 0.0
+shader_parameter/glut_farbe = Color(1, 0.32, 0.06, 1)
+
+[sub_resource type="StandardMaterial3D" id="holz"]
+albedo_color = Color(0.2, 0.14, 0.1, 1)
+albedo_texture = ExtResource("13_qj7i3")
+roughness = 0.8
+normal_enabled = true
+normal_texture = ExtResource("14_nid4y")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="eisen"]
+albedo_color = Color(0.06, 0.06, 0.065, 1)
+metallic = 0.8
+roughness = 0.48
+normal_enabled = true
+normal_texture = ExtResource("14_nid4y")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="bronze"]
+albedo_color = Color(0.3, 0.22, 0.1, 1)
+metallic = 0.86
+roughness = 0.44
+
+[sub_resource type="CylinderMesh" id="stiel"]
+top_radius = 0.05
+bottom_radius = 0.035
+height = 0.65
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2820l"]
+albedo_color = Color(0.16, 0.09, 0.05, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="schale"]
+top_radius = 0.11
+bottom_radius = 0.06
+height = 0.13
+radial_segments = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oxskd"]
+albedo_color = Color(0.1, 0.1, 0.11, 1)
+metallic = 0.8
+roughness = 0.5
+
+[sub_resource type="Gradient" id="verlauf_rund"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="flammen_bild"]
+gradient = SubResource("verlauf_rund")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="flammen_material"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("flammen_bild")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="flamme"]
+material = SubResource("flammen_material")
+size = Vector2(0.3, 0.3)
+
+[sub_resource type="Curve" id="groesse"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="feuer_farben"]
+offsets = PackedFloat32Array(0, 0.25, 0.65, 1)
+colors = PackedColorArray(1, 0.8, 0.4, 0.9, 1, 0.5, 0.1, 0.8, 0.8, 0.15, 0.02, 0.5, 0.2, 0.02, 0, 0)
+
+[sub_resource type="Gradient" id="feuer_rund"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="feuer_bild"]
+gradient = SubResource("feuer_rund")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="feuer_material"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+disable_fog = true
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("feuer_bild")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="feuer_quad"]
+material = SubResource("feuer_material")
+size = Vector2(0.46, 0.46)
+
+[sub_resource type="Gradient" id="feuer_farbe"]
+offsets = PackedFloat32Array(0, 0.25, 0.65, 1)
+colors = PackedColorArray(1, 0.8, 0.4, 0.9, 1, 0.5, 0.18, 0.8, 0.8, 0.2, 0.036, 0.5, 0.2, 0.02, 0, 0)
+
+[sub_resource type="PlaneMesh" id="fahne_formFahne0"]
+size = Vector2(1.8, 7)
+subdivide_width = 3
+subdivide_depth = 18
+orientation = 2
+
+[sub_resource type="ShaderMaterial" id="fahne_matFahne0"]
+render_priority = 0
+shader = ExtResource("22_lh74c")
+shader_parameter/stoff_bild = ExtResource("23_152do")
+shader_parameter/toenung = Color(0.2, 0.14, 0.08, 1)
+shader_parameter/wind = 0.12
+
+[sub_resource type="PlaneMesh" id="fahne_formFahne1"]
+size = Vector2(1.8, 7)
+subdivide_width = 3
+subdivide_depth = 18
+orientation = 2
+
+[sub_resource type="ShaderMaterial" id="fahne_matFahne1"]
+render_priority = 0
+shader = ExtResource("22_lh74c")
+shader_parameter/stoff_bild = ExtResource("23_152do")
+shader_parameter/toenung = Color(0.2, 0.14, 0.08, 1)
+shader_parameter/wind = 0.12
+
+[sub_resource type="PlaneMesh" id="fahne_formFahne2"]
+size = Vector2(1.8, 7)
+subdivide_width = 3
+subdivide_depth = 18
+orientation = 2
+
+[sub_resource type="ShaderMaterial" id="fahne_matFahne2"]
+render_priority = 0
+shader = ExtResource("22_lh74c")
+shader_parameter/stoff_bild = ExtResource("23_152do")
+shader_parameter/toenung = Color(0.2, 0.14, 0.08, 1)
+shader_parameter/wind = 0.12
+
+[sub_resource type="PlaneMesh" id="fahne_formFahne3"]
+size = Vector2(1.8, 7)
+subdivide_width = 3
+subdivide_depth = 18
+orientation = 2
+
+[sub_resource type="ShaderMaterial" id="fahne_matFahne3"]
+render_priority = 0
+shader = ExtResource("22_lh74c")
+shader_parameter/stoff_bild = ExtResource("23_152do")
+shader_parameter/toenung = Color(0.2, 0.14, 0.08, 1)
+shader_parameter/wind = 0.12
+
+[sub_resource type="ShaderMaterial" id="bild_material"]
+shader = ExtResource("24_34kv3")
+shader_parameter/vignette_staerke = 0.88
+shader_parameter/korn_staerke = 0.034
+shader_parameter/schatten_ton = Vector3(0.9, 0.97, 1.08)
+shader_parameter/licht_ton = Vector3(0.98, 1, 1.03)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nr33t"]
+albedo_color = Color(0.5225, 0.33, 0.11000001, 0.55)
+roughness = 0.85
+emission_enabled = true
+emission = Color(0.95, 0.6, 0.2, 1)
+emission_energy_multiplier = 2.2
+
+[sub_resource type="TorusMesh" id="TorusMesh_hha22"]
+inner_radius = 4.25
+outer_radius = 4.3
+
+[sub_resource type="TorusMesh" id="TorusMesh_k0rvl"]
+inner_radius = 4.55
+outer_radius = 4.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmltb"]
+albedo_color = Color(0.85, 0.8, 0.7, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_be3k0"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vv0tk"]
+shading_mode = 0
+albedo_color = Color(1, 0.734, 0.454, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_oaadq"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jiqmd"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.65
+
+[sub_resource type="SphereMesh" id="SphereMesh_1fbit"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gtnao"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_44mr7"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dt1pd"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_5vajt"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2qojn"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.65
+
+[sub_resource type="SphereMesh" id="SphereMesh_7xocb"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fhyoq"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_wley6"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_32taf"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_0fft0"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ks3el"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.65
+
+[sub_resource type="SphereMesh" id="SphereMesh_vvrbb"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_knl2l"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_a6w06"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_je7ta"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_ufppy"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cu5pk"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.65
+
+[sub_resource type="SphereMesh" id="SphereMesh_f828l"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jdf0v"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_u1ax5"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3ofw6"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_ltqma"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wyf35"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.65
+
+[sub_resource type="SphereMesh" id="SphereMesh_0jkd6"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_u276v"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_7ah3t"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_523f0"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_7ubmr"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bsnbj"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.65
+
+[sub_resource type="SphereMesh" id="SphereMesh_nnm21"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_t0m03"]
+top_radius = 0.07
+bottom_radius = 0.08
+height = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_2amqf"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ev4ef"]
+shading_mode = 0
+albedo_color = Color(1, 0.45, 0.25, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_fnqjf"]
+material = SubResource("StandardMaterial3D_ev4ef")
+size = Vector2(0.06, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_817ks"]
+albedo_color = Color(0.92, 0.88, 0.8, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dyj3n"]
+material = SubResource("StandardMaterial3D_817ks")
+size = Vector3(1.12, 0.08, 1.12)
+
+[node name="Arena_Glockenturm" type="Node3D" unique_id=898190765]
+
+[node name="Umgebung" type="WorldEnvironment" parent="." unique_id=1063096472]
+environment = SubResource("Environment_bja4g")
+
+[node name="Level" type="Node3D" parent="." unique_id=639034071]
+transform = Transform3D(1.92, 0, 0, 0, 1.92, 0, 0, 0, 1.92, 0, -0.6, 27.960001)
+
+[node name="Bauwerk" type="Node3D" parent="Level" unique_id=744291158]
+
+[node name="Stein" type="MeshInstance3D" parent="Level/Bauwerk" unique_id=45721970]
+mesh = ExtResource("2_t61nq")
+surface_material_override/0 = SubResource("wand6")
+
+[node name="Boden" type="MeshInstance3D" parent="Level/Bauwerk" unique_id=1792835627]
+mesh = ExtResource("8_g746n")
+surface_material_override/0 = SubResource("boden6")
+
+[node name="Holz" type="MeshInstance3D" parent="Level/Bauwerk" unique_id=1373119693]
+mesh = ExtResource("12_6m70c")
+surface_material_override/0 = SubResource("holz")
+
+[node name="Eisen" type="MeshInstance3D" parent="Level/Bauwerk" unique_id=1890910011]
+mesh = ExtResource("15_10pdx")
+surface_material_override/0 = SubResource("eisen")
+
+[node name="Bronze" type="MeshInstance3D" parent="Level/Bauwerk" unique_id=235039200]
+mesh = ExtResource("16_n34uh")
+surface_material_override/0 = SubResource("bronze")
+
+[node name="Lichter" type="Node3D" parent="Level" unique_id=695878504]
+
+[node name="Mond" type="DirectionalLight3D" parent="Level/Lichter" unique_id=136899667]
+transform = Transform3D(-0.866, -0.2796, 0.4145, 0, 0.829, 0.5592, -0.5, 0.4843, -0.718, 0, 20, 0)
+light_color = Color(0.66, 0.74, 0.96, 1)
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 70.0
+
+[node name="Glockenlicht" type="OmniLight3D" parent="Level/Lichter" unique_id=1328060810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -16)
+light_color = Color(1, 0.72, 0.42, 1)
+light_energy = 9.0
+shadow_enabled = true
+omni_range = 49.92
+
+[node name="Fackel0" parent="Level/Lichter" unique_id=1111913208 instance=ExtResource("17_2b0d8")]
+transform = Transform3D(0.9703, -0.2419, 0, 0.2419, 0.9703, 0, 0, 0, 1, -4.1, 2.9, 12.8)
+grund_helligkeit = 1.8
+mit_schatten = false
+
+[node name="Stiel" parent="Level/Lichter/Fackel0" index="0"]
+mesh = SubResource("stiel")
+surface_material_override/0 = SubResource("StandardMaterial3D_2820l")
+
+[node name="Schale" parent="Level/Lichter/Fackel0" index="1"]
+mesh = SubResource("schale")
+surface_material_override/0 = SubResource("StandardMaterial3D_oxskd")
+
+[node name="Flammen" parent="Level/Lichter/Fackel0" index="2"]
+mesh = SubResource("flamme")
+scale_amount_curve = SubResource("groesse")
+color_ramp = SubResource("feuer_farben")
+
+[node name="Licht" parent="Level/Lichter/Fackel0" index="3"]
+omni_range = 19.2
+
+[node name="Fackel1" parent="Level/Lichter" unique_id=913870819 instance=ExtResource("17_2b0d8")]
+transform = Transform3D(0.9703, -0.2419, 0, 0.2419, 0.9703, 0, 0, 0, 1, -4.1, 2.9, 7.8)
+grund_helligkeit = 1.8
+mit_schatten = false
+
+[node name="Stiel" parent="Level/Lichter/Fackel1" index="0"]
+mesh = SubResource("stiel")
+surface_material_override/0 = SubResource("StandardMaterial3D_2820l")
+
+[node name="Schale" parent="Level/Lichter/Fackel1" index="1"]
+mesh = SubResource("schale")
+surface_material_override/0 = SubResource("StandardMaterial3D_oxskd")
+
+[node name="Flammen" parent="Level/Lichter/Fackel1" index="2"]
+mesh = SubResource("flamme")
+scale_amount_curve = SubResource("groesse")
+color_ramp = SubResource("feuer_farben")
+
+[node name="Licht" parent="Level/Lichter/Fackel1" index="3"]
+omni_range = 19.2
+
+[node name="Fackel2" parent="Level/Lichter" unique_id=1972076667 instance=ExtResource("17_2b0d8")]
+transform = Transform3D(0.9703, -0.2419, 0, 0.2419, 0.9703, 0, 0, 0, 1, -4.1, 2.9, 2.8)
+grund_helligkeit = 1.8
+mit_schatten = false
+
+[node name="Stiel" parent="Level/Lichter/Fackel2" index="0"]
+mesh = SubResource("stiel")
+surface_material_override/0 = SubResource("StandardMaterial3D_2820l")
+
+[node name="Schale" parent="Level/Lichter/Fackel2" index="1"]
+mesh = SubResource("schale")
+surface_material_override/0 = SubResource("StandardMaterial3D_oxskd")
+
+[node name="Flammen" parent="Level/Lichter/Fackel2" index="2"]
+mesh = SubResource("flamme")
+scale_amount_curve = SubResource("groesse")
+color_ramp = SubResource("feuer_farben")
+
+[node name="Licht" parent="Level/Lichter/Fackel2" index="3"]
+omni_range = 19.2
+
+[node name="Fackel3" parent="Level/Lichter" unique_id=1297384826 instance=ExtResource("17_2b0d8")]
+transform = Transform3D(0.9703, 0.2419, 0, -0.2419, 0.9703, 0, 0, 0, 1, 4.1, 2.9, 12.8)
+grund_helligkeit = 1.8
+mit_schatten = false
+
+[node name="Stiel" parent="Level/Lichter/Fackel3" index="0"]
+mesh = SubResource("stiel")
+surface_material_override/0 = SubResource("StandardMaterial3D_2820l")
+
+[node name="Schale" parent="Level/Lichter/Fackel3" index="1"]
+mesh = SubResource("schale")
+surface_material_override/0 = SubResource("StandardMaterial3D_oxskd")
+
+[node name="Flammen" parent="Level/Lichter/Fackel3" index="2"]
+mesh = SubResource("flamme")
+scale_amount_curve = SubResource("groesse")
+color_ramp = SubResource("feuer_farben")
+
+[node name="Licht" parent="Level/Lichter/Fackel3" index="3"]
+omni_range = 19.2
+
+[node name="Fackel4" parent="Level/Lichter" unique_id=1142702831 instance=ExtResource("17_2b0d8")]
+transform = Transform3D(0.9703, 0.2419, 0, -0.2419, 0.9703, 0, 0, 0, 1, 4.1, 2.9, 7.8)
+grund_helligkeit = 1.8
+mit_schatten = false
+
+[node name="Stiel" parent="Level/Lichter/Fackel4" index="0"]
+mesh = SubResource("stiel")
+surface_material_override/0 = SubResource("StandardMaterial3D_2820l")
+
+[node name="Schale" parent="Level/Lichter/Fackel4" index="1"]
+mesh = SubResource("schale")
+surface_material_override/0 = SubResource("StandardMaterial3D_oxskd")
+
+[node name="Flammen" parent="Level/Lichter/Fackel4" index="2"]
+mesh = SubResource("flamme")
+scale_amount_curve = SubResource("groesse")
+color_ramp = SubResource("feuer_farben")
+
+[node name="Licht" parent="Level/Lichter/Fackel4" index="3"]
+omni_range = 19.2
+
+[node name="Fackel5" parent="Level/Lichter" unique_id=1492720290 instance=ExtResource("17_2b0d8")]
+transform = Transform3D(0.9703, 0.2419, 0, -0.2419, 0.9703, 0, 0, 0, 1, 4.1, 2.9, 2.8)
+grund_helligkeit = 1.8
+mit_schatten = false
+
+[node name="Stiel" parent="Level/Lichter/Fackel5" index="0"]
+mesh = SubResource("stiel")
+surface_material_override/0 = SubResource("StandardMaterial3D_2820l")
+
+[node name="Schale" parent="Level/Lichter/Fackel5" index="1"]
+mesh = SubResource("schale")
+surface_material_override/0 = SubResource("StandardMaterial3D_oxskd")
+
+[node name="Flammen" parent="Level/Lichter/Fackel5" index="2"]
+mesh = SubResource("flamme")
+scale_amount_curve = SubResource("groesse")
+color_ramp = SubResource("feuer_farben")
+
+[node name="Licht" parent="Level/Lichter/Fackel5" index="3"]
+omni_range = 19.2
+
+[node name="Feuer0" type="Node3D" parent="Level/Lichter" unique_id=1718363158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7623, 1.95, 1.773)
+script = ExtResource("18_87kpj")
+grund_helligkeit = 3.8
+flacker_staerke = 0.76
+mit_schatten = false
+
+[node name="Licht" type="OmniLight3D" parent="Level/Lichter/Feuer0" unique_id=817610061]
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 3.8
+light_volumetric_fog_energy = 0.6
+omni_range = 24.96
+
+[node name="Flammen" type="CPUParticles3D" parent="Level/Lichter/Feuer0" unique_id=848032028]
+amount = 18
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("feuer_quad")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.4, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+color_ramp = SubResource("feuer_farbe")
+
+[node name="Feuer1" type="Node3D" parent="Level/Lichter" unique_id=1500458330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9349, 1.95, -6.8)
+script = ExtResource("18_87kpj")
+grund_helligkeit = 3.8
+flacker_staerke = 0.76
+mit_schatten = false
+
+[node name="Licht" type="OmniLight3D" parent="Level/Lichter/Feuer1" unique_id=694010473]
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 3.8
+light_volumetric_fog_energy = 0.6
+omni_range = 24.96
+
+[node name="Flammen" type="CPUParticles3D" parent="Level/Lichter/Feuer1" unique_id=1447854671]
+amount = 18
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("feuer_quad")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.4, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+color_ramp = SubResource("feuer_farbe")
+
+[node name="Feuer2" type="Node3D" parent="Level/Lichter" unique_id=1744761759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.773, 1.95, -20.7623)
+script = ExtResource("18_87kpj")
+grund_helligkeit = 3.8
+flacker_staerke = 0.76
+mit_schatten = false
+
+[node name="Licht" type="OmniLight3D" parent="Level/Lichter/Feuer2" unique_id=168822125]
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 3.8
+light_volumetric_fog_energy = 0.6
+omni_range = 24.96
+
+[node name="Flammen" type="CPUParticles3D" parent="Level/Lichter/Feuer2" unique_id=1283731654]
+amount = 18
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("feuer_quad")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.4, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+color_ramp = SubResource("feuer_farbe")
+
+[node name="Feuer3" type="Node3D" parent="Level/Lichter" unique_id=361616176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2, 1.95, -31.9349)
+script = ExtResource("18_87kpj")
+grund_helligkeit = 3.8
+flacker_staerke = 0.76
+mit_schatten = false
+
+[node name="Licht" type="OmniLight3D" parent="Level/Lichter/Feuer3" unique_id=1191853069]
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 3.8
+light_volumetric_fog_energy = 0.6
+omni_range = 24.96
+
+[node name="Flammen" type="CPUParticles3D" parent="Level/Lichter/Feuer3" unique_id=642410808]
+amount = 18
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("feuer_quad")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.4, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+color_ramp = SubResource("feuer_farbe")
+
+[node name="Feuer4" type="Node3D" parent="Level/Lichter" unique_id=1018703631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7623, 1.95, -33.773)
+script = ExtResource("18_87kpj")
+grund_helligkeit = 3.8
+flacker_staerke = 0.76
+mit_schatten = false
+
+[node name="Licht" type="OmniLight3D" parent="Level/Lichter/Feuer4" unique_id=446792952]
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 3.8
+light_volumetric_fog_energy = 0.6
+omni_range = 24.96
+
+[node name="Flammen" type="CPUParticles3D" parent="Level/Lichter/Feuer4" unique_id=1178986448]
+amount = 18
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("feuer_quad")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.4, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+color_ramp = SubResource("feuer_farbe")
+
+[node name="Feuer5" type="Node3D" parent="Level/Lichter" unique_id=1086245416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9349, 1.95, -25.2)
+script = ExtResource("18_87kpj")
+grund_helligkeit = 3.8
+flacker_staerke = 0.76
+mit_schatten = false
+
+[node name="Licht" type="OmniLight3D" parent="Level/Lichter/Feuer5" unique_id=1887540587]
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 3.8
+light_volumetric_fog_energy = 0.6
+omni_range = 24.96
+
+[node name="Flammen" type="CPUParticles3D" parent="Level/Lichter/Feuer5" unique_id=300076668]
+amount = 18
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("feuer_quad")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.4, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+color_ramp = SubResource("feuer_farbe")
+
+[node name="Feuer6" type="Node3D" parent="Level/Lichter" unique_id=459110527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.773, 1.95, -11.2377)
+script = ExtResource("18_87kpj")
+grund_helligkeit = 3.8
+flacker_staerke = 0.76
+mit_schatten = false
+
+[node name="Licht" type="OmniLight3D" parent="Level/Lichter/Feuer6" unique_id=943067089]
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 3.8
+light_volumetric_fog_energy = 0.6
+omni_range = 24.96
+
+[node name="Flammen" type="CPUParticles3D" parent="Level/Lichter/Feuer6" unique_id=2089408382]
+amount = 18
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("feuer_quad")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.4, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+color_ramp = SubResource("feuer_farbe")
+
+[node name="Feuer7" type="Node3D" parent="Level/Lichter" unique_id=742011851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2, 1.95, -0.0651)
+script = ExtResource("18_87kpj")
+grund_helligkeit = 3.8
+flacker_staerke = 0.76
+mit_schatten = false
+
+[node name="Licht" type="OmniLight3D" parent="Level/Lichter/Feuer7" unique_id=90995543]
+light_color = Color(1, 0.5, 0.18, 1)
+light_energy = 3.8
+light_volumetric_fog_energy = 0.6
+omni_range = 24.96
+
+[node name="Flammen" type="CPUParticles3D" parent="Level/Lichter/Feuer7" unique_id=1109093187]
+amount = 18
+lifetime = 0.7
+randomness = 0.3
+mesh = SubResource("feuer_quad")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 12.0
+gravity = Vector3(0, 1.4, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+color_ramp = SubResource("feuer_farbe")
+
+[node name="Fleck1" type="Decal" parent="Level/Lichter" unique_id=1540463566]
+transform = Transform3D(0.9848, 0, 0.1736, 0, 1, 0, -0.1736, 0, 0.9848, 2, 0, -13)
+size = Vector3(8, 1.2, 8)
+texture_albedo = ExtResource("19_xp2jd")
+cull_mask = 1
+
+[node name="Fleck2" type="Decal" parent="Level/Lichter" unique_id=1057351874]
+transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, -6, 0, -21)
+size = Vector3(12, 1.2, 12)
+texture_albedo = ExtResource("20_lix52")
+cull_mask = 1
+
+[node name="Fleck3" type="Decal" parent="Level/Lichter" unique_id=1647802359]
+transform = Transform3D(-0.9848, 0, 0.1736, 0, 1, 0, -0.1736, 0, -0.9848, 7, 0, -10)
+size = Vector3(11, 1.2, 11)
+texture_albedo = ExtResource("20_lix52")
+cull_mask = 1
+
+[node name="Fleck4" type="Decal" parent="Level/Lichter" unique_id=1852149741]
+transform = Transform3D(-0.766, 0, 0.6428, 0, 1, 0, -0.6428, 0, -0.766, -5, 0, -9)
+size = Vector3(6, 1.2, 6)
+texture_albedo = ExtResource("19_xp2jd")
+cull_mask = 1
+
+[node name="Fleck5" type="Decal" parent="Level/Lichter" unique_id=347860303]
+transform = Transform3D(0.9397, 0, 0.342, 0, 1, 0, -0.342, 0, 0.9397, 8, 0, -23)
+size = Vector3(7, 1.2, 7)
+texture_albedo = ExtResource("21_3l5uo")
+cull_mask = 1
+
+[node name="Fahne0" type="MeshInstance3D" parent="Level/Lichter" unique_id=1625911607]
+transform = Transform3D(-0.6216, 0, -0.7833, 0, 1, 0, 0.7833, 0, -0.6216, 15.9799, 6.4, -3.3192)
+mesh = SubResource("fahne_formFahne0")
+surface_material_override/0 = SubResource("fahne_matFahne0")
+
+[node name="Fahne1" type="MeshInstance3D" parent="Level/Lichter" unique_id=884278246]
+transform = Transform3D(0.7374, 0, -0.6755, 0, 1, 0, 0.6755, 0, 0.7374, 13.7794, 6.4, -31.0428)
+mesh = SubResource("fahne_formFahne1")
+surface_material_override/0 = SubResource("fahne_matFahne1")
+
+[node name="Fahne2" type="MeshInstance3D" parent="Level/Lichter" unique_id=1721065810]
+transform = Transform3D(0.7259, 0, 0.6878, 0, 1, 0, -0.6878, 0, 0.7259, -14.0304, 6.4, -30.809)
+mesh = SubResource("fahne_formFahne2")
+surface_material_override/0 = SubResource("fahne_matFahne2")
+
+[node name="Fahne3" type="MeshInstance3D" parent="Level/Lichter" unique_id=95684452]
+transform = Transform3D(-0.4685, 0, 0.8835, 0, 1, 0, -0.8835, 0, -0.4685, -18.0225, 6.4, -6.4423)
+mesh = SubResource("fahne_formFahne3")
+surface_material_override/0 = SubResource("fahne_matFahne3")
+
+[node name="Bildlook" type="CanvasLayer" parent="Level" unique_id=556881664]
+layer = 0
+
+[node name="Filter" type="ColorRect" parent="Level/Bildlook" unique_id=561487923]
+material = SubResource("bild_material")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LeuchtKreis" type="Node3D" parent="." unique_id=821394656]
+
+[node name="Ring1" type="MeshInstance3D" parent="LeuchtKreis" unique_id=2010307297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.148, 0, -0.58, 0)
+material_override = SubResource("StandardMaterial3D_nr33t")
+mesh = SubResource("TorusMesh_hha22")
+
+[node name="Ring2" type="MeshInstance3D" parent="LeuchtKreis" unique_id=241325839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.148, 0, -0.58, 0)
+material_override = SubResource("StandardMaterial3D_nr33t")
+mesh = SubResource("TorusMesh_k0rvl")
+
+[node name="Spielfeldlicht" type="OmniLight3D" parent="." unique_id=996347235]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 1)
+light_color = Color(1, 0.88, 0.8, 1)
+light_energy = 2.2
+omni_range = 14.0
+
+[node name="Kerzen" type="Node3D" parent="." unique_id=1620060866]
+
+[node name="Wachs1" type="MeshInstance3D" parent="Kerzen" unique_id=1281420350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8199997, -0.38, -4.2)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_be3k0")
+
+[node name="Flamme1" type="MeshInstance3D" parent="Kerzen" unique_id=228269621]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -4.8199997, -0.12, -4.2)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_oaadq")
+
+[node name="Wachs2" type="MeshInstance3D" parent="Kerzen" unique_id=1027656542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6, -0.255, -4.02)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_jiqmd")
+
+[node name="Flamme2" type="MeshInstance3D" parent="Kerzen" unique_id=1353503136]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -4.6, 0.13, -4.02)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_1fbit")
+
+[node name="Wachs3" type="MeshInstance3D" parent="Kerzen" unique_id=2130659072]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.38, -0.13, -4.2)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_gtnao")
+
+[node name="Flamme3" type="MeshInstance3D" parent="Kerzen" unique_id=1117003774]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -4.38, 0.38, -4.2)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_44mr7")
+
+[node name="Licht1" type="OmniLight3D" parent="Kerzen" unique_id=1430450647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6, 0.6, -4.2)
+light_color = Color(1, 0.62, 0.22, 1)
+light_energy = 1.4
+omni_range = 4.5
+
+[node name="Wachs4" type="MeshInstance3D" parent="Kerzen" unique_id=510875932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.38, -0.38, -4.2)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_dt1pd")
+
+[node name="Flamme4" type="MeshInstance3D" parent="Kerzen" unique_id=715051456]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 4.38, -0.12, -4.2)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_5vajt")
+
+[node name="Wachs5" type="MeshInstance3D" parent="Kerzen" unique_id=1094839413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, -0.255, -4.02)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_2qojn")
+
+[node name="Flamme5" type="MeshInstance3D" parent="Kerzen" unique_id=2129305063]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 4.6, 0.13, -4.02)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_7xocb")
+
+[node name="Wachs6" type="MeshInstance3D" parent="Kerzen" unique_id=1370541060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8199997, -0.13, -4.2)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_fhyoq")
+
+[node name="Flamme6" type="MeshInstance3D" parent="Kerzen" unique_id=875033262]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 4.8199997, 0.38, -4.2)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_wley6")
+
+[node name="Licht2" type="OmniLight3D" parent="Kerzen" unique_id=153707793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6, 0.6, -4.2)
+light_color = Color(1, 0.62, 0.22, 1)
+light_energy = 1.4
+omni_range = 4.5
+
+[node name="Wachs7" type="MeshInstance3D" parent="Kerzen" unique_id=1087737680]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.12, -0.38, 0.8)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_32taf")
+
+[node name="Flamme7" type="MeshInstance3D" parent="Kerzen" unique_id=1330610420]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -5.12, -0.12, 0.8)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_0fft0")
+
+[node name="Wachs8" type="MeshInstance3D" parent="Kerzen" unique_id=391458181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9, -0.255, 0.98)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_ks3el")
+
+[node name="Flamme8" type="MeshInstance3D" parent="Kerzen" unique_id=1620810756]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -4.9, 0.13, 0.98)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_vvrbb")
+
+[node name="Wachs9" type="MeshInstance3D" parent="Kerzen" unique_id=1797185791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6800003, -0.13, 0.8)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_knl2l")
+
+[node name="Flamme9" type="MeshInstance3D" parent="Kerzen" unique_id=1192056681]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -4.6800003, 0.38, 0.8)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_a6w06")
+
+[node name="Licht3" type="OmniLight3D" parent="Kerzen" unique_id=1239712754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9, 0.6, 0.8)
+light_color = Color(1, 0.62, 0.22, 1)
+light_energy = 1.4
+omni_range = 4.5
+
+[node name="Wachs10" type="MeshInstance3D" parent="Kerzen" unique_id=1963005472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6800003, -0.38, 0.8)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_je7ta")
+
+[node name="Flamme10" type="MeshInstance3D" parent="Kerzen" unique_id=1455313833]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 4.6800003, -0.12, 0.8)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_ufppy")
+
+[node name="Wachs11" type="MeshInstance3D" parent="Kerzen" unique_id=673564472]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, -0.255, 0.98)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_cu5pk")
+
+[node name="Flamme11" type="MeshInstance3D" parent="Kerzen" unique_id=1024401060]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 4.9, 0.13, 0.98)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_f828l")
+
+[node name="Wachs12" type="MeshInstance3D" parent="Kerzen" unique_id=499686428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.12, -0.13, 0.8)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_jdf0v")
+
+[node name="Flamme12" type="MeshInstance3D" parent="Kerzen" unique_id=4984575]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 5.12, 0.38, 0.8)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_u1ax5")
+
+[node name="Licht4" type="OmniLight3D" parent="Kerzen" unique_id=1869489866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, 0.6, 0.8)
+light_color = Color(1, 0.62, 0.22, 1)
+light_energy = 1.4
+omni_range = 4.5
+
+[node name="Wachs13" type="MeshInstance3D" parent="Kerzen" unique_id=406384924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4199996, -0.38, 4.4)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_3ofw6")
+
+[node name="Flamme13" type="MeshInstance3D" parent="Kerzen" unique_id=532157565]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -4.4199996, -0.12, 4.4)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_ltqma")
+
+[node name="Wachs14" type="MeshInstance3D" parent="Kerzen" unique_id=1701626965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, -0.255, 4.58)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_wyf35")
+
+[node name="Flamme14" type="MeshInstance3D" parent="Kerzen" unique_id=392225220]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -4.2, 0.13, 4.58)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_0jkd6")
+
+[node name="Wachs15" type="MeshInstance3D" parent="Kerzen" unique_id=650270727]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9799998, -0.13, 4.4)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_u276v")
+
+[node name="Flamme15" type="MeshInstance3D" parent="Kerzen" unique_id=1889301295]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, -3.9799998, 0.38, 4.4)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_7ah3t")
+
+[node name="Licht5" type="OmniLight3D" parent="Kerzen" unique_id=1166325225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0.6, 4.4)
+light_color = Color(1, 0.62, 0.22, 1)
+light_energy = 1.4
+omni_range = 4.5
+
+[node name="Wachs16" type="MeshInstance3D" parent="Kerzen" unique_id=2015253354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9799998, -0.38, 4.4)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_523f0")
+
+[node name="Flamme16" type="MeshInstance3D" parent="Kerzen" unique_id=220811512]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 3.9799998, -0.12, 4.4)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_7ubmr")
+
+[node name="Wachs17" type="MeshInstance3D" parent="Kerzen" unique_id=1493737750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, -0.255, 4.58)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_bsnbj")
+
+[node name="Flamme17" type="MeshInstance3D" parent="Kerzen" unique_id=477496850]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 4.2, 0.13, 4.58)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_nnm21")
+
+[node name="Wachs18" type="MeshInstance3D" parent="Kerzen" unique_id=1712659873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4199996, -0.13, 4.4)
+material_override = SubResource("StandardMaterial3D_gmltb")
+mesh = SubResource("CylinderMesh_t0m03")
+
+[node name="Flamme18" type="MeshInstance3D" parent="Kerzen" unique_id=979384613]
+transform = Transform3D(1, 0, 0, 0, 1.8, 0, 0, 0, 1, 4.4199996, 0.38, 4.4)
+material_override = SubResource("StandardMaterial3D_vv0tk")
+mesh = SubResource("SphereMesh_2amqf")
+
+[node name="Licht6" type="OmniLight3D" parent="Kerzen" unique_id=860301338]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, 0.6, 4.4)
+light_color = Color(1, 0.62, 0.22, 1)
+light_energy = 1.4
+omni_range = 4.5
+
+[node name="Asche" type="CPUParticles3D" parent="." unique_id=1498596343]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, -3)
+amount = 140
+lifetime = 9.0
+preprocess = 9.0
+mesh = SubResource("QuadMesh_fnqjf")
+emission_shape = 3
+emission_box_extents = Vector3(14, 1, 12)
+direction = Vector3(0.3, -1, 0)
+spread = 25.0
+gravity = Vector3(0.15, -0.4, 0)
+initial_velocity_min = 0.2
+initial_velocity_max = 0.6
+scale_amount_min = 0.5
+scale_amount_max = 1.3
+
+[node name="BossPunkt" type="Marker3D" parent="." unique_id=1806429562]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, -6.6)
+gizmo_extents = 1.5
+
+[node name="Kamera" type="Camera3D" parent="." unique_id=343103668]
+transform = Transform3D(1, 0, 0, 0, 0.9808217, 0.19490689, 0, -0.19490689, 0.9808217, 0, 5.8, 12.6)
+fov = 52.0
+
+[node name="Vorschau" type="Node3D" parent="." unique_id=1637903141]
+
+[node name="Boss" type="Node3D" parent="Vorschau" unique_id=1384922725]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 2.4, -6.6)
+
+[node name="gloeckner" parent="Vorschau/Boss" unique_id=379062709 instance=ExtResource("25_2w030")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.21707678)
+
+[node name="Karten" type="Node3D" parent="Vorschau" unique_id=2142948480]
+
+[node name="Karte_1_1" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1589184842]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -2.6, 0.24, -4.234692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_1_2" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1802789202]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -1.3, 0.24, -4.234692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_1_3" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=709313574]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 0, 0.24, -4.234692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_1_4" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=2052807655]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 1.3, 0.24, -4.234692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_1_5" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1183652758]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 2.6, 0.24, -4.234692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_2_1" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=482238647]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -2.6, 0.24, -1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_2_2" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=126363604]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -1.3, 0.24, -1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_2_3" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1710054864]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 0, 0.24, -1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_2_4" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1514667361]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 1.3, 0.24, -1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_2_5" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=68489253]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 2.6, 0.24, -1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_3_1" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=903195758]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -2.6, 0.24, 0)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_3_2" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1772532320]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -1.3, 0.24, 0)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_3_4" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=239333602]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 1.3, 0.24, 0)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_3_5" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1211291975]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 2.6, 0.24, 0)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_4_1" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=47804727]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -2.6, 0.24, 1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_4_2" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=2041418496]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -1.3, 0.24, 1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_4_3" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1151934022]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 0, 0.24, 1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_4_4" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=2002997747]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 1.3, 0.24, 1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_4_5" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=918080539]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 2.6, 0.24, 1.846)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_5_1" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1102475743]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -2.6, 0.24, 3.692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_5_2" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1851349004]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, -1.3, 0.24, 3.692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_5_3" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=417393512]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 0, 0.24, 3.692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_5_4" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=993651814]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 1.3, 0.24, 3.692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[node name="Karte_5_5" type="MeshInstance3D" parent="Vorschau/Karten" unique_id=1164724483]
+transform = Transform3D(1, 0, 0, 0, 0.8290376, -0.5591929, 0, 0.5591929, 0.8290376, 2.6, 0.24, 3.692)
+mesh = SubResource("BoxMesh_dyj3n")
+
+[editable path="Level/Lichter/Fackel0"]
+[editable path="Level/Lichter/Fackel1"]
+[editable path="Level/Lichter/Fackel2"]
+[editable path="Level/Lichter/Fackel3"]
+[editable path="Level/Lichter/Fackel4"]
+[editable path="Level/Lichter/Fackel5"]
