@@ -26,7 +26,6 @@ const DEFAULTS := {
 	"window_size": 0,        # 0 = nicht ändern, sonst Breite (1280, 1600, 1920) im Fenstermodus
 	"preview_seconds": 0.0,  # Karten am Rundenstart zeigen (nur normaler Modus)
 	"card_speed": 1.0,       # Tempo beim Umdrehen
-	"boss_difficulty": 1.0,  # 0.75 = leichter, 1 = normal, 1.25 = schwerer
 	"screen_shake": true,
 	"hit_flash": true,
 	"music_mode": "auto",    # auto, style, single, off

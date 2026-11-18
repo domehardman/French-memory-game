@@ -144,8 +144,52 @@ func campaign_record(index: int) -> Dictionary:
 func campaign_stars(index: int) -> int:
 	return int(campaign_record(index).get("stars", 0))
 
+# Geschafft oder (bei Zwischenbossen) übersprungen: Es geht danach weiter.
+func campaign_passed(index: int) -> bool:
+	return campaign_stars(index) > 0 or bool(campaign_record(index).get("skipped", false))
+
 func campaign_unlocked(index: int) -> bool:
-	return index == 0 or campaign_stars(index - 1) > 0
+	if index == 0:
+		return true
+	if not campaign_passed(index - 1):
+		return false
+	# Der Endboss verlangt, dass alle anderen Bosse wirklich besiegt wurden
+	return not bool(campaign_level(index).get("final", false)) or missing_bosses().is_empty()
+
+# Namen der Zwischenbosse, die noch nicht besiegt wurden (übersprungen zählt nicht)
+func missing_bosses() -> Array:
+	var names: Array = []
+	for i in range(campaign.size()):
+		if is_boss_level(i) and not bool(campaign[i].get("final", false)) and campaign_stars(i) == 0:
+			names.append(str(campaign[i].get("name", "")))
+	return names
+
+# --- Boss-Schwierigkeiten (data/progression.json) ---------------------------------
+
+func boss_difficulties() -> Array:
+	return rules.get("boss_difficulties", [])
+
+func boss_difficulty(id: String) -> Dictionary:
+	for entry in boss_difficulties():
+		if str(entry.get("id", "")) == id:
+			return entry
+	return {}
+
+# Überspringen: nur Zwischenbosse, die noch offen sind und einen schon besiegt haben
+func can_skip_boss(index: int) -> bool:
+	if not is_boss_level(index) or bool(campaign_level(index).get("final", false)):
+		return false
+	var record := campaign_record(index)
+	return campaign_stars(index) == 0 and not bool(record.get("skipped", false)) and int(record.get("deaths", 0)) > 0
+
+func skip_boss(index: int) -> bool:
+	if not can_skip_boss(index):
+		return false
+	var record := campaign_record(index).duplicate()
+	record["skipped"] = true
+	data["campaign"][str(campaign[index].get("id", index))] = record
+	save_progress()
+	return true
 
 func campaign_completed_count() -> int:
 	var count := 0
@@ -193,10 +237,13 @@ func record_game(result: Dictionary) -> Dictionary:
 			var record := campaign_record(index).duplicate()
 			if won:
 				record["stars"] = maxi(int(record.get("stars", 0)), int(result.get("stars", 0)))
+				record.erase("skipped")
 				if record.has("best_time") and seconds < float(record["best_time"]):
 					summary["new_best_time"] = true
 				if not record.has("best_time") or seconds < float(record["best_time"]):
 					record["best_time"] = seconds
+			elif str(result.get("reason", "")) == "defeated":
+				record["deaths"] = int(record.get("deaths", 0)) + 1
 			record["plays"] = int(record.get("plays", 0)) + 1
 			data["campaign"][str(level_data.get("id", index))] = record
 			summary["unlocked_next"] = index + 1 < campaign.size() and not was_unlocked and campaign_unlocked(index + 1)

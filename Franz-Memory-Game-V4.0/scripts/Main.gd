@@ -78,7 +78,10 @@ var message_label: Label
 var hit_flash: ColorRect
 var shuffle_interval := 0.0   # nur beim letzten Boss (campaign.json: shuffle_interval)
 var shuffle_timer := 0.0
-var boss_factor := 1.0        # Boss-Schwierigkeit aus den Einstellungen
+var difficulty: Dictionary = {}   # gewählte Schwierigkeit (data/progression.json)
+var boss_factor := 1.0            # wie schnell der Boss angreift
+var choosing_difficulty := false  # Auswahl ist offen, der Kampf wartet
+var difficulty_layer: CanvasLayer
 
 func _ready() -> void:
 	randomize()
@@ -120,8 +123,10 @@ func _ready() -> void:
 		vocabulary = vocabulary.slice(0, mini(wanted, vocabulary.size()))
 	round_count = ceili(float(vocabulary.size()) / float(pairs_per_round))
 	_generate_grid()
-	timer_running = true
+	timer_running = not is_boss     # der Bosskampf startet erst nach der Auswahl
 	_update_stats()
+	if is_boss:
+		_show_difficulty_choice()
 	# Grafikqualität (Schatten, Nebel, Glühen) aus den Einstellungen anwenden
 	GameSettings.apply_graphics(self)
 	# Musik: Boss = seine 3 Stücke, Kampagne = Stücke der Insel, sonst zufällig von allen Inseln
@@ -287,7 +292,7 @@ func _reveal_preview(seconds: float = 2.0) -> void:
 	can_click = true
 
 func _on_card_clicked(card: Card) -> void:
-	if not can_click or game_over:
+	if not can_click or game_over or choosing_difficulty:
 		return
 	card.flip_up()
 	if first_card == null:
@@ -344,14 +349,19 @@ func _check_match() -> void:
 		first_card.flip_down()
 		second_card.flip_down()
 		if is_boss:
-			var amount := int(boss_cfg.get("mismatch_damage", 2))
-			var message := ""
-			if first_card.cursed or second_card.cursed:
-				amount *= int(boss_cfg.get("curse_multiplier", 3))
-				message = UI.text("boss_curse_hit") % [amount]
-			_damage_player(amount, message)
-			if game_over:
-				return
+			# Schaden gibt es nur, wenn man beide Karten schon gesehen hat
+			var known: bool = first_card.has_meta("seen") and second_card.has_meta("seen")
+			first_card.set_meta("seen", true)
+			second_card.set_meta("seen", true)
+			if known:
+				var amount := int(difficulty.get("mismatch_damage", 1))
+				var message := ""
+				if first_card.cursed or second_card.cursed:
+					amount = int(difficulty.get("curse_damage", 1))
+					message = UI.text("boss_curse_hit") % [amount]
+				_damage_player(amount, message)
+				if game_over:
+					return
 	_update_stats()
 	first_card = null
 	second_card = null
@@ -399,10 +409,7 @@ func _setup_boss() -> void:
 	if GameSettings.one_hit_boss:
 		boss_max_hp = 1
 	boss_hp = boss_max_hp
-	player_max_hp = maxi(1, int(boss_cfg.get("player_hp", 100)))
-	player_hp = player_max_hp
-	boss_factor = clampf(float(GameSettings.get_value("boss_difficulty")), 0.5, 1.5)
-	attack_timer = float(boss_cfg.get("first_attack", 12)) / boss_factor
+	_apply_difficulty(PlayerProgress.boss_difficulty("easy"))
 	shuffle_interval = float(boss_cfg.get("shuffle_interval", 0.0))
 	shuffle_timer = shuffle_interval
 	# Der Hintergrund der normalen Runden gehört nicht in die Boss-Arena
@@ -438,6 +445,96 @@ func _setup_boss() -> void:
 	_build_boss_ui()
 	_update_boss_ui()
 
+func _apply_difficulty(entry: Dictionary) -> void:
+	difficulty = entry
+	player_max_hp = maxi(1, int(entry.get("player_hp", 30)))
+	player_hp = player_max_hp
+	boss_factor = clampf(float(entry.get("attack_speed", 1.0)), 0.5, 1.5)
+	attack_timer = float(boss_cfg.get("first_attack", 12)) / boss_factor
+
+# Beim Betreten des Bosskampfs: Einfach, Mittel oder Schwierig (1 bis 3 Sterne)
+func _show_difficulty_choice() -> void:
+	choosing_difficulty = true
+	difficulty_layer = CanvasLayer.new()
+	difficulty_layer.layer = 10
+	add_child(difficulty_layer)
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.72)
+	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	difficulty_layer.add_child(dim)
+	var center := CenterContainer.new()
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	difficulty_layer.add_child(center)
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", UI.panel())
+	panel.custom_minimum_size.x = 640
+	center.add_child(panel)
+	var padding := MarginContainer.new()
+	for side in ["margin_left", "margin_top", "margin_right", "margin_bottom"]:
+		padding.add_theme_constant_override(side, 22)
+	panel.add_child(padding)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 10)
+	padding.add_child(box)
+	var title := UI.label(str(level_data.get("name", "")), 30)
+	title.add_theme_color_override("font_color", UI.TITLE_COLOR)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	box.add_child(title)
+	var question := UI.label(UI.text("boss_choose_difficulty"), 18)
+	question.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	box.add_child(question)
+	for entry in PlayerProgress.boss_difficulties():
+		var id := str(entry.get("id", ""))
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 16)
+		box.add_child(row)
+		var choose := UI.button(UI.text("difficulty_" + id), 54, false, str(entry.get("color", "")))
+		choose.custom_minimum_size.x = 210
+		row.add_child(choose)
+		UI.connect_animated(choose, _choose_difficulty.bind(id))
+		var details := VBoxContainer.new()
+		details.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		details.alignment = BoxContainer.ALIGNMENT_CENTER
+		details.add_theme_constant_override("separation", 0)
+		row.add_child(details)
+		var stars := UI.label(UI.stars_text(int(entry.get("stars", 1))), 20)
+		stars.add_theme_color_override("font_color", Color("#ffc93c"))
+		details.add_child(stars)
+		details.add_child(UI.label(UI.text("boss_difficulty_info") % [int(entry.get("player_hp", 30)), int(entry.get("mismatch_damage", 1)), int(entry.get("attack_damage", 1))], 15))
+	var hint := UI.label(UI.text("boss_first_reveal_hint"), 15)
+	hint.add_theme_color_override("font_color", UI.DIM_COLOR)
+	box.add_child(hint)
+	var can_skip := PlayerProgress.can_skip_boss(campaign_index)
+	if not bool(level_data.get("final", false)) and PlayerProgress.campaign_stars(campaign_index) == 0:
+		var skip_info := UI.label(UI.text("boss_skip_ready" if can_skip else "boss_skip_hint"), 15)
+		skip_info.add_theme_color_override("font_color", UI.DIM_COLOR)
+		box.add_child(skip_info)
+	var buttons := HBoxContainer.new()
+	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	buttons.add_theme_constant_override("separation", 14)
+	box.add_child(buttons)
+	var back := UI.art_button(UI.text("back"), "back", 54)
+	buttons.add_child(back)
+	UI.connect_animated(back, _go_to_menu)
+	if can_skip:
+		var skip := UI.button(UI.text("boss_skip"), 54)
+		skip.custom_minimum_size.x = 290
+		buttons.add_child(skip)
+		UI.connect_animated(skip, _skip_boss)
+
+func _choose_difficulty(id: String) -> void:
+	_apply_difficulty(PlayerProgress.boss_difficulty(id))
+	choosing_difficulty = false
+	if difficulty_layer != null:
+		difficulty_layer.queue_free()
+		difficulty_layer = null
+	_update_boss_ui()
+	timer_running = true
+
+func _skip_boss() -> void:
+	if PlayerProgress.skip_boss(campaign_index):
+		_go_to_menu()
+
 func _damage_boss(card_a: Card, card_b: Card) -> void:
 	var damage := int(boss_cfg.get("damage_per_pair", 10)) + int(boss_cfg.get("combo_bonus", 5)) * maxi(streak - 1, 0)
 	var extra := ""
@@ -467,7 +564,7 @@ func _damage_boss(card_a: Card, card_b: Card) -> void:
 		arena.stagger()
 	boss_hp = maxi(0, boss_hp - damage)
 	SoundFX.play("boss_hit", -2.0)
-	player_hp = mini(player_max_hp, player_hp + int(boss_cfg.get("heal_per_pair", 0)))
+	player_hp = mini(player_max_hp, player_hp + int(difficulty.get("heal_per_pair", 0)))
 	var popup := UI.text("boss_damage") % [damage]
 	if streak > 1:
 		popup += "  " + UI.text("boss_combo") % [streak]
@@ -617,7 +714,7 @@ func _run_attack() -> void:
 		return
 	arena.strike()
 	SoundFX.play(STRIKE_SOUNDS.get(kind, "impact"))
-	var damage := roundi(float(boss_cfg.get("attack_damage", 6)) * boss_factor)
+	var damage := int(difficulty.get("attack_damage", 1))
 	match kind:
 		"orb":
 			for card in targets:
@@ -639,8 +736,7 @@ func _run_attack() -> void:
 			if game_over:
 				return
 			_hit_cards(_hidden_cards())
-			var big := roundi(damage * 1.5)
-			_damage_player(big, UI.text("boss_hit_slam") % [boss_title, big])
+			_damage_player(damage, UI.text("boss_hit_slam") % [boss_title, damage])
 		"curse":
 			for card in targets:
 				if not _still_hidden(card):
@@ -679,8 +775,7 @@ func _run_attack() -> void:
 			if game_over:
 				return
 			_hit_cards(_hidden_cards())
-			var heavy := roundi(damage * 1.5)
-			_damage_player(heavy, UI.text("boss_hit_stomp") % [boss_title, heavy])
+			_damage_player(damage, UI.text("boss_hit_stomp") % [boss_title, damage])
 		"root_self":
 			await _root_self(boss_title)
 			if game_over:
@@ -852,6 +947,8 @@ func _boss_shuffle() -> void:
 		for card in still:
 			spots.append(card.position)
 		for i in range(still.size()):
+			# Der Platz ist neu: Diese Karte gilt wieder als noch nicht gesehen
+			still[i].remove_meta("seen")
 			_hop_card(still[i], spots[(i + 1) % spots.size()])
 		SoundFX.play("roots", -3.0)
 		arena.shake(0.2, 0.3)
@@ -1025,9 +1122,8 @@ func _finish(won: bool, reason: String) -> void:
 	var stars := PlayerProgress.stars_for(won, attempts, all_pairs)
 	var hp_ratio := float(player_hp) / float(player_max_hp) if is_boss else 0.0
 	if is_boss:
-		stars = 0
-		if won:
-			stars = 3 if hp_ratio > 0.66 else (2 if hp_ratio > 0.33 else 1)
+		# Sterne hängen nur von der gewählten Schwierigkeit ab
+		stars = int(difficulty.get("stars", 1)) if won else 0
 	var bonus := 0
 	if won:
 		if is_boss:
@@ -1121,6 +1217,7 @@ func _show_end_screen(result: Dictionary, summary: Dictionary) -> void:
 		box.add_child(stars)
 
 	if is_boss:
+		box.add_child(UI.label(UI.text("end_boss_difficulty") % [UI.text("difficulty_" + str(difficulty.get("id", "easy")))], 20))
 		box.add_child(UI.label(UI.text("end_boss_stats") % [UI.time_text(float(result["time"])), int(result["attempts"]), int(result["pairs_found"]), player_hp, player_max_hp], 20))
 	else:
 		box.add_child(UI.label(UI.text("end_stats") % [UI.time_text(float(result["time"])), int(result["attempts"]), int(result["pairs_found"]), int(result["total_pairs"])], 20))
@@ -1169,6 +1266,10 @@ func _show_end_screen(result: Dictionary, summary: Dictionary) -> void:
 	menu.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	buttons.add_child(menu)
 	UI.connect_animated(menu, _go_to_menu)
+	if is_boss and PlayerProgress.can_skip_boss(campaign_index):
+		var skip := UI.button(UI.text("boss_skip"), 50)
+		box.add_child(skip)
+		UI.connect_animated(skip, _skip_boss)
 
 func _restart() -> void:
 	Loader.go_to_main(true)

@@ -108,7 +108,7 @@ func _world_of(index: int) -> int:
 # Das Level, das als Nächstes dran ist (erstes offenes ohne Sterne)
 func _next_level() -> int:
 	for i in range(PlayerProgress.campaign.size()):
-		if PlayerProgress.campaign_unlocked(i) and PlayerProgress.campaign_stars(i) == 0:
+		if PlayerProgress.campaign_unlocked(i) and not PlayerProgress.campaign_passed(i):
 			return i
 	return PlayerProgress.campaign.size() - 1
 
@@ -938,6 +938,8 @@ func _show_info(index: int) -> void:
 	var stars_line := UI.label(UI.stars_text(PlayerProgress.campaign_stars(index)), 27)
 	stars_line.add_theme_color_override("font_color", Color("#ffc93c"))
 	info_box.add_child(stars_line)
+	if bool(record.get("skipped", false)):
+		info_box.add_child(UI.label(UI.text("campaign_skipped"), 18))
 	if record.has("best_time"):
 		info_box.add_child(UI.label(UI.text("best_time") % [UI.time_text(float(record["best_time"]))], 18))
 	var spacer := Control.new()
@@ -948,7 +950,11 @@ func _show_info(index: int) -> void:
 		info_box.add_child(play)
 		UI.connect_animated(play, _start_level.bind(index))
 	else:
-		var locked := UI.label(UI.text("locked"), 18)
+		var missing := PlayerProgress.missing_bosses()
+		var reason := UI.text("locked")
+		if bool(level.get("final", false)) and not missing.is_empty():
+			reason = UI.text("final_boss_locked") % [", ".join(missing)]
+		var locked := UI.label(reason, 18)
 		locked.add_theme_color_override("font_color", UI.DIM_COLOR)
 		info_box.add_child(locked)
 	# Info auf der Seite, wo die angeklickte Marke nicht ist

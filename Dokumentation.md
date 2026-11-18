@@ -205,3 +205,90 @@ Es gibt jetzt 39 Soundeffekte statt 20, zum Beispiel wenn man mit der Maus über
 - [ ] Eigene Bilder für die Karten hinzufügen
 - [ ] Die neuen Sounds und die Musik zusammen anhören und, wenn nötig, leiser oder anders machen
 - [ ] Das Spiel auf den Schulcomputern testen und die passende Grafikqualität einstellen
+
+## 18.11.2026
+
+Heute haben wir mit **Franz-Memory-Game-V4.0** weitergemacht. V4 hat einen neuen Stil: Die Bosse, Arenen und die Weltkarte sind jetzt aus einfachen, bunten Formen gebaut und sehen ein bisschen wie Spielzeug aus. Danach haben wir viel Musik eingebaut, mehr Einstellungen gemacht, Sets aus Dateien möglich gemacht und die Bosskämpfe neu geregelt. V1.0 bis V3.0 bleiben drin. Alle Screenshots von heute liegen im Ordner **Dokumentation Fotos/18.11.26**.
+
+<img width="640" alt="Hauptmenü von V4" src="Dokumentation%20Fotos/18.11.26/vorschau_hauptmenue.png" />
+
+<img width="800" alt="Weltkarte mit vier Inseln" src="Dokumentation%20Fotos/18.11.26/vorschau_weltkarte.png" />
+
+**Endboss im neuen Stil**
+
+Der letzte Boss und seine Arena waren noch im alten, dunklen Stil und haben nicht zu den anderen gepasst. Le Pâtre des Racines ist jetzt auch aus Formen gebaut und steht auf einer hellen Waldlichtung mit Bäumen, Pilzen und Laternen.
+
+<img width="800" alt="Vorher: Endboss im alten Stil" src="Dokumentation%20Fotos/18.11.26/01%20V4%20alle%20Bosse%20vorher.png" />
+
+<img width="800" alt="Nachher: alle Bosse im gleichen Stil" src="Dokumentation%20Fotos/18.11.26/07%20Alle%20Bosse%20Podest%20hinter%20den%20Karten.png" />
+
+<img width="640" alt="Endboss in der neuen Arena" src="Dokumentation%20Fotos/18.11.26/08%20Endboss%20final.png" />
+
+**Musik**
+
+Jede der vier Inseln hat jetzt 10 Lieder, die zu ihrem Stil passen, und jeder Boss hat 3 eigene Lieder. Dafür sind 44 neue Stücke dazugekommen. Die Lieder laufen in zufälliger Reihenfolge, und erst wenn alle dran waren, geht es von vorne los. In der Kampagne hört man die Musik der Insel, im normalen Modus wird zufällig aus allen Inseln gewählt.
+
+**Mehr Einstellungen**
+
+Bei der Musik kann man jetzt wählen zwischen „Passend zur Insel“, „Nur ein Stil“, „Nur ein Lied“ und „Aus“. Man kann auch einstellen, wie oft das Lied wechselt, welche Musik im Bossfight und im Menü läuft, und mit „Probe hören“ reinhören. Beim Ton gibt es eigene Regler für Klicks, Karten und Boss-Effekte. Dazu kamen die Fenstergrösse, das Tempo beim Umdrehen der Karten, das Zeigen der Karten am Anfang und Schalter für das Wackeln und den roten Blitz bei Treffern.
+
+<img width="640" alt="Musik-Einstellungen" src="Dokumentation%20Fotos/18.11.26/10%20Einstellungen%20Musik.png" />
+
+<img width="640" alt="Ton-Einstellungen" src="Dokumentation%20Fotos/18.11.26/11%20Einstellungen%20Ton.png" />
+
+**Sets aus Dateien importieren**
+
+Beim Plus in „Deine Sets“ kann man jetzt wählen: selbst eingeben oder eine Datei importieren. Es geht ein Fenster auf, in dem man eine oder mehrere CSV- oder JSON-Dateien auswählt. Das Spiel prüft jede Datei genau. Ist etwas falsch, wird die Datei abgelehnt und es steht dort, was nicht stimmt, zum Beispiel in welcher Zeile eine Spalte fehlt. Erlaubt sind Dateien bis 500 KB mit 2 bis 500 Wortpaaren und höchstens 60 Zeichen pro Wort.
+
+Es gibt auch eine Anleitung mit Beispielen zum Kopieren. Dort steht ein fertiger Text, den man zusammen mit seiner Wörterliste einer KI geben kann. Die KI macht daraus die passende Datei.
+
+<img width="640" alt="Neues Set: drei Möglichkeiten" src="Dokumentation%20Fotos/18.11.26/13%20Neues%20Set%20Auswahl.png" />
+
+<img width="640" alt="Anleitung mit KI-Vorlage" src="Dokumentation%20Fotos/18.11.26/16%20Anleitung%20KI-Vorlage.png" />
+
+<img width="640" alt="Ergebnis mit angenommener und abgelehnter Datei" src="Dokumentation%20Fotos/18.11.26/17%20Import%20Ergebnis.png" />
+
+**Bosskämpfe neu geregelt**
+
+Die Bosse haben vorher dauernd Karten verschoben und zu viel Schaden gemacht. Jetzt bleiben die Karten an ihrem Platz, getroffene Karten springen nur kurz hoch. Nur der letzte Boss darf noch mischen: alle 60 Sekunden tauschen 4 verdeckte Karten die Plätze. Sie werden vorher rot markiert.
+
+Beim Start von jedem Bosskampf wählt man jetzt die Schwierigkeit. Man hat immer 100 HP.
+
+| Schwierigkeit | Sterne | Boss-Angriff | Fehler mit Karten |
+|---|---|---|---|
+| Einfach | 1 | -3 HP | -1 HP |
+| Mittel | 2 | -6 HP | -2 HP |
+| Schwierig | 3 | -10 HP | -3 HP |
+
+Deckt man eine Karte zum ersten Mal auf, gibt es für den Fehler keinen Schaden. Man konnte ja noch nicht wissen, was darunter ist. Hat einen ein Zwischenboss einmal besiegt, kann man ihn überspringen, bekommt dann aber 0 Sterne. Der Endboss lässt sich nicht überspringen und geht erst auf, wenn alle Zwischenbosse mindestens auf Einfach besiegt sind.
+
+<img width="640" alt="Schwierigkeit wählen" src="Dokumentation%20Fotos/18.11.26/20%20Boss%20Schwierigkeit%20waehlen.png" />
+
+<img width="640" alt="Endboss mischt 4 Karten" src="Dokumentation%20Fotos/18.11.26/18%20Endboss%20mischt%204%20Karten%20Warnung.png" />
+
+<img width="640" alt="Auswahl mit Boss überspringen" src="Dokumentation%20Fotos/18.11.26/23%20Auswahl%20mit%20Ueberspringen.png" />
+
+<img width="640" alt="Endboss ist noch gesperrt" src="Dokumentation%20Fotos/18.11.26/24%20Endboss%20gesperrt.png" />
+
+Ausserdem gibt es in den normalen Kampagnen-Levels kein Maximum an Versuchen mehr. Das betraf 8 Levels.
+
+**Test der Schwierigkeit**
+
+Ein automatischer Testspieler hat jeden Boss auf jeder Schwierigkeit gespielt, mit gutem, mittlerem und schlechtem Gedächtnis, zusammen 72 Kämpfe. 71 davon hat er gewonnen. Auf Einfach hatte er am Ende immer mindestens 93 HP, auf Mittel mindestens 52 HP. Auf Schwierig kam er bis auf 16 HP herunter und hat einmal verloren.
+
+**Probleme, die wir hatten**
+
+* Die hinterste Kartenreihe stand bei allen Bossen im Podest. Wir haben die Bosse weiter nach hinten gestellt und die Podeste kleiner gemacht.
+* Der neue Endboss war zuerst so hell, dass die Farben ausgewaschen aussahen. Darum leuchtet er jetzt weniger stark.
+* Bei der Kontrolle der neuen Musik waren bei manchen Stücken die Akkorde zu tief, und beim Neustart eines Lieds gab es einen Sprung. Beides haben wir korrigiert.
+* Eine Karte konnte für immer offen bleiben, wenn sie zugedreht wurde, während sie sich noch drehte. Dann ging der Bosskampf nicht mehr weiter. Das hat erst der Testspieler gezeigt.
+* Den Schaden mussten wir mehrmals anpassen. Mit nur 1 Schaden pro Angriff konnte man fast nicht mehr verlieren. Kleinere Lebenspunkte wollten wir aber nicht, darum bleiben es 100 HP und nur die Boss-Angriffe wurden stärker.
+* In der Pixel-Schrift sah das Semikolon fast aus wie ein Doppelpunkt. Das war in der Anleitung für CSV-Dateien verwirrend, darum hat es jetzt einen deutlichen Strich.
+* Beim Hochladen sind Screenshots in den falschen Ordner gekommen. Wir haben sie in den Ordner vom 18.11. verschoben.
+
+**Was noch offen ist**
+
+- [ ] Das Fenster zum Auswählen der Dateien beim Import selber testen
+- [ ] Die neuen Lieder anhören und, wenn nötig, leiser oder anders machen
+- [ ] Die drei Schwierigkeiten von echten Spielern testen lassen
+- [ ] Das Spiel auf den Schulcomputern testen und die passende Grafikqualität einstellen

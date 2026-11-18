@@ -22,7 +22,7 @@ Die Seitenleiste zeigt zuerst das Beispielset, dann die eigenen Sets und am Schl
 |---|---|
 | `data/sets.json` | Mitgelieferte Sets mit `topic` (Themenbereich). Die Seitenleiste gruppiert nach Thema. |
 | `data/sets/*.json` | Die Vokabeln der Themen-Sets (Familie, Essen, Schule, Tiere, …). |
-| `data/campaign.json` | Kampagnen-Level: Set, Anzahl Paare, `time_limit` (Sekunden, 0 = keins), `move_limit` (Versuche, 0 = keins). |
+| `data/campaign.json` | Kampagnen-Level: Set, Anzahl Paare, `time_limit` (Sekunden, 0 = keins), `move_limit` (Versuche, 0 = keins, zurzeit bei allen Levels 0). |
 | `data/progression.json` | Punkte pro Paar, Serienbonus, Zeitbonus, Sterne-Grenzen und XP pro Level. |
 | `data/rewards.json` | Belohnungen. `type`: `games_played`, `total_pairs`, `streak`, `level`, `topics`, `campaign`, `accuracy`, `speed`. `icon` ist für eure Grafik frei. |
 
@@ -45,11 +45,15 @@ Die Kampagne hat 20 Level, 3 Zwischenbosse (nach Level 5, 10 und 15) und den End
 | Le Prince des Os | Gebeinfürst | `beinhaus`: Schädelwand, Türkis | Knochenspitzen durch eine Spalte, Schädelregen, Knochenpanzer (halber Schaden), wütend: Beben | 300 |
 | **Le Pâtre des Racines** | Wurzelhirt aus Formen (`geo_patre`) | `geo_clairiere`: Lichtung im Toten Hain bei Nacht | Wurzeln durch eine Reihe/Spalte, Herde der Dornenknechte, Sporen, Stampf-Welle, Verwurzeln (offenes Herz: doppelter Schaden) | 420 |
 
-Alle Werte stehen im Block `boss` in `data/campaign.json` (`hp`, `attack_damage`, `attack_interval`, `rage_interval`, `windup_time`, `mismatch_damage`, `combo_bonus`, `attacks`, `rage_attacks` …). Mehrfach genannte Angriffe kommen öfter vor. Unter `look` stehen `model`, `model_scale`, `weapon`, `weapon_rot`, `arena`, `accent` und `music`.
+Alle Werte stehen im Block `boss` in `data/campaign.json` (`hp`, `attack_interval`, `rage_interval`, `windup_time`, `combo_bonus`, `attacks`, `rage_attacks` …). Mehrfach genannte Angriffe kommen öfter vor. Unter `look` stehen `model`, `model_scale`, `weapon`, `weapon_rot`, `arena`, `accent` und `music`.
 
 **Ablauf eines Angriffs:** Der Boss holt `windup_time` Sekunden aus, die Zielkarten werden rot markiert. **Ein Paar in dieser Zeit unterbricht den Angriff.** Getroffene Karten springen nur kurz auf und bleiben an ihrem Platz. Nur der letzte Boss vertauscht Karten: alle `shuffle_interval` Sekunden (60) tauschen `shuffle_cards` (4) markierte Karten die Plätze.
 
-**Balance-Test:** Ein Testspieler mit unvollständigem Gedächtnis (er merkt sich 65 % bzw. 45 % der Karten) hat jeden Boss je dreimal gespielt. Der gute Spieler schafft alle Bosse, der schwächere alle Zwischenbosse und den Endboss in 1 von 3 Versuchen. Der Endboss ist damit der stärkste.
+**Schwierigkeit:** Beim Betreten eines Bosskampfs wählt man Einfach, Mittel oder Schwierig. Die Werte stehen in `data/progression.json` unter `boss_difficulties`: Man hat immer 100 HP. Einfach gibt 1 Stern und 1 Schaden pro Fehler, Mittel 2 Sterne und 2 Schaden, Schwierig 3 Sterne und 3 Schaden. Ein Boss-Angriff macht auf Einfach 3, auf Mittel 6 und auf Schwierig 10 Schaden. Ein Fehler kostet nur etwas, wenn man beide Karten schon gesehen hat. Karten, die der Endboss vertauscht, gelten wieder als neu.
+
+**Überspringen:** Hat einen ein Zwischenboss einmal besiegt, kann man ihn überspringen und bekommt 0 Sterne. Der Endboss lässt sich nicht überspringen und öffnet sich erst, wenn alle Zwischenbosse mindestens auf Einfach besiegt wurden.
+
+**Balance-Test:** Ein Testspieler mit unvollständigem Gedächtnis (er merkt sich 90 %, 75 % oder 50 % der Karten) spielt jeden Boss auf jeder Stufe im Tempo von etwa 3 Sekunden pro Zug.
 
 ## Arenen und Hintergrund selber ändern
 

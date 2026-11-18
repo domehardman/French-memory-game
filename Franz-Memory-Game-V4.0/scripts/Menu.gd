@@ -666,9 +666,6 @@ func _show_settings() -> void:
 	_setting_toggle(rows, "confirm_quit", "setting_confirm_quit")
 
 	rows.add_child(_section(UI.text("settings_boss")))
-	_setting_option(rows, "boss_difficulty", "setting_boss_difficulty", [
-		[UI.text("setting_easy"), 0.75], [UI.text("setting_card_text_normal"), 1.0], [UI.text("setting_hard"), 1.25]
-	])
 	_setting_toggle(rows, "screen_shake", "setting_screen_shake")
 	_setting_toggle(rows, "hit_flash", "setting_hit_flash")
 

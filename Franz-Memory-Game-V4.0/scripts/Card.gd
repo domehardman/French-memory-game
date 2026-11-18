@@ -227,7 +227,12 @@ func flip_up() -> void:
 	_flip_over(true)
 
 func flip_down() -> void:
-	if is_animating or not is_flipped:
+	# Dreht sie sich noch auf, wird gewartet. Sonst bliebe sie für immer offen.
+	while is_animating:
+		if not is_inside_tree():
+			return
+		await get_tree().process_frame
+	if not is_flipped or is_matched:
 		return
 	is_flipped = false
 	is_animating = true

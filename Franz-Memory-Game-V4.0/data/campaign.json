@@ -56,17 +56,12 @@
         "move_limit": 0,
         "boss": {
             "hp": 180,
-            "player_hp": 100,
             "damage_per_pair": 10,
             "combo_bonus": 3,
-            "heal_per_pair": 2,
-            "mismatch_damage": 2,
-            "attack_damage": 5,
             "first_attack": 7,
             "attack_interval": 14,
             "windup_time": 1.7,
             "interrupt_bonus": 10,
-            "curse_multiplier": 3,
             "rage_at": 0.5,
             "rage_interval": 10,
             "reward_points": 190,
@@ -129,7 +124,7 @@
         "set": "res://data/sets/schule.json",
         "pairs": 10,
         "time_limit": 0,
-        "move_limit": 24
+        "move_limit": 0
     },
     {
         "id": "c08",
@@ -153,7 +148,7 @@
         "set": "res://data/sets/berufe.json",
         "pairs": 12,
         "time_limit": 0,
-        "move_limit": 30
+        "move_limit": 0
     },
     {
         "id": "mb2",
@@ -172,17 +167,12 @@
         "move_limit": 0,
         "boss": {
             "hp": 240,
-            "player_hp": 100,
             "damage_per_pair": 10,
             "combo_bonus": 3,
-            "heal_per_pair": 2,
-            "mismatch_damage": 3,
-            "attack_damage": 6,
             "first_attack": 6,
             "attack_interval": 12,
             "windup_time": 1.2,
             "interrupt_bonus": 10,
-            "curse_multiplier": 3,
             "rage_at": 0.5,
             "rage_interval": 9,
             "reward_points": 220,
@@ -241,7 +231,7 @@
         "set": "res://data/sets/stadt_reisen.json",
         "pairs": 12,
         "time_limit": 150,
-        "move_limit": 30
+        "move_limit": 0
     },
     {
         "id": "c12",
@@ -257,7 +247,7 @@
         "set": "res://data/sets/farben_kleidung.json",
         "pairs": 12,
         "time_limit": 0,
-        "move_limit": 26
+        "move_limit": 0
     },
     {
         "id": "c14",
@@ -291,17 +281,12 @@
         "move_limit": 0,
         "boss": {
             "hp": 300,
-            "player_hp": 100,
             "damage_per_pair": 10,
             "combo_bonus": 3,
-            "heal_per_pair": 2,
-            "mismatch_damage": 3,
-            "attack_damage": 7,
             "first_attack": 6,
             "attack_interval": 12,
             "windup_time": 1.5,
             "interrupt_bonus": 10,
-            "curse_multiplier": 3,
             "rage_at": 0.5,
             "rage_interval": 9,
             "reward_points": 250,
@@ -359,7 +344,7 @@
         "set": "res://data/sets/wohnung.json",
         "pairs": 12,
         "time_limit": 110,
-        "move_limit": 28
+        "move_limit": 0
     },
     {
         "id": "c17",
@@ -367,7 +352,7 @@
         "set": "res://data/vocabulary.json",
         "pairs": 12,
         "time_limit": 150,
-        "move_limit": 28
+        "move_limit": 0
     },
     {
         "id": "c18",
@@ -383,7 +368,7 @@
         "set": "res://data/vocabulary.json",
         "pairs": 12,
         "time_limit": 120,
-        "move_limit": 26
+        "move_limit": 0
     },
     {
         "id": "c20",
@@ -391,7 +376,7 @@
         "set": "res://data/vocabulary.json",
         "pairs": 12,
         "time_limit": 100,
-        "move_limit": 24
+        "move_limit": 0
     },
     {
         "id": "boss",
@@ -416,17 +401,12 @@
         "move_limit": 0,
         "boss": {
             "hp": 420,
-            "player_hp": 100,
             "damage_per_pair": 10,
             "combo_bonus": 3,
-            "heal_per_pair": 2,
-            "mismatch_damage": 4,
-            "attack_damage": 8,
             "first_attack": 5,
             "attack_interval": 10,
             "windup_time": 1.3,
             "interrupt_bonus": 10,
-            "curse_multiplier": 3,
             "rage_at": 0.6,
             "rage_interval": 7,
             "reward_points": 310,
