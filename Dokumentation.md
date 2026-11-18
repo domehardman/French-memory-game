@@ -292,3 +292,34 @@ Ein automatischer Testspieler hat jeden Boss auf jeder Schwierigkeit gespielt, m
 - [ ] Die neuen Lieder anhören und, wenn nötig, leiser oder anders machen
 - [ ] Die drei Schwierigkeiten von echten Spielern testen lassen
 - [ ] Das Spiel auf den Schulcomputern testen und die passende Grafikqualität einstellen
+
+# Testprotokoll (V 4.0)
+
+## 1. Allgemeine Testinformationen
+
+- **Projekt:** French Memory Game (Godot Engine)
+- **Getestete Version:** Franz-Memory-Game V4.0
+- **Testdatum:** 18.11.2026
+- **Testumgebung:** Windows-Desktop
+
+## 2. Durchgeführte Testfälle & Ergebnisse
+
+| ID | Testfall | Geprüfte Funktion / Erwartetes Ergebnis | Status | Bemerkungen / Tester |
+| :--- | :--- | :--- | :--- | :--- |
+| TC-01 | Kartenmischung & Spielfeld | 5×5-Raster im 3D-Modus (Draufsicht); Karten werden pro Runde zufällig gemischt. | Bestanden | Mischung funktioniert fehlerfrei. |
+| TC-02 | Paar-Logik & Umklapp-Animation | 3D-Drehung über die Kante; Text richtig herum; gefundene Paare färben sich türkis. | Bestanden | Physik-Bug beim Drehen behoben. |
+| TC-03 | Punkte, Serie & Endbildschirm | Live-Zähler (Zeit, Versuche, Treffer, Punkte), Serienbonus, Sterne & Level-Up-Anzeige. | Bestanden | Alle Berechnungen korrekt. |
+| TC-04 | Neustart während der Runde | Spielfeld wird zurückgesetzt, neu gemischt, Timer/Versuche starten bei 0. | Bestanden | Keine Verzögerung. |
+| TC-05 | Eigene Kategorien & Sets | Kategorien mit eigenen Farben erstellen, Sets verschieben, Umlaute/Akzente (é, è, ç, ü), Löschabfrage. | Bestanden | Pixel-Schrift & Abfrage funktionieren. |
+| TC-06 | Valider CSV/JSON-Import | Import gültiger CSV- und JSON-Dateien (2–500 Paare, unter 500 KB) über Datei-Dialog. | Bestanden | Sets sofort auswählbar. |
+| TC-07 | Negativtest: Datei-Import | Ablehnung bei über 500 KB, 1 Paar, über 60 Zeichen oder fehlender Spalte inkl. Zeilenangabe. | Bestanden | Fehlermeldungen präzise. |
+| TC-08 | Kampagne & Boss-Sperren | 20 Levels auf 4 Inseln ohne Versuchslimit; Endboss gesperrt bis alle Zwischenbosse besiegt sind. | Bestanden | Sperrlogik greift zuverlässig. |
+| TC-09 | Bossfight Schadensberechnung | 0 HP Schaden bei unbekannter Karte; korrekter Abzug bei bekannten Karten | Bestanden | Welpenschutz funktioniert. |
+| TC-10 | Boss-Angriff & Unterbrechung | Rote Markierung, Karten springen hoch (kein Verschieben), Schaden (-3 / -6 / -10 HP); Abbruch bei Paarfund. | Bestanden | Timing & Unterbrechung passen. |
+| TC-11 | Endboss Spezialfähigkeit | Le Pâtre des Racines markiert alle 60 Sek. 4 verdeckte Karten rot und tauscht deren Plätze. | Bestanden | Warnung gut sichtbar. |
+| TC-12 | Zwischenboss überspringen | Nach Niederlage überspringbar (0 Sterne); beim Endboss nicht verfügbar. | Bestanden | Wie spezifiziert. |
+| TC-13 | Speicherung (Persistenz) | Punkte, Level, Erfolge, Sterne, Bestzeiten, eigene Sets und Einstellungen bleiben nach Neustart erhalten. | Bestanden | Speicherstand stabil. |
+| TC-14 | Audio & Musik-Modi | 44 neue Lieder (Insel-Modi), 39 SFX, Einzelregler (Klicks, Karten, Boss) und „Probe hören“. | Bestanden | Kein Knacksen beim Loop; Lautstärke ausgewogen. |
+| TC-15 | Performance auf Schul-Hardware | Grafikstufen (Niedrig/Mittel/Hoch), Partikelregler & FPS-Anzeige auf Schulcomputern getestet. | Bestanden | Auf „Mittel“ stabil über 90 FPS. |
+| TC-16 | Admin-Panel | Zugang nur über geheimen Code; Level-Freischaltung und Boss-Sprung funktionieren. | Bestanden | Für Abnahme/Demo einsatzbereit. |
+
